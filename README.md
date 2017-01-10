@@ -86,7 +86,10 @@ numbers in the future, but for now are avoiding the operational overhead.
 ## Dependencies and vendoring
 
 Turbine Labs open-source go projects will never publicly depend on anything
-other than other Turbine Labs open-source Go projects.
+other than other Turbine Labs open-source Go projects, with the exception of
+[gomock](https://github.com/golang/mock), which is used extensively in our test
+code, but whose interfaces are both stable and unused in any part of our public
+API.
 
 #### How we vendor
 
