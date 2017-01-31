@@ -17,6 +17,8 @@ This guide walks you through the initial configuration steps for tbnproxy integr
 ## Before you get started
 Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your [DockerHub](https://hub.docker.com) account, and a [Github](https://www.github.com) account and we'll get you set up with an account.
 
+Please note: tbnctl (coming soon!) is a CLI for interacting with the Turbine Labs public API. In the meantime the same steps can be accomplished with curl.
+
 ## Overview of tbnproxy Initial Setup
 You'll be going through the following steps to configure tbnproxy integration:
 
@@ -59,14 +61,28 @@ cat zone.json  | tbnctl --api.key="<your api key>" create zone
 }
 ```
 
+Alternatively, with `curl`:
+
+```command
+curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbinelabs.io/v1.0/zone
+```
+
+*example zone_post.json*
+
+```javascript
+{
+  "name":"<your zone name>"
+}
+```
+
 #### Creating a domain
 Now that you've set up a Zone, you'll create a Domain. This represents the URL space of your service, in this case http://your.testbed.io.
 
 ```command
-cat domain.json  | tbnctl --api.key="<your api key> create domain
+cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 ```
 
-*example domain.json*
+*example domain_post.json*
 
 ```javascript
 {"zone_key": "<your zone key>", "name": "<your.testbed.io>", "port": 80}
@@ -83,6 +99,18 @@ cat domain.json  | tbnctl --api.key="<your api key> create domain
   "port": 80
 }
 ```
+Alternatively, with `curl`:
+
+```command
+curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinelabs.io/v1.0/domain
+```
+
+*Example domain post*
+
+```javascript
+{"zone_key": "<your zone key>", "name": "your.testbed.io", "port": 80}
+```
+
 
 #### Creating a Proxy
 
@@ -119,6 +147,41 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 }
 ```
 
+Alternatively, with `curl`:
+
+```command
+curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turbinelabs.io/v1.0/proxy
+```
+
+*Example contents of proxy_post.json*
+
+```javascript
+{
+  "host": "<your.testbed.io>",
+  "port": 80,
+  "zone_key": "<your zone key>",
+  "name": "tbnproxy-1",
+  "domain_keys":["<your domain key>"]
+}
+```
+
+*Example response*:
+
+```javascript
+{
+   "result" : {
+      "domain_keys" : ["<your domain keys"],
+      "port" : 80,
+      "name" : "tbnproxy-1",
+      "host" : "your.testbed.io",
+      "zone_key" : "<your zone key>",
+      "proxy_key" : "<your proxy key>",
+      "checksum" : "<checksum value>",
+      "metadata" : null
+   }
+}
+```
+
 #### Creating a Cluster
 
 Next, you'll create a Cluster in the Turbine Labs Service. A Cluster represents a set of services all performing a homogeneous set of tasks. Note that tbncollect will automatically create clusters for discovered services, but manually creating a cluster here allows you to create a route for the service before jumping ahead to tbncollect configuration.
@@ -144,6 +207,26 @@ cat cluster.json | tbnctl --api.key="<your api key>" create cluster
   "name": "prismatic-spray",
   "instances": null,
   "checksum": "<checksum value>",
+}
+```
+
+Alternatively, with `curl`:
+
+```command
+curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d '{"zone_key": "<your zone key>", "name": "hello-node"}' https://api.turbinelabs.io/v1.0/cluster
+```
+
+*Example Response:*
+
+```javascript
+{
+   "result" : {
+      "name" : "hello-node",
+      "instances" : null,
+      "checksum" : "<checksum value>",
+      "cluster_key" : "<your cluster key>",
+      "zone_key" : "<your zone key>"
+   }
 }
 ```
 
@@ -199,6 +282,58 @@ cat sharedrules.json | tbnctl --api.key="<your api key>" create shared_rules
 }
 ```
 
+Alternatively, with `curl`:
+
+```command
+curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@shared_rules_post.json https://api.turbinelabs.io/v1.0/shared_rules
+```
+
+*example shared_rules_post_json*
+```javascript
+{
+  "name":"<your shared rules name>",
+  "zone_key":"<your zone key>",
+  "default":
+  {
+      "light": [
+          {
+              "cluster_key": "<your cluster key>",
+              "weight": 1
+          }
+      ]
+  }
+}
+```
+
+*example response*
+
+```javascript
+{
+  "shared_rules_key":"<your shared rules key",
+  "name":"<your shared rules name>",
+  "zone_key":"<your zone key>",
+  "default":
+  {
+    "light":
+    [
+      {
+        "constraint_key":"<your constraint key>",
+        "cluster_key":"<your cluster key>",
+        "metadata":null,
+        "properties":null,
+        "weight":1
+      }
+    ],
+    "dark":null,
+    "tap":null
+  },
+  "rules":null,
+  "deleted_at":null,
+  "checksum":"<your checksum value>"
+}
+```
+
+
 #### Creating a route
 Last you’ll create a route to map incoming traffic to a Cluster. In this case you’ll simply map all incoming traffic to the prismatic-spray cluster you just created
 
@@ -231,6 +366,36 @@ cat route.json | tbnctl --api.key="<your api key>" create route
 }
 ```
 
+Alternatively, with `curl`:
+
+```command
+Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.turbinelabs.io/v1.0/route
+```
+
+*Example route_post.json*
+```javascript
+{
+  "domain_key": "<your domain key>",
+  "zone_key": "<your zone key>",
+  "shared_rules_key" : "<your shared rules key",
+  "path": "/",
+}
+```
+
+*Example Response:*
+
+```javascript
+{
+   "result" : {
+      "checksum" : "<checksum value>",
+      "zone_key" : "<your zone key>",
+      "route_key" : "<your route key>",
+      "shared_rules_key" : "<your shared rules key",
+      "path" : "/",
+      "domain_key" : "<your domain key>"
+   }
+}
+```
 ### Reviewing the steps
 
 - You've created a zone.
