@@ -19,32 +19,30 @@ accomplish.
 
 ## Signing up for an account
 
-To get started with the Turbine Labs App and Service, you'll need an API key.
-Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll get you
-set up with an account. You will also need a [DockerHub](https://hub.docker.com)
+To get started with the Turbine Labs Service, you'll need a Turbine Labs account.
+Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
+create one for you. You will also need a [Docker Hub](https://hub.docker.com)
 account in order to pull the docker image.
 
-## Getting access to the container
+## Getting access to the All-In-One image
 
-Currently the all-in-one container is not a public Docker image. To get access,
+Currently the all-in-one image is not a public Docker image. To get access,
 you'll need to:
 
-- Create a DockerHub account.
-- Send an email to support@turbinelabs.io requesting access for your DockerHub
-  account.
-- Make sure you're logged in with the appropriate credentials by running
-  `docker login` from the command line.
+- Create a [Docker Hub](https://hub.docker.com) account if you don't already have one.
+- Send an email to `support@turbinelabs.io` with your Docker Hub username. We'll grant your account access to the all-in-one image so you can pull it.
+- Log in with the same Docker Hub username by running `docker login` from the command line.
 
-## What's in the box?
+## What's in the All-In-One image?
 
-- tbnproxy: the proxy itself as well as an admin agent that maintains proxy
+- **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that maintains proxy
   configuration and sends metrics to the Turbine Labs Service.
 
-- tbncollect: a service discovery agent that observes the service instances,
+- **tbncollect**: A service discovery agent that observes the service instances,
   updating the Turbine Labs Service as services or applications come and go.
   In this demo, the collector is watching for files instead of API instances.
 
-- Prismatic Spray: a simple HTTP server application that returns hex color value
+- **Prismatic Spray**: A simple HTTP server application that returns hex color value
   strings. There are three "versions" of the server, each returning a different
   color value:
   - blue
@@ -52,15 +50,14 @@ you'll need to:
   - yellow
 
 ## Using the example app
-The three variables you will need in order to run the demo are:
+The three environment variables you'll need to set in order to run the demo are:
 
-- TBNPROXY_API_KEY - the Turbine Labs API key to use
-- TBNPROXY_API_ZONE_NAME - the zone name to use for the trial
-- TBNPROXY_PROXY_NAME - the name of the proxy, usually the zone name with a
+- `TBNPROXY_API_KEY` - the Turbine Labs API key to use
+- `TBNPROXY_API_ZONE_NAME` - the zone name to use for the trial
+- `TBNPROXY_PROXY_NAME` - the name of the proxy, usually the zone name with a
   "-proxy" suffix
 
-To run the Docker container with tbnproxy, tbncollect, Prismatic Spray, and the
-associate NGINX hosts, use the following command:
+To run the Docker container with tbnproxy, tbncollect, Prismatic Spray, and the associated NGINX hosts, use the following command:
 
 ```shell
 docker run -p 80:80 \
@@ -70,12 +67,21 @@ docker run -p 80:80 \
   turbinelabs/all-in-one:latest
 ```
 
-The Docker image should pull from our repository, run, and then initialize your
-zone, domain, etc. Note that in some instances, notably when running on a Mac,
-the container's time may drift significantly from reality. In this case you may
-need to restart the Docker host VM to ensure stats are reported appropriately.
-The all-in-one container's startup script will warn you about this case and exit
-if time has drifted.
+This command will:
+
+- Pull the Turbine Labs all-in-one image from Docker Hub if you don't already have it.
+- Initialize your test zone if it doesn't already exist.
+- Launch tbnproxy.
+- Launch tbncollect.
+- Launch the three Prismatic Spray instances.
+
+> Note: In some cases the local Docker time may have drifted significantly
+> from your host's time. If this is the case, you'll see the following message in the
+> `docker run` output:
+> ```FATAL: your docker system clock differs from actual (google) time by more than a minute.
+     This will cause stats and charts to behave strangely.```
+>
+> If you see this error, restart Docker and re-run the all-in-one container.
 
 ## Demo Exercises
 
@@ -112,7 +118,7 @@ but aren't released, so they won’t appear in this view yet.
 Let’s dig deeper into how tbnproxy routes traffic. Traffic is received by a
 proxy that handles traffic for a given domain. The proxy maps requests to
 service instances via routes and rules. Routes let you split your domain into
-manageable segments, for example /bar and /baz. Rules let you map requests to a
+manageable segments, for example `/bar` and `/baz`. Rules let you map requests to a
 constrained set of service instances in clusters, for example “by default send
 traffic to servers tagged with a key-value mapping of stage=production”.
 Clusters contain sets of service instances, each of which can be tagged with
@@ -122,8 +128,8 @@ Your environment should look like the following
 
 ![Prismatic Setup](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636842997144618507/0d8f89bd404654ad9ce3e35ee9d38960dd34c35661e89fcb561b6ae20e422283/column_sized_prismatic-setup.png)
 
-There is a single domain (local-demo:80) that contains two routes. /api handles
-requests to our Prismatic Spray service instances, and / handles requests for
+There is a single domain (`local-demo:80`) that contains two routes. `/api` handles
+requests to our Prismatic Spray service instances, and `/` handles requests for
 everything else (in this case the Prismatic Spray UI). There are two clusters.
 Local-demo-api-cluster has 3 instances, each tagged with a different version
 (represented as a color). The blue and green instances are also tagged
@@ -150,11 +156,10 @@ Click “Add Rule” from the top right, and enter the following values.
 
 ![Screen Shot 2016 11 21 At 4.39.55 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636837738787636740/ddf7276864c3f6be8f29f042b7d320f4ac71708b1d5ed4f7c0e7dbcaedcb6c43/column_sized_Screen_Shot_2016-11-21_at_4.39.55_PM.png)
 
-This tells the proxy to look for a header called X-TBN-Version. If the proxy
+This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
 finds that header, it uses the value to find servers in the local-demo-api-
-cluster that have a matching version tag. For example, setting “X-TBN-Version:
-blue on a request would match blue production servers, and “X-TBN-Version: green
-matches green dev servers.
+cluster that have a matching version tag. For example, setting `X-TBN-Version:
+blue` on a request would match blue production servers, and `X-TBN-Version: green` would match green dev servers.
 
 The the Prismatic Spray UI converts a `X-TBN-Version` query parameter into a
 header in calls to the backend; if you navigate to [localhost?X-TBN-
@@ -164,7 +169,7 @@ parameter still shows blue.
 
 ![Screen Shot 2016 10 28 At 10.43.02 Am](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619233248442058713/9e580867275ee1a7fd6b502c8b5c8e6fbc24ea8ec31759ac5b2326ea7fdc264c/column_sized_Screen_Shot_2016-10-28_at_10.43.02_AM.png)
 
-While simple, this technique is extremely powerful. New software was tested in
+This technique is extremely powerful. New software was tested in
 production without customers being affected. You were able to test the new
 software on the live site before releasing to customers. In a real world
 scenario your testers can perform validation, you can load test, and you can
@@ -176,7 +181,7 @@ scenario.
 If you navigate to [localhost?X-TBN-Version=green](http://localhost?X-TBN-
 Version=green), you can verify that the green "production" version works too.
 Now we're ready to do an incremental release from blue to green. Right now the
-default rules for /api send all traffic to blue. Let’s introduce a small
+default rules for `/api` send all traffic to blue. Let’s introduce a small
 percentage of green traffic to customers.
 
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
@@ -187,8 +192,8 @@ moving the slider or typing "10" in the text box. The Release Group should now
 be marked "RELEASING".
 
 [localhost](http://localhost) should now show a mix of blue and green. You can
-[increment the green percentage as you like. When you get to 100%, the release
-[is complete.
+increment the green percentage as you like. When you get to 100%, the release
+is complete.
 
 Congratulations! You've safely and incrementally released a new version of your
 production software. Both blue and green versions are still running; if a
