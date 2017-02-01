@@ -19,7 +19,7 @@ Turbine Labs provides a system that lets you fluidly map customer requests to in
   - [Testing with production traffic and/or backends](#testing)
 
 ## Terms to know
-  - tbnproxy: the Turbine Reverse Proxy is an indirection layer between customer traffic and your application. It runs in your environment, routing traffic based on rules you define and service discovery metadata.
+  - tbnproxy: an indirection layer between customer traffic and your application. It runs in your environment, routing traffic based on rules you define and service discovery metadata.
   - Prismatic Spray: a simple HTTP server application that returns hex color value strings for demo use only.
 
 ![High Level](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619373600171886104/f551346c135b128460c7c5999d797b594f090fb202fa4665541261ce5a4e32ec/column_sized_Dev_Diagram.png)
