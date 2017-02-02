@@ -147,7 +147,7 @@ change in a single patch. Yay monorepo!
 ## Code of Conduct
 All Turbine Labs open-sourced projects are released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in our
-projects you agree to abide by its terms, which will be vigorously enforced.
+projects you agree to abide by its terms, which will be carefully enforced.
 
 <a name="layout"/>
 ## Project layout
