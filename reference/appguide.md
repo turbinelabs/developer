@@ -11,7 +11,7 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-# Turbine Labs App Guide
+[//]: # ( Turbine Labs App Guide                                              )
 
 ## Releases
 A list of counts of software versions currently being tested, released, or
