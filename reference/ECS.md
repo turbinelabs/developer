@@ -12,12 +12,19 @@
 [//]: # ( permissions and limitations under the License.                      )
 
 ## Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
-This will ensure your API key, domain, zone, routes, and other key components are set up correctly.
+This will ensure your API key, domain, zone, routes, and other key components
+are set up correctly.
 
 ## Configure your tasks and containers
-In order for tbncollect to see your ECS tasks, you'll need to add a cluster tag, which is attached to a container definition within a task definition. Clusters are the grouping that tbncollect uses for services, and in the case of ECS, are comprised of one or more tasks. A task can be one, or many containers, but as long as the container includes the same cluster tag as a docker label, the containers will be grouped together.
+In order for tbncollect to see your ECS tasks, you'll need to add a cluster
+tag, which is attached to a container definition within a task definition.
+Clusters are the grouping that tbncollect uses for services, and in the case of
+ECS, are comprised of one or more tasks. A task can be one, or many containers,
+but as long as the container includes the same cluster tag as a docker label,
+the containers will be grouped together.
 
-Please note that using the same label for each container in a task will give you multiple instances inside a cluster in the Turbine Labs service.
+Please note that using the same label for each container in a task will give
+you multiple instances inside a cluster in the Turbine Labs service.
 
 The construction of the tag looks like this:
 
@@ -25,7 +32,8 @@ The construction of the tag looks like this:
 "tbn-cluster": "svc1:80,svc2:8088"
 ```
 
-The label key is the "cluster tag", which will associate the container with a Turbine Labs' cluster, and the value is Turbine Labs' cluster name and port.
+The label key is the "cluster tag", which will associate the container with a
+Turbine Labs' cluster, and the value is Turbine Labs' cluster name and port.
 
 _Example task definition_
 
@@ -130,7 +138,9 @@ _Example task definition_
 ```
 
 ## Install tbncollect
-Install tbncollect with this task definition and note the variables you'll need to modify to match your environment and API key. Please note you can only install one cluster per Turbine Labs' zone:
+Install tbncollect with this task definition and note the variables you'll need
+to modify to match your environment and API key. Please note you can only
+install one cluster per Turbine Labs' zone:
 
 ```command
 aws ecs \
@@ -171,7 +181,8 @@ aws ecs \
 ]'
 ```
 
-With your task definition created, you can proceed to run Create Service from the ECS control panel, or through the CLI:
+With your task definition created, you can proceed to run Create Service from
+the ECS control panel, or through the CLI:
 
 ```shell
 aws ecs \
@@ -183,10 +194,15 @@ create-service \
   ```
 
 ## Mapping an ELB
-With tbncollect running, create an Elastic Load Balancer through the AWS management console to send traffic through to your tbnproxy container, which we will launch next, on the appropriate ports - in this example, TCP port 80.
+With tbncollect running, create an Elastic Load Balancer through the AWS
+management console to send traffic through to your tbnproxy container, which we
+will launch next, on the appropriate ports - in this example, TCP port 80.
 
 ## Install tbnproxy
-Install tbnproxy with this task definition and note the NGINX variables you'll need to modify with values for your environment. tbnproxy will be visible to the web, and your customer's traffic. tbnproxy will also need network connectivity to all ECS tasks.
+Install tbnproxy with this task definition and note the NGINX variables you'll
+need to modify with values for your environment. tbnproxy will be visible to
+the web, and your customer's traffic. tbnproxy will also need network
+connectivity to all ECS tasks.
 
 ```shell
 aws ecs \
@@ -226,7 +242,8 @@ aws ecs \
 ]'
 ```
 
-With your task definition created, you can proceed to run Create Service using this container and your ELB from the [ECS control panel](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service.html#service-configure-load-balancing), or through the CLI:
+With your task definition created, you can proceed to run Create Service using
+this container and your ELB from the [ECS control panel](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service.html#service-configure-load-balancing), or through the CLI:
 
 ```shell
 aws ecs \

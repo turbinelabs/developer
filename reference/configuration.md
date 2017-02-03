@@ -12,34 +12,49 @@
 [//]: # ( permissions and limitations under the License.                      )
 
 [//]: # (Initial Setup of the tbnproxy integration)
-This guide walks you through the initial configuration steps for tbnproxy integration with your microservice scheduler or applications.
+This guide walks you through the initial configuration steps for tbnproxy
+integration with your microservice scheduler or applications.
 
 ## Before you get started
-Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your [DockerHub](https://hub.docker.com) account, and a [Github](https://www.github.com) account and we'll get you set up with an account.
+Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your
+[DockerHub](https://hub.docker.com) account, and a
+[Github](https://www.github.com) account and we'll get you set up with an
+account.
 
-Please note: tbnctl (coming soon!) is a CLI for interacting with the Turbine Labs public API. In the meantime the same steps can be accomplished with curl.
+Please note: tbnctl (coming soon!) is a CLI for interacting with the Turbine
+Labs public API. In the meantime the same steps can be accomplished with curl.
 
 ## Overview of tbnproxy Initial Setup
 You'll be going through the following steps to configure tbnproxy integration:
 
 1. Create a zone.
 
-2. Set up a Domain ("your.testbed.io") which is conceptually served by a single demo application (“prismatic-spray”).
+2. Set up a Domain ("your.testbed.io") which is conceptually served by a single
+demo application (“prismatic-spray”).
 
-3. Create a Cluster, which is set of instances all performing a homogeneous set of tasks.
+3. Create a Cluster, which is set of instances all performing a homogeneous set
+of tasks.
 
 4. Create SharedRules as a base for this and future routes.
 
-5. A single Route (“/”) is mapped to this Cluster. The Route will send traffic to any members of the application group with an app label with value “prismatic-spray”.
+5. A single Route (“/”) is mapped to this Cluster. The Route will send traffic
+to any members of the application group with an app label with value
+“prismatic-spray”.
 
-6. Create a proxy object that will be configured to serve the Domain your.testbed.io.
+6. Create a proxy object that will be configured to serve the Domain
+your.testbed.io.
 
 ### Setting up your Zone in the Turbine Labs Service
-In this example, you will set up a Domain with a single Route, “/”, that will forward all traffic to a running prismatic-spray application. This instance is represented in the Turbine Labs Service as a Cluster.
+In this example, you will set up a Domain with a single Route, “/”, that will
+forward all traffic to a running prismatic-spray application. This instance is
+represented in the Turbine Labs Service as a Cluster.
 
-- First, you need to get an API key. Email support@turbinelabs.io and we send one to you.
+- First, you need to get an API key. Email support@turbinelabs.io and we send
+one to you.
 
-- Next, you will create a zone with the following command. A Zone is a logical deployment of services, which typically maps to a datacenter, region, or compute cluster.
+- Next, you will create a zone with the following command. A Zone is a logical
+deployment of services, which typically maps to a datacenter, region, or
+compute cluster.
 
 ```command
 cat zone.json  | tbnctl --api.key="<your api key>" create zone
@@ -76,7 +91,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbi
 ```
 
 #### Creating a domain
-Now that you've set up a Zone, you'll create a Domain. This represents the URL space of your service, in this case http://your.testbed.io.
+Now that you've set up a Zone, you'll create a Domain. This represents the URL
+space of your service, in this case http://your.testbed.io.
 
 ```command
 cat domain_post.json  | tbnctl --api.key="<your api key> create domain
@@ -114,7 +130,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 
 #### Creating a Proxy
 
-With a domain created, you’ll create a representation of your tbnproxy, and map it to to the domain you just created.
+With a domain created, you’ll create a representation of your tbnproxy, and map
+it to to the domain you just created.
 
 ```command
 cat proxy.json | tbnctl --api.key="your_api_key" create proxy
@@ -184,7 +201,11 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
 
 #### Creating a Cluster
 
-Next, you'll create a Cluster in the Turbine Labs Service. A Cluster represents a set of services all performing a homogeneous set of tasks. Note that tbncollect will automatically create clusters for discovered services, but manually creating a cluster here allows you to create a route for the service before jumping ahead to tbncollect configuration.
+Next, you'll create a Cluster in the Turbine Labs Service. A Cluster represents
+a set of services all performing a homogeneous set of tasks. Note that
+tbncollect will automatically create clusters for discovered services, but
+manually creating a cluster here allows you to create a route for the service
+before jumping ahead to tbncollect configuration.
 
 ```command
 cat cluster.json | tbnctl --api.key="<your api key>" create cluster
@@ -231,7 +252,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d '{"zone_key": "<your zone key>",
 ```
 
 #### Creating Shared Rules
-With the cluster created, you can now create shared rules, which provide default behavior for one or more routes.
+With the cluster created, you can now create shared rules, which provide
+default behavior for one or more routes.
 
 ```command
 cat sharedrules.json | tbnctl --api.key="<your api key>" create shared_rules
@@ -335,7 +357,9 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@shared_rules_post.json https://a
 
 
 #### Creating a route
-Last you’ll create a route to map incoming traffic to a Cluster. In this case you’ll simply map all incoming traffic to the prismatic-spray cluster you just created
+Last you’ll create a route to map incoming traffic to a Cluster. In this case
+you’ll simply map all incoming traffic to the prismatic-spray cluster you just
+created
 
 ```command
 cat route.json | tbnctl --api.key="<your api key>" create route
@@ -400,18 +424,24 @@ Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.
 
 - You've created a zone.
 
-- You've also set up a Domain ("your.testbed.io") which is conceptually served by a single application (“prismatic-spray”).
+- You've also set up a Domain ("your.testbed.io") which is conceptually served
+by a single application (“prismatic-spray”).
 
-- Following these, you've created a Cluster, which is set of instances all performing a homogeneous set of tasks.
+- Following these, you've created a Cluster, which is set of instances all
+performing a homogeneous set of tasks.
 
 - You've created SharedRules as a base for this and future routes.
 
-- A single Route (“/”) is mapped to this Cluster. The Route will send traffic to any members of the application group with an app label with value “prismatic-spray”.
+- A single Route (“/”) is mapped to this Cluster. The Route will send traffic
+to any members of the application group with an app label with value
+“prismatic-spray”.
 
-- You’ve also created a proxy object that will be configured to serve the Domain your.testbed.io.
+- You’ve also created a proxy object that will be configured to serve the
+Domain your.testbed.io.
 
 ## Next Steps
-With your initial setup complete, choose one of the below cloud platforms to learn how to install, run, and use tbnproxy:
+With your initial setup complete, choose one of the below cloud platforms to
+learn how to install, run, and use tbnproxy:
 
 - [Kubernetes](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-kubernetes)
 

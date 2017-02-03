@@ -16,19 +16,26 @@
 ## Prerequisites
 
 ### Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration) guide
-This will ensure your API key, domain, zone, routes, and other key components are set up correctly.
+This will ensure your API key, domain, zone, routes, and other key components
+are set up correctly.
 
 ### Follow the [GKE Quick Start guide](https://cloud.google.com/container-engine/docs/quickstart)
-Google's GKE Quick Start guide will walk you through setting up Google Container Engine, as well as a simple Node app, which we'll modify below.
+Google's GKE Quick Start guide will walk you through setting up Google
+Container Engine, as well as a simple Node app, which we'll modify below.
 
 ### Service Discovery with tbncollect
 tbncollect can filter applications based on labels as well as port names.
 
-- By default the label selector is set to all labels, and the port name filter is set to “http”.
-  - This means you will need to name ports in your environment if you want them exposed via tbnproxy, or configure tbncollect (usually via environment variables) to use a different set of filters.
+- By default the label selector is set to all labels, and the port name filter
+is set to “http”.
+  - This means you will need to name ports in your environment if you want them
+  exposed via tbnproxy, or configure tbncollect (usually via environment
+  variables) to use a different set of filters.
 
 ## Updating the Demo App
-First, you need to update our demo app to be discoverable by tbncollect. Next, you’ll need to add a label to pods and name the exposed port 80. The following labels are what the agent process will look for:
+First, you need to update our demo app to be discoverable by tbncollect. Next,
+you’ll need to add a label to pods and name the exposed port 80. The following
+labels are what the agent process will look for:
 
 - run
 - name
@@ -45,8 +52,8 @@ and add the following lines:
 
 ```yaml
 # Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
+# and an empty file will abort the edit. If an error occurs while saving this
+# file will be reopened with the relevant failures.
 #
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -92,7 +99,8 @@ spec:
         resources: {}
 ```
 
-Kubernetes will automatically terminate the old instance and start a new, discoverable copy.
+Kubernetes will automatically terminate the old instance and start a new,
+discoverable copy.
 
 ## Deploying tbnproxy
 Next, you deploy tbnproxy with this command:
@@ -109,7 +117,8 @@ kubectl run tbncollect --image=gcr.io/$PROJECT_ID/tbncollect:v1 --env=”TBNCOLL
 ```
 
 ### Verifying the Demo Instances
-Once these pods are running, you should be able to see instances show up in the Turbine Labs Service:
+Once these pods are running, you should be able to see instances show up in the
+Turbine Labs Service:
 
 ```shell
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
@@ -144,7 +153,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/clu
 }
 ```
 
-You should also be able to see your instances mapped to the nginx config running in tbnproxy
+You should also be able to see your instances mapped to the nginx config
+running in tbnproxy
 
 ```shell
 kubectl get pods

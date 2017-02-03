@@ -20,19 +20,25 @@ This will ensure your API key, domain, zone, routes, and other key components ar
 
 To configure Marathon.
 
-1. First setup your DC/OS install using [this guide](https://dcos.io/docs/1.8/administration/installing/cloud/aws/) if you use AWS.
+1. First setup your DC/OS install using [this guide](https://dcos.io/docs/1.8/administration/installing/cloud/aws/) if you
+use AWS.
 
-2. [This guide](https://dcos.io/docs/1.8/usage/tutorials/marathon/marathon101/) will walk you through the initial setup of installing Marathon on top of DC/OS.
-    - If your Marathon apps use a private registry, you should be aware of [this document](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html) on adding private Docker registries.
+2. [This guide](https://dcos.io/docs/1.8/usage/tutorials/marathon/marathon101/)
+will walk you through the initial setup of installing Marathon on top of DC/OS.
+    - If your Marathon apps use a private registry, you should be aware of
+    [this
+    document](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html) on adding private Docker registries.
 
 3. You may also be interested in the [DC/OS CLI](https://docs.mesosphere.com/1.7/usage/cli/install/)
 
 
 ## Configuring tbncollect
-In order to install tbncollect you can either configure the application using the GUI in Marathon to fill in each section of the setup, or drop the following JSON file into the JSON section:
+In order to install tbncollect you can either configure the application using
+the GUI in Marathon to fill in each section of the setup, or drop the following
+JSON file into the JSON section:
 
-Be sure to fill in *your api key*, and *your zone name* (found by querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
-).
+Be sure to fill in *your api key*, and *your zone name* (found by querying
+with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
 
 ```javascript
 {
@@ -99,9 +105,11 @@ dcos marathon app add </path/to/tbncollect.json>
 ```
 
 ## Deploying the Demo App
-In order for your application to be seen by tbncollect you will need to add it to an Application Group in Marathon. Create a JSON file (<your group>.json)
+In order for your application to be seen by tbncollect you will need to add it
+to an Application Group in Marathon. Create a JSON file (<your group>.json)
 
-Be sure to fill in *your group*, *your app*, and *your cluster name* (found by querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
+Be sure to fill in *your group*, *your app*, and *your cluster name* (found by
+querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
 
 ```javascript
 {
@@ -164,14 +172,16 @@ Be sure to fill in *your group*, *your app*, and *your cluster name* (found by q
 }
 ```
 
-Then, load your new Application Group and Application into Marathon with this command:
+Then, load your new Application Group and Application into Marathon with this
+command:
 
 ```shell
 dcos marathon group add > <your group>.json
 ```
 
 ### Verifying Deployment
-Once it deploys, you should be able to curl to see the instance being picked up by the collector:
+Once it deploys, you should be able to curl to see the instance being picked up
+by the collector:
 
 ```shell
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
@@ -225,9 +235,12 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/clu
 ```
 
 ## Configuring and deploying tbnproxy
-With tbncollect running, you can move on to configuring and deploying tbnproxy. Use your preferred method of loading apps to deploy the app with the following JSON file.
+With tbncollect running, you can move on to configuring and deploying tbnproxy.
+Use your preferred method of loading apps to deploy the app with the following
+JSON file.
 
-Be sure to fill in *your api key*, *your zone name*, which found by querying with:
+Be sure to fill in *your api key*, *your zone name*, which found by querying
+with:
 
 ```shell
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/zone
@@ -288,7 +301,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/pro
 ```
 
 ## Adding a new app to your group
-Modify your group's JSON file to add another version of your app, and then update your Application Group with this command:
+Modify your group's JSON file to add another version of your app, and then
+update your Application Group with this command:
 
 ```shell
 dcos marathon group update <your group> < group.json

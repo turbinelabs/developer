@@ -19,8 +19,8 @@ accomplish.
 
 ## Signing up for an account
 
-To get started with the Turbine Labs Service, you'll need a Turbine Labs account.
-Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
+To get started with the Turbine Labs Service, you'll need a Turbine Labs
+account. Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
 create one for you. You will also need a [Docker Hub](https://hub.docker.com)
 account in order to pull the docker image.
 
@@ -29,22 +29,26 @@ account in order to pull the docker image.
 Currently the all-in-one image is not a public Docker image. To get access,
 you'll need to:
 
-- Create a [Docker Hub](https://hub.docker.com) account if you don't already have one.
-- Send an email to `support@turbinelabs.io` with your Docker Hub username. We'll grant your account access to the all-in-one image so you can pull it.
-- Log in with the same Docker Hub username by running `docker login` from the command line.
+- Create a [Docker Hub](https://hub.docker.com) account if you don't already
+have one.
+- Send an email to `support@turbinelabs.io` with your Docker Hub username.
+We'll grant your account access to the all-in-one image so you can pull it.
+- Log in with the same Docker Hub username by running `docker login` from the
+command line.
 
 ## What's in the All-In-One image?
 
-- **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that maintains proxy
+- **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that
+maintains proxy
   configuration and sends metrics to the Turbine Labs Service.
 
 - **tbncollect**: A service discovery agent that observes the service instances,
   updating the Turbine Labs Service as services or applications come and go.
   In this demo, the collector is watching for files instead of API instances.
 
-- **Prismatic Spray**: A simple HTTP server application that returns hex color value
-  strings. There are three "versions" of the server, each returning a different
-  color value:
+- **Prismatic Spray**: A simple HTTP server application that returns hex color
+value strings. There are three "versions" of the server, each returning a
+different color value:
   - blue
   - green
   - yellow
@@ -57,7 +61,8 @@ The three environment variables you'll need to set in order to run the demo are:
 - `TBNPROXY_PROXY_NAME` - the name of the proxy, usually the zone name with a
   "-proxy" suffix
 
-To run the Docker container with tbnproxy, tbncollect, Prismatic Spray, and the associated NGINX hosts, use the following command:
+To run the Docker container with tbnproxy, tbncollect, Prismatic Spray, and the
+associated NGINX hosts, use the following command:
 
 ```shell
 docker run -p 80:80 \
@@ -69,16 +74,19 @@ docker run -p 80:80 \
 
 This command will:
 
-- Pull the Turbine Labs all-in-one image from Docker Hub if you don't already have it.
+- Pull the Turbine Labs all-in-one image from Docker Hub if you don't already
+have it.
 - Initialize your test zone if it doesn't already exist.
 - Launch tbnproxy.
 - Launch tbncollect.
 - Launch the three Prismatic Spray instances.
 
 > Note: In some cases the local Docker time may have drifted significantly
-> from your host's time. If this is the case, you'll see the following message in the
+> from your host's time. If this is the case, you'll see the following message
+in the
 > `docker run` output:
-> ```FATAL: your docker system clock differs from actual (google) time by more than a minute.
+> ```FATAL: your docker system clock differs from actual (google) time by more
+than a minute.
      This will cause stats and charts to behave strangely.```
 >
 > If you see this error, restart Docker and re-run the all-in-one container.
@@ -118,9 +126,9 @@ but aren't released, so they won’t appear in this view yet.
 Let’s dig deeper into how tbnproxy routes traffic. Traffic is received by a
 proxy that handles traffic for a given domain. The proxy maps requests to
 service instances via routes and rules. Routes let you split your domain into
-manageable segments, for example `/bar` and `/baz`. Rules let you map requests to a
-constrained set of service instances in clusters, for example “by default send
-traffic to servers tagged with a key-value mapping of stage=production”.
+manageable segments, for example `/bar` and `/baz`. Rules let you map requests
+to a constrained set of service instances in clusters, for example “by default
+send traffic to servers tagged with a key-value mapping of stage=production”.
 Clusters contain sets of service instances, each of which can be tagged with
 key/value pairs to provide more information to the routing engine.
 
@@ -128,12 +136,13 @@ Your environment should look like the following
 
 ![Prismatic Setup](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636842997144618507/0d8f89bd404654ad9ce3e35ee9d38960dd34c35661e89fcb561b6ae20e422283/column_sized_prismatic-setup.png)
 
-There is a single domain (`local-demo:80`) that contains two routes. `/api` handles
-requests to our Prismatic Spray service instances, and `/` handles requests for
-everything else (in this case the Prismatic Spray UI). There are two clusters.
-Local-demo-api-cluster has 3 instances, each tagged with a different version
-(represented as a color). The blue and green instances are also tagged
-`stage=prod`. The local-demo-ui-cluster has a single instance tagged prod.
+There is a single domain (`local-demo:80`) that contains two routes. `/api`
+handles requests to our Prismatic Spray service instances, and `/` handles
+requests for everything else (in this case the Prismatic Spray UI). There are
+two clusters. Local-demo-api-cluster has 3 instances, each tagged with a
+different version (represented as a color). The blue and green instances are
+also tagged `stage=prod`. The local-demo-ui-cluster has a single instance
+tagged prod.
 
 The rules currently only map traffic to instances tagged
 `stage=prod,version=blue`, which is why only blue is showing. If we were to map
