@@ -175,6 +175,11 @@ still yet another command line interface library<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
+[**`codec`**](http://github.com/turbinelabs/codec):
+a simple interface for encoding and decoding values with JSON and YAML
+implementations<br>
+`└──`[`test`](http://github.com/turbinelabs/test)<br>
+
 [**`developer`**](http://github.com/turbinelabs/developer): this very project!
 
 [**`golang-gotchas`**](http://github.com/turbinelabs/golang-gotchas):
@@ -218,3 +223,6 @@ the Turbine Labs reverse proxy<br>
 `├──`[`logparser`](http://github.com/turbinelabs/logparser)<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
+
+[**`test`**](http://github.com/turbinelabs/test):
+small helper packages to make writing tests in go a little easier<br>
