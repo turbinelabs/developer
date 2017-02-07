@@ -18,7 +18,13 @@ from the Turbine Labs service.
 
 Please use `tbnctl -h` for detailed help from the command line.
 
-[//]: # (TODO: add yum/apt-get/brew installation, see #2095)
+## Installation
+To install tbnctl, run the following commands, which will get the application, and install it using Go:
+
+```shell
+go get -u github.com/turbinelabs/tbnctl
+go install github.com/turbinelabs/tbnctl
+```
 
 ## List of commands
 
