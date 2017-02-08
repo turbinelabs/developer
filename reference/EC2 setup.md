@@ -115,4 +115,8 @@ port 80.
 - Apply security group ELBGroup
 
 Once the ELB is up, you should be able to see your app or site in a browser, or
-with curl.
+with curl:
+
+```shell
+curl <ip address> -H "Host: <my.example.domain>"
+```

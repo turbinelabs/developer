@@ -211,7 +211,7 @@ tbnproxy   10.3.241.247   104.198.110.237   80/TCP    5m
 ```
 
 ```shell
-curl 104.198.110.237
+curl <ip address> -H "Host: <my.example.domain>"
 ```
 
 ```

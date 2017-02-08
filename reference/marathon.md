@@ -422,3 +422,9 @@ dcos marathon group update <your group> < group.json
   "id": "/mygroup"
 }
 ```
+
+You can now view your services through curl:
+
+```shell
+curl <ip address> -H "Host: <my.example.domain>"
+```

@@ -29,8 +29,8 @@ You'll be going through the following steps to configure tbnproxy integration:
 
 1. Create a zone.
 
-2. Set up a Domain ("your.testbed.io") which is conceptually served by a single
-demo application (“prismatic-spray”).
+2. Set up a Domain <my.example.domain> which is conceptually served by a single
+demo application.
 
 3. Create a Cluster, which is set of instances all performing a homogeneous set
 of tasks.
@@ -42,7 +42,7 @@ to any members of the application group with an app label with value
 “prismatic-spray”.
 
 6. Create a proxy object that will be configured to serve the Domain
-your.testbed.io.
+<my.example.domain>.
 
 ### Setting up your Zone in the Turbine Labs Service
 In this example, you will set up a Domain with a single Route, “/”, that will
@@ -92,7 +92,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbi
 
 #### Creating a domain
 Now that you've set up a Zone, you'll create a Domain. This represents the URL
-space of your service, in this case http://your.testbed.io.
+space of your service, in this case <my.example.domain>
 
 ```command
 cat domain_post.json  | tbnctl --api.key="<your api key> create domain
@@ -101,7 +101,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 *example domain_post.json*
 
 ```javascript
-{"zone_key": "<your zone key>", "name": "<your.testbed.io>", "port": 80}
+{"zone_key": "<your zone key>", "name": "<my.example.domain>", "port": 80}
 ```
 
 *example Response:*
@@ -109,7 +109,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 ```javascript
 {
   "zone_key": "<your zone key>",
-  "name": "<your.testbed.io>",
+  "name": "<my.example.domain>",
   "checksum": "<your checksum value>",
   "domain_key": "<your domain key>",
   "port": 80
@@ -124,7 +124,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 *Example domain post*
 
 ```javascript
-{"zone_key": "<your zone key>", "name": "your.testbed.io", "port": 80}
+{"zone_key": "<your zone key>", "name": "<my.example.domain>", "port": 80}
 ```
 
 
@@ -141,7 +141,7 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 
 ```javascript
 {
-  "host": "<your.testbed.io>",
+  "host": "<my.example.domain>",
   "port": 80,
   "zone_key": "<your zone key>",
   "name": "<tbnproxy-1>",
@@ -153,7 +153,7 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 
 ```javascript
 {
-  "host": "<your.testbed.io>",
+  "host": "<my.example.domain>",
   "port": 80,
   "metadata": null,
   "proxy_key": "<your proxy key>",
@@ -174,10 +174,10 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
 
 ```javascript
 {
-  "host": "<your.testbed.io>",
+  "host": "<my.example.domain>",
   "port": 80,
   "zone_key": "<your zone key>",
-  "name": "tbnproxy-1",
+  "name": "<tbnproxy-1>",
   "domain_keys":["<your domain key>"]
 }
 ```
@@ -189,8 +189,8 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
    "result" : {
       "domain_keys" : ["<your domain keys"],
       "port" : 80,
-      "name" : "tbnproxy-1",
-      "host" : "your.testbed.io",
+      "name" : "<tbnproxy-1>",
+      "host" : "<my.example.domain>",
       "zone_key" : "<your zone key>",
       "proxy_key" : "<your proxy key>",
       "checksum" : "<checksum value>",
@@ -424,7 +424,7 @@ Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.
 
 - You've created a zone.
 
-- You've also set up a Domain ("your.testbed.io") which is conceptually served
+- You've also set up a Domain <my.example.domain> which is conceptually served
 by a single application (“prismatic-spray”).
 
 - Following these, you've created a Cluster, which is set of instances all
@@ -437,7 +437,7 @@ to any members of the application group with an app label with value
 “prismatic-spray”.
 
 - You’ve also created a proxy object that will be configured to serve the
-Domain your.testbed.io.
+Domain <my.example.domain>.
 
 ## Next Steps
 With your initial setup complete, choose one of the below cloud platforms to
