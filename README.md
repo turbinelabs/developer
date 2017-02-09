@@ -24,12 +24,8 @@ The developer project is meant to:
 
 # Turbine Labs Open Source Projects
 
-Very early in the lifetime of Turbine Labs, we decided we would open-source
-anything we asked our customers to install in their environments, and we're
-pleased to be able to do so now.
-
 There are a few interesting restrictions we placed on ourselves that led to our
-methodology:
+methodology for open-sourcing projects:
 
 - We develop our code internally in a monorepo, and feel pretty strongly about
   the benefits of doing so within an organization.
@@ -54,9 +50,8 @@ source projects, while keeping each project relatively small and purpose-driven.
 <a name="languages"/>
 ## Languages
 
-Our source code is written almost entirely in [Go](https://golang.org/), with a
-bit of C in one leaf project for the NGINX integration. Most of what we talk
-about below is targeted at Go development.
+Our source code is written almost entirely in [Go](https://golang.org/).
+Most of what we talk about below is targeted at Go development.
 
 <a name="homing"/>
 ## Homing
@@ -165,11 +160,6 @@ defines the types and interfaces of the Turbine Labs public API<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
-[**`cache`**](http://github.com/turbinelabs/cache):
-a simple cache interface with LRU and TTL implementations<br>
-`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
-`└──`[`test`](http://github.com/turbinelabs/test)<br>
-
 [**`cli`**](http://github.com/turbinelabs/cli):
 still yet another command line interface library<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
@@ -186,24 +176,8 @@ implementations<br>
 examples of some things that might feel awkward if you're coming to Go from
 other languages
 
-[**`logparser`**](http://github.com/turbinelabs/logparser):
-a package for parsing metrics out of logs and forwarding them somewhere<br>
-`├──`[`api`](http://github.com/turbinelabs/api)<br>
-`├──`[`cache`](http://github.com/turbinelabs/cache)<br>
-`├──`[`cli`](http://github.com/turbinelabs/cli)<br>
-`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
-`└──`[`test`](http://github.com/turbinelabs/test)<br>
-
 [**`nonstdlib`**](http://github.com/turbinelabs/nonstdlib):
 extensions to the Go stdlib and other useful utility code<br>
-`└──`[`test`](http://github.com/turbinelabs/test)<br>
-
-[**`tbncollect`**](http://github.com/turbinelabs/tbncollect):
-the Turbine Labs service discovery collector<br>
-`├──`[`api`](http://github.com/turbinelabs/api)<br>
-`├──`[`codec`](http://github.com/turbinelabs/codec)<br>
-`├──`[`cli`](http://github.com/turbinelabs/cli)<br>
-`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
 [**`tbnctl`**](http://github.com/turbinelabs/tbnctl):
@@ -211,16 +185,6 @@ command line interface to the Turbine Labs public API<br>
 `├──`[`api`](http://github.com/turbinelabs/api)<br>
 `├──`[`codec`](http://github.com/turbinelabs/codec)<br>
 `├──`[`cli`](http://github.com/turbinelabs/cli)<br>
-`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
-`├──`[`tbnproxy`](http://github.com/turbinelabs/tbnproxy)<br>
-`└──`[`test`](http://github.com/turbinelabs/test)<br>
-
-[**`tbnproxy`**](http://github.com/turbinelabs/tbnproxy):
-the Turbine Labs reverse proxy<br>
-`├──`[`api`](http://github.com/turbinelabs/api)<br>
-`├──`[`adminserver`](http://github.com/turbinelabs/adminserver)<br>
-`├──`[`cli`](http://github.com/turbinelabs/cli)<br>
-`├──`[`logparser`](http://github.com/turbinelabs/logparser)<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
