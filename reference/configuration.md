@@ -12,6 +12,16 @@
 [//]: # ( permissions and limitations under the License.                      )
 
 [//]: # (Initial Setup of the tbnproxy integration)
+
+Our public API models your application from the customer's perspective
+(domains) and infrastructure's perspective (clusters, instances,
+zones). Proxies, shared rules, and routes map requests from one to the
+other. This provides a clear view of the structure of your
+application, as well as powerful tools for modifying that
+structure. Integrated metrics show you the behavior of the system,
+providing an at-a-glance view of user experience. All changes to
+system structure are logged, and can be correlated with metrics.
+
 This guide walks you through the initial configuration steps for tbnproxy
 integration with your microservice scheduler or applications.
 
