@@ -1,4 +1,3 @@
-
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
 [//]: # ( You may obtain a copy of the License at                             )
@@ -21,22 +20,13 @@ accomplish.
 
 To get started with the Turbine Labs Service, you'll need a Turbine Labs
 account. Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
-create one for you. You will also need a [Docker Hub](https://hub.docker.com)
-account in order to pull the docker image.
-
-## Getting access to the All-In-One image
-
-Currently the all-in-one image is not a public Docker image. To get access,
-you'll need to:
-
-- Create a [Docker Hub](https://hub.docker.com) account if you don't already
-have one.
-- Send an email to `support@turbinelabs.io` with your Docker Hub username.
-We'll grant your account access to the all-in-one image so you can pull it.
-- Log in with the same Docker Hub username by running `docker login` from the
-command line.
+create one for you.
 
 ## What's in the All-In-One image?
+
+### Turbine Labs Components
+These two applications will run in a real-world deployment, and are required to
+use the Turbine Lab's service.
 
 - **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that
 maintains proxy
@@ -46,14 +36,19 @@ maintains proxy
   updating the Turbine Labs Service as services or applications come and go.
   In this demo, the collector is watching for files instead of API instances.
 
-- **Prismatic Spray**: A simple HTTP server application that returns hex color
-value strings. There are three "versions" of the server, each returning a
-different color value:
+### Demo server
+A simple HTTP server application that returns hex color value strings. There
+are three "versions" of the server, each returning a different color value:
   - blue
   - green
   - yellow
 
-## Using the example app
+### Demo app
+This app is used to demo the use of Turbine Lab's service through a simple
+visualization of routing and responses, but is disposable after experimenting
+with this demo.
+
+## Starting the all-in-one example
 The three environment variables you'll need to set in order to run the demo are:
 
 - `TBNPROXY_API_KEY` - the Turbine Labs API key to use
@@ -61,7 +56,7 @@ The three environment variables you'll need to set in order to run the demo are:
 - `TBNPROXY_PROXY_NAME` - the name of the proxy, usually the zone name with a
   "-proxy" suffix
 
-To run the Docker container with tbnproxy, tbncollect, Prismatic Spray, and the
+To run the Docker container with tbnproxy, tbncollect, a demo app, and the
 associated NGINX hosts, use the following command:
 
 ```shell
@@ -79,7 +74,7 @@ have it.
 - Initialize your test zone if it doesn't already exist.
 - Launch tbnproxy.
 - Launch tbncollect.
-- Launch the three Prismatic Spray instances.
+- Launch the three demo app instances.
 
 > Note: In some cases the local Docker time may have drifted significantly
 > from your host's time. If this is the case, you'll see the following message
@@ -96,8 +91,8 @@ than a minute.
 ### What's Going on Here?
 
 With the all-in-one container running, you should be able to navigate to
-[localhost](http://localhost/)* to view the Prismatic Spray UI. Prismatic Spray
-is a UI and set of services that helps visualize changes in the mapping of user
+[localhost](http://localhost/)* to view the demo app. The demo provides
+a UI and a set of services that help visualize changes in the mapping of user
 requests to backend services. The application is composed of three sets of
 blocks, each simulating a user making a request. These are simple users, and
 they all repeat the same request forever. The services they call return a color.
@@ -137,11 +132,11 @@ Your environment should look like the following
 ![Prismatic Setup](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636842997144618507/0d8f89bd404654ad9ce3e35ee9d38960dd34c35661e89fcb561b6ae20e422283/column_sized_prismatic-setup.png)
 
 There is a single domain (`local-demo:80`) that contains two routes. `/api`
-handles requests to our Prismatic Spray service instances, and `/` handles
-requests for everything else (in this case the Prismatic Spray UI). There are
+handles requests to our demo service instances, and `/` handles
+requests for everything else (in this case the demo app). There are
 two clusters. Local-demo-api-cluster has 3 instances, each tagged with a
 different version (represented as a color). The blue and green instances are
-also tagged `stage=prod`. The local-demo-ui-cluster has a single instance
+also tagged `stage=prod`. The local-demo-cluster has a single instance
 tagged prod.
 
 The rules currently only map traffic to instances tagged
@@ -170,7 +165,7 @@ finds that header, it uses the value to find servers in the local-demo-api-
 cluster that have a matching version tag. For example, setting `X-TBN-Version:
 blue` on a request would match blue production servers, and `X-TBN-Version: green` would match green dev servers.
 
-The the Prismatic Spray UI converts a `X-TBN-Version` query parameter into a
+The demo app converts a `X-TBN-Version` query parameter into a
 header in calls to the backend; if you navigate to [localhost?X-TBN-
 Version=yellow](http://localhost?X-TBN- Version=yellow) you should see all
 yellow boxes. Meanwhile going to [localhost](http://localhost) without that
@@ -184,6 +179,20 @@ software on the live site before releasing to customers. In a real world
 scenario your testers can perform validation, you can load test, and you can
 demo to stakeholders without running through a complicated multi-environment
 scenario.
+
+### Testing Latency and Error Rates
+
+In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
+
+URL parameters passed to the web page at http://localhost can be used to control the mean latency and error rate of each of the different server colors.
+
+#### Parameter	Effect
+- x-color-delay
+  Sets the mean delay in milliseconds.
+- x-color-error
+  Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
+
+The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described.
 
 ### Incremental Release
 
@@ -218,8 +227,8 @@ problem were found with green, a rollback to blue would be just as easy.
 
 ## Next Steps
 
-Now that you've seen tbnproxy demo app in action, you can move on to deploying
-it in your environment. After reading the Configuration guide below, proceed to
+Now that you've seen demo app in action, you can move on to deploying
+tbnproxy and tbncollect in your environment. After reading the Configuration guide below, proceed to
 one of the following cloud integrations:
 
  - [Kubernetes](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-kubernetes)
