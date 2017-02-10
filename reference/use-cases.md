@@ -14,10 +14,9 @@
 ## Incremental release <a id="incremental-release"></a>
 
 Blue/green deploy (aka Red/Black deploys or A/B deploys) is a
-technique detailed by Martin
-Fowler
-[here](http://martinfowler.com/bliki/BlueGreenDeployment.html). Instead
-of upgrading software in place, you deploy new instances running new
+technique detailed by Martin Fowler -
+[here](https://martinfowler.com/bliki/BlueGreenDeployment.html).
+Instead of upgrading software in place, you deploy new instances running new
 software. Once it's running, you switch over customer traffic. If it
 goes bad, you switch back to your still-running old service. Houston's
 built-in release workflow is similar, but allows you to shift traffic
@@ -28,7 +27,7 @@ proceed when you're confident the user experience won't be
 impacted. Canceling the release is simple and fast. It's just routing
 traffic away from the new version.
 
-<img width="70%" height="70%" alt="Blue Green" src="http://img.turbinelabs.io/2017-02-09/bluegreen_lm.svg"/>
+<img width="70%" height="70%" alt="Blue Green" src="https://img.turbinelabs.io/2017-02-09/bluegreen_lm.svg"/>
 
 ## Testing in production <a id="testing"></a>
 
@@ -42,7 +41,7 @@ without affecting customers. Defects in failed production releases can be
 safely root-caused; Simply shift customer traffic to a known-good version, and
 allow engineers to inspect the bad version at their own pace.
 
-<img width="70%" height="70%" alt="Test in Prod" src="http://img.turbinelabs.io/2017-02-09/testinprod_lm.svg"/>
+<img width="70%" height="70%" alt="Test in Prod" src="https://img.turbinelabs.io/2017-02-09/testinprod_lm.svg"/>
 
 ## Monolith decomposition <a id="monolith"></a>
 
@@ -54,5 +53,4 @@ without affecting production traffic. Then use the same tools and methods you
 use for blue/green deploy to safely and incrementally shift traffic for that
 route from the monolith to your new service.
 
-<img width="70%" height="70%" alt="Decomp" src="http://img.turbinelabs.io/2017-02-09/decomp_lm.svg"/>
-
+<img width="70%" height="70%" alt="Decomp" src="https://img.turbinelabs.io/2017-02-09/decomp_lm.svg"/>

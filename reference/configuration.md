@@ -453,12 +453,12 @@ Domain <my.example.domain>.
 With your initial setup complete, choose one of the below cloud platforms to
 learn how to install, run, and use tbnproxy:
 
-- [Kubernetes](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-kubernetes)
+- [Kubernetes](https://docs.turbinelabs.io/guides/integrating-houston-with-kubernetes)
 
-- [Marathon](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-marathon)
+- [Marathon](https://docs.turbinelabs.io/guides/integrating-houston-with-marathon)
 
-- [Docker on EC2](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-docker-on-ec2)
+- [Docker on EC2](https://docs.turbinelabs.io/guides/integrating-houston-with-docker-on-ec2)
 
-- [ECS](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-ecs)
+- [ECS](https://docs.turbinelabs.io/guides/integrating-houston-with-ecs
 
-- [Consul](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-consul)
+- [Consul](https://docs.turbinelabs.io/guides/integrating-houston-with-consul)

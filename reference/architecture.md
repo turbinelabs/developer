@@ -64,13 +64,9 @@ granularity.
 While the Turbine Labs software will run on a wide variety of
 architectures, we've built specific integrations
 with
-[Kubernetes](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-kubernetes),
-[Marathon/Mesos](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-marathon),
-and
-[EC2](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-docker-on-ec2),
-[ECS](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-ecs),
-and
-[Consul](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-consul). We
+[Kubernetes](https://docs.turbinelabs.io/guides/integrating-houston-with-kubernetes),
+[Marathon](https://docs.turbinelabs.io/guides/integrating-houston-with-marathon),
+[Docker on EC2](https://docs.turbinelabs.io/guides/integrating-houston-with-docker-on-ec2), [ECS](https://docs.turbinelabs.io/guides/integrating-houston-with-ecs), and [Consul](https://docs.turbinelabs.io/guides/integrating-houston-with-consul) We
 plan to add more integrations in the future, and our YAML/JSON file
 polling mechanism provides extensibility if you wish to create your
 own.
