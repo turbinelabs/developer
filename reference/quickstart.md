@@ -13,20 +13,19 @@
 [//]: # (Quick Start)
 
 This guide walks you through setting up, and using an all-in-one example app, as
-well as a few exercises to illustrate what Turbine Labs' App and Service can
+well as a few exercises to illustrate what Houston and the Turbine Labs API can
 accomplish.
 
 ## Signing up for an account
 
-To get started with the Turbine Labs Service, you'll need a Turbine Labs
+To get started with Houston, you'll need a Turbine Labs
 account. Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
 create one for you.
 
 ## What's in the All-In-One image?
 
-### Turbine Labs Components
-These two applications will run in a real-world deployment, and are required to
-use the Turbine Lab's service.
+### Houston
+These two applications will run in a real-world deployment, connected to Turbine Labs' API.
 
 - **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that
 maintains proxy
@@ -44,7 +43,7 @@ are three "versions" of the server, each returning a different color value:
   - yellow
 
 ### Demo app
-This app is used to demo the use of Turbine Lab's service through a simple
+This app is used to demo the use of Houston through a simple
 visualization of routing and responses, but is disposable after experimenting
 with this demo.
 
@@ -86,9 +85,9 @@ than a minute.
 >
 > If you see this error, restart Docker and re-run the all-in-one container.
 
-## Demo Exercises
+## Demo exercises
 
-### What's Going on Here?
+### What's going on here?
 
 With the all-in-one container running, you should be able to navigate to
 [localhost](http://localhost/)* to view the demo app. The demo provides
@@ -145,7 +144,7 @@ instead to `stage=prod`, both blue and green instances would match, and tbnproxy
 would load balance across them. In this case you'd see an even split of blue and
 green.
 
-### Browser Overrides
+### Browser overrides
 
 Let’s test our green dev version before we release it to customers. tbnproxy
 allows you to route to service instances based on headers set in the request.
@@ -180,13 +179,13 @@ scenario your testers can perform validation, you can load test, and you can
 demo to stakeholders without running through a complicated multi-environment
 scenario.
 
-### Testing Latency and Error Rates
+### Testing latency and error rates
 
 In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
 
 URL parameters passed to the web page at http://localhost can be used to control the mean latency and error rate of each of the different server colors.
 
-#### Parameter	Effect
+#### Parameter effect
 - x-color-delay
   Sets the mean delay in milliseconds.
 - x-color-error
@@ -194,7 +193,7 @@ URL parameters passed to the web page at http://localhost can be used to control
 
 The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described.
 
-### Incremental Release
+### Incremental release
 
 If you navigate to [localhost?X-TBN-Version=green](http://localhost?X-TBN-
 Version=green), you can verify that the green "production" version works too.
@@ -225,10 +224,9 @@ Congratulations! You've safely and incrementally released a new version of your
 production software. Both blue and green versions are still running; if a
 problem were found with green, a rollback to blue would be just as easy.
 
-## Next Steps
+## Next steps
 
-Now that you've seen demo app in action, you can move on to deploying
-tbnproxy and tbncollect in your environment. After reading the Configuration guide below, proceed to
+Now that you've seen demo app in action, you can move on to deploying Houston in your own environment. After reading the configuration guide below, proceed to
 one of the following cloud integrations:
 
  - [Kubernetes](https://docs.turbinelabs.io/guides/deploying-the-turbine-labs-product-suite-to-kubernetes)

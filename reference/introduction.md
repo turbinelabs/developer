@@ -65,4 +65,3 @@ easily with AWS, Kubernetes, Mesos/Marathon, Consul, and
 others. Everything is managed from our hosted application, with a
 robust public API for scripting and integration with your existing
 management tools.
-

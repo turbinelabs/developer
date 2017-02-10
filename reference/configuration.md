@@ -34,7 +34,7 @@ account.
 Please note: tbnctl (coming soon!) is a CLI for interacting with the Turbine
 Labs public API. In the meantime the same steps can be accomplished with curl.
 
-## Overview of tbnproxy Initial Setup
+## Overview of tbnproxy initial setup
 You'll be going through the following steps to configure tbnproxy integration:
 
 1. Create a zone.
@@ -54,10 +54,10 @@ to any members of the application group with an app label with value
 6. Create a proxy object that will be configured to serve the Domain
 <my.example.domain>.
 
-### Setting up your Zone in the Turbine Labs Service
+### Setting up your zone in the Turbine Labs API
 In this example, you will set up a Domain with a single Route, “/”, that will
 forward all traffic to a running prismatic-spray application. This instance is
-represented in the Turbine Labs Service as a Cluster.
+represented in the Turbine Labs API as a Cluster.
 
 - First, you need to get an API key. Email support@turbinelabs.io and we send
 one to you.
@@ -138,7 +138,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 ```
 
 
-#### Creating a Proxy
+#### Creating a proxy
 
 With a domain created, you’ll create a representation of your tbnproxy, and map
 it to to the domain you just created.
@@ -209,9 +209,9 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
 }
 ```
 
-#### Creating a Cluster
+#### Creating a cluster
 
-Next, you'll create a Cluster in the Turbine Labs Service. A Cluster represents
+Next, you'll create a Cluster in the Turbine Labs API. A Cluster represents
 a set of services all performing a homogeneous set of tasks. Note that
 tbncollect will automatically create clusters for discovered services, but
 manually creating a cluster here allows you to create a route for the service
@@ -261,7 +261,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d '{"zone_key": "<your zone key>",
 }
 ```
 
-#### Creating Shared Rules
+#### Creating shared rules
 With the cluster created, you can now create shared rules, which provide
 default behavior for one or more routes.
 
@@ -449,7 +449,7 @@ to any members of the application group with an app label with value
 - You’ve also created a proxy object that will be configured to serve the
 Domain <my.example.domain>.
 
-## Next Steps
+## Next steps
 With your initial setup complete, choose one of the below cloud platforms to
 learn how to install, run, and use tbnproxy:
 

@@ -11,26 +11,10 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-[//]: # (Deploying the Turbine Labs Product Suite to Marathon)
+[//]: # (Integrating Houston with Marathon)
 
-## Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
+## Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
 This will ensure your API key, domain, zone, routes, and other key components are set up correctly.
-
-## Initial Setup of Marathon
-
-To configure Marathon.
-
-1. First setup your DC/OS install using [this guide](https://dcos.io/docs/1.8/administration/installing/cloud/aws/) if you
-use AWS.
-
-2. [This guide](https://dcos.io/docs/1.8/usage/tutorials/marathon/marathon101/)
-will walk you through the initial setup of installing Marathon on top of DC/OS.
-    - If your Marathon apps use a private registry, you should be aware of
-    [this
-    document](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html) on adding private Docker registries.
-
-3. You may also be interested in the [DC/OS CLI](https://docs.mesosphere.com/1.7/usage/cli/install/)
-
 
 ## Configuring tbncollect
 In order to install tbncollect you can either configure the application using

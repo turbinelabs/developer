@@ -11,7 +11,9 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-## Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
+[//]: # (Integrating Houston with ECS)
+
+## Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
 This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 

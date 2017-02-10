@@ -11,19 +11,19 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-[//]: # (Deploying the Turbine Labs Product Suite to Kubernetes)
+[//]: # (Integrating Houston with Kubernetes)
 
 ## Prerequisites
 
-### Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration) guide
+### Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration) guide
 This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 
-### Follow the [GKE Quick Start guide](https://cloud.google.com/container-engine/docs/quickstart)
+### Follow the [GKE quick start guide](https://cloud.google.com/container-engine/docs/quickstart)
 Google's GKE Quick Start guide will walk you through setting up Google
 Container Engine, as well as a simple Node app, which we'll modify below.
 
-### Service Discovery with tbncollect
+### Service discovery with tbncollect
 tbncollect can filter applications based on labels as well as port names.
 
 - By default the label selector is set to all labels, and the port name filter
@@ -32,7 +32,7 @@ is set to “http”.
   exposed via tbnproxy, or configure tbncollect (usually via environment
   variables) to use a different set of filters.
 
-## Updating the Demo App
+## Updating the demo app
 First, you need to update our demo app to be discoverable by tbncollect. Next,
 you’ll need to add a label to pods and name the exposed port 80. The following
 labels are what the agent process will look for:

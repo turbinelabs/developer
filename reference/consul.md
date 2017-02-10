@@ -11,9 +11,9 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-[//]: # (Deploying the Turbine Labs Product Suite to Consul)
+[//]: # (Integrating Houston with Consul)
 
-## Follow the [Configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
+## Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
 This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 
