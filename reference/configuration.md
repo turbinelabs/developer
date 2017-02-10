@@ -39,7 +39,7 @@ You'll be going through the following steps to configure tbnproxy integration:
 
 1. Create a zone.
 
-2. Set up a Domain <my.example.domain> which is conceptually served by a single
+2. Set up a Domain <my.example.com> which is conceptually served by a single
 demo application.
 
 3. Create a Cluster, which is set of instances all performing a homogeneous set
@@ -52,7 +52,7 @@ to any members of the application group with an app label with value
 “prismatic-spray”.
 
 6. Create a proxy object that will be configured to serve the Domain
-<my.example.domain>.
+<my.example.com>.
 
 ### Setting up your zone in the Turbine Labs API
 In this example, you will set up a Domain with a single Route, “/”, that will
@@ -102,7 +102,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbi
 
 #### Creating a domain
 Now that you've set up a Zone, you'll create a Domain. This represents the URL
-space of your service, in this case <my.example.domain>
+space of your service, in this case <my.example.com>
 
 ```command
 cat domain_post.json  | tbnctl --api.key="<your api key> create domain
@@ -111,7 +111,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 *example domain_post.json*
 
 ```javascript
-{"zone_key": "<your zone key>", "name": "<my.example.domain>", "port": 80}
+{"zone_key": "<your zone key>", "name": "<my.example.com>", "port": 80}
 ```
 
 *example Response:*
@@ -119,7 +119,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 ```javascript
 {
   "zone_key": "<your zone key>",
-  "name": "<my.example.domain>",
+  "name": "<my.example.com>",
   "checksum": "<your checksum value>",
   "domain_key": "<your domain key>",
   "port": 80
@@ -134,7 +134,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 *Example domain post*
 
 ```javascript
-{"zone_key": "<your zone key>", "name": "<my.example.domain>", "port": 80}
+{"zone_key": "<your zone key>", "name": "<my.example.com>", "port": 80}
 ```
 
 
@@ -151,7 +151,7 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 
 ```javascript
 {
-  "host": "<my.example.domain>",
+  "host": "<my.example.com>",
   "port": 80,
   "zone_key": "<your zone key>",
   "name": "<tbnproxy-1>",
@@ -163,7 +163,7 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 
 ```javascript
 {
-  "host": "<my.example.domain>",
+  "host": "<my.example.com>",
   "port": 80,
   "metadata": null,
   "proxy_key": "<your proxy key>",
@@ -184,7 +184,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
 
 ```javascript
 {
-  "host": "<my.example.domain>",
+  "host": "<my.example.com>",
   "port": 80,
   "zone_key": "<your zone key>",
   "name": "<tbnproxy-1>",
@@ -200,7 +200,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
       "domain_keys" : ["<your domain keys"],
       "port" : 80,
       "name" : "<tbnproxy-1>",
-      "host" : "<my.example.domain>",
+      "host" : "<my.example.com>",
       "zone_key" : "<your zone key>",
       "proxy_key" : "<your proxy key>",
       "checksum" : "<checksum value>",
@@ -434,7 +434,7 @@ Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.
 
 - You've created a zone.
 
-- You've also set up a Domain <my.example.domain> which is conceptually served
+- You've also set up a Domain <my.example.com> which is conceptually served
 by a single application (“prismatic-spray”).
 
 - Following these, you've created a Cluster, which is set of instances all
@@ -447,7 +447,7 @@ to any members of the application group with an app label with value
 “prismatic-spray”.
 
 - You’ve also created a proxy object that will be configured to serve the
-Domain <my.example.domain>.
+Domain <my.example.com>.
 
 ## Next steps
 With your initial setup complete, choose one of the below cloud platforms to
