@@ -31,8 +31,14 @@ Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your
 [Github](https://www.github.com) account and we'll get you set up with an
 account.
 
-Please note: tbnctl (coming soon!) is a CLI for interacting with the Turbine
-Labs public API. In the meantime the same steps can be accomplished with curl.
+[tbnctl](https://docs.turbinelabs.io/guides/tbnctl-guide) is a CLI for
+interacting with the Turbine Labs public API, and is used throughout this guide
+to set up tbnproxy. Install tbnctl with these commands (Requires installation of [Go](https://golang.org/dl/)):
+
+```
+go get -u github.com/turbinelabs/tbnctl
+go install github.com/turbinelabs/tbnctl
+```
 
 ## Overview of tbnproxy initial setup
 You'll be going through the following steps to configure tbnproxy integration:
