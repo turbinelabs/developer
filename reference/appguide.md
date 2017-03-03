@@ -13,6 +13,8 @@
 
 [//]: # ( Turbine Labs App Guide                                              )
 
+This guide explains the features, knobs, and buttons for the Houston web UI application. When using Houston, this web app let's you setup new releases, edit custom routes, monitor your site and applications, and view a robust changelog. Visit [our app](app.turbinelabs.io) to see more.
+
 ## Releases
 A list of counts of software versions currently being tested, released, or
 which are available for test or release.

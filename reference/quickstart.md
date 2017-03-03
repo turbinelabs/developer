@@ -144,55 +144,6 @@ instead to `stage=prod`, both blue and green instances would match, and tbnproxy
 would load balance across them. In this case you'd see an even split of blue and
 green.
 
-### Browser overrides
-
-Let’s test our green dev version before we release it to customers. tbnproxy
-allows you to route to service instances based on headers set in the request.
-Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
-the zone you’re working with (local-demo by default). Click settings -> edit
-routes, and select local-demo:80/api from the top left dropdown. You should see
-the following screen
-
-![Screen Shot 2016 10 25 At 4.20.38 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619232397325502423/3209a51a0840a6940c6141a8191722f231be1c8590ed02e9eda86f9fc42e3f55/column_sized_Screen_Shot_2016-10-25_at_4.20.38_PM.png)
-
-Click “Add Rule” from the top right, and enter the following values.
-
-![Screen Shot 2016 11 21 At 4.39.55 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636837738787636740/ddf7276864c3f6be8f29f042b7d320f4ac71708b1d5ed4f7c0e7dbcaedcb6c43/column_sized_Screen_Shot_2016-11-21_at_4.39.55_PM.png)
-
-This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
-finds that header, it uses the value to find servers in the local-demo-api-
-cluster that have a matching version tag. For example, setting `X-TBN-Version:
-blue` on a request would match blue production servers, and `X-TBN-Version: green` would match green dev servers.
-
-The demo app converts a `X-TBN-Version` query parameter into a
-header in calls to the backend; if you navigate to [localhost?X-TBN-
-Version=yellow](http://localhost?X-TBN- Version=yellow) you should see all
-yellow boxes. Meanwhile going to [localhost](http://localhost) without that
-parameter still shows blue.
-
-<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619233248442058713/9e580867275ee1a7fd6b502c8b5c8e6fbc24ea8ec31759ac5b2326ea7fdc264c/column_sized_Screen_Shot_2016-10-28_at_10.43.02_AM.png" height="50%" width="50%"/>
-
-This technique is extremely powerful. New software was tested in
-production without customers being affected. You were able to test the new
-software on the live site before releasing to customers. In a real world
-scenario your testers can perform validation, you can load test, and you can
-demo to stakeholders without running through a complicated multi-environment
-scenario.
-
-### Testing latency and error rates
-
-In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
-
-URL parameters passed to the web page at http://localhost can be used to control the mean latency and error rate of each of the different server colors.
-
-#### Parameter effect
-- x-color-delay
-  Sets the mean delay in milliseconds.
-- x-color-error
-  Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
-
-The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described.
-
 ### Incremental release
 
 If you navigate to [localhost?X-TBN-Version=green](http://localhost?X-TBN-
@@ -223,6 +174,67 @@ is complete.
 Congratulations! You've safely and incrementally released a new version of your
 production software. Both blue and green versions are still running; if a
 problem were found with green, a rollback to blue would be just as easy.
+
+### Browser overrides
+
+Let’s test our yellow dev version before we release it to customers. tbnproxy
+allows you to route to service instances based on headers set in the request.
+Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
+the zone you’re working with (local-demo by default). Click settings -> edit
+routes, and select local-demo:80/api from the top left dropdown. You should see
+the following screen
+
+![new screenshot of yellow release](link to release image)
+
+Click “Add Rule” from the top right, and enter the following values.
+
+![new screenshot of settings to use yellow version](link to app with values for yellow server)
+
+This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
+finds that header, it uses the value to find servers in the local-demo-api-
+cluster that have a matching version tag. For example, setting `X-TBN-Version:
+blue` on a request would match blue production servers, and `X-TBN-Version: yellow` would match yellow dev servers.
+
+The demo app converts a `X-TBN-Version` query parameter into a
+header in calls to the backend; if you navigate to [localhost?X-TBN-
+Version=yellow](http://localhost?X-TBN- Version=yellow) you should see all
+yellow boxes. Meanwhile going to [localhost](http://localhost) without that
+parameter still shows blue or green based on the release state of previous steps in this guide.
+
+<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619233248442058713/9e580867275ee1a7fd6b502c8b5c8e6fbc24ea8ec31759ac5b2326ea7fdc264c/column_sized_Screen_Shot_2016-10-28_at_10.43.02_AM.png" height="50%" width="50%"/>
+
+This technique is extremely powerful. New software was tested in
+production without customers being affected. You were able to test the new
+software on the live site before releasing to customers. In a real world
+scenario your testers can perform validation, you can load test, and you can
+demo to stakeholders without running through a complicated multi-environment
+scenario, even during another release.
+
+### Testing latency and error rates
+
+In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
+
+URL parameters passed to the web page at http://localhost can be used to control the mean latency and error rate of each of the different server colors.
+
+*an example*
+The following URL will show an error rate and delayed response for green and blue servers.
+
+```
+http://localhost/?x-blue-delay=25&x-blue-error=.001&x-green-delay=10&x-green-error=.25
+```
+
+This will simulate a bad green release, and a need to rollback to a known good blue release.
+
+#### Parameter effect
+
+These parameters can be modified in the above example as follows:
+
+- x-color-delay
+  Sets the mean delay in milliseconds.
+- x-color-error
+  Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
+
+The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described. This effect can help you visualize the effects of a bad release, or issue with the code in a new version of your application, which would be cause to step-down the release and return traffic to a known good version.
 
 ## Next steps
 
