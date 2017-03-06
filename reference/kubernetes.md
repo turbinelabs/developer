@@ -15,65 +15,88 @@
 
 ## Prerequisites
 
-### Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration) guide
-This will ensure your API key, domain, zone, routes, and other key components
-are set up correctly.
+### A Turbine Labs API key
+Make sure you have a valid Turbine Labs API key. If you don't email
+support@turbinelabs.io to get set up. This tutorial assumes you've set
+an environment variable named $TBN_API_KEY to the value of your API
+key, e.g. (in bash)
 
-### Follow the [GKE quick start guide](https://cloud.google.com/container-engine/docs/quickstart)
-Google's GKE Quick Start guide will walk you through setting up Google
-Container Engine, as well as a simple Node app, which we'll modify below.
+`export TBN_API_KEY=ed6b67e9-31d4-4413-5a8d-23c863405ecf`
 
-### Service discovery with tbncollect
-tbncollect can filter applications based on labels as well as port names.
+### A functional kubernetes cluster
+If you don't have one, the
+[GKE quick start guide](https://cloud.google.com/container-engine/docs/quickstart) is
+a great resource to get one set up quickly.
 
-- By default the label selector is set to all labels, and the port name filter
-is set to “http”.
-  - This means you will need to name ports in your environment if you want them
-  exposed via tbnproxy, or configure tbncollect (usually via environment
-  variables) to use a different set of filters.
+### The tbnctl CLI
 
-## Updating the demo app
-First, you need to update our demo app to be discoverable by tbncollect. Next,
-you’ll need to add a label to pods and name the exposed port 80. The following
-labels are what the agent process will look for:
-
-- run
-- name
-- tbn_cluster
-- app
-
-Run this command to edit the labels:
+tbnctl is a CLI for interacting with the Turbine Labs public API, and
+is used throughout this guide to set up tbnproxy. Install tbnctl with
+these commands (Requires installation of Go):
 
 ```shell
-kubectl edit deployment hello-node
+go get -u github.com/turbinelabs/tbnctl
+go install github.com/turbinelabs/tbnctl
 ```
 
-and add the following lines:
+## Creating a Zone
+
+The highest level unit of organization in the Turbine Labs API is a
+zone. We'll use the zone "testbed" in the examples, but you can
+substitute your own if you already have one created. To create the
+testbed zone you can run 
+
+```shell
+tbnctl init-zone testbed
+```
+
+You should now be able to see your zone by running
+
+```shell
+tbnctl list zone
+```
+
+## Adding your API key to kubernetes
+
+To avoid having your API key visible in environment variables (which
+area easy to inadvertently expose in logs and the command line) we
+recommend you store it as a kubernetes secret. Executing the following
+command will create a new secret with your API key, that we can
+reference from other deployment specs.
+
+```shell
+kubectl create secret generic tbnsecret --from-literal=apikey=$TBN_API_KEY
+```
+
+## Setting up Service Discovery
+
+Tbncollect is a container that scans your kubernetes clusters for
+pods and groups them into clusters in the Turbine Labs API. To deploy
+tbncollect to kubernetes run
+
+```shell
+kubectl create -f tbncollect-spec.yaml
+```
+
+where tbncollect-spec.yaml contains
 
 ```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this
-# file will be reopened with the relevant failures.
-#
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
     deployment.Kubernetes.io/revision: "2"
-  creationTimestamp: 2016-09-07T23:27:25Z
   generation: 4
   labels:
-  run: hello-node
-  name: hello-node
+    run: tbncollect
+  name: tbncollect
   namespace: default
   resourceVersion: "427"
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/hello-node
-  uid: a2421d42-7552-11e6-8bf4-42010a8a00ae
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: hello-node
+      run: tbncollect
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -83,15 +106,73 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        run: hello-node
-        tbn_cluster: hello-node
-        app: hello-node
+        run: tbncollect
+    spec:
+      containers:
+      - image: turbinelabs/tbncollect:latest
+        imagePullPolicy: IfNotPresent
+        name: tbncollect
+        env:
+        - name: TBNCOLLECT_COMMAND
+          value: kubernetes
+        - name: TBNCOLLECT_API_ZONE_NAME
+          value: testbed
+        - name: TBNCOLLECT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tbn_secret
+              key: api_key
+        resources: {}
+```
+
+## The all-in-one demo
+
+We'll use the same client application described in
+our
+[quickstart](https://docs.turbinelabs.io/docs/versions/1.0/quick-start) for
+these examples. To deploy the all-in-one client, run
+
+```shell
+kubectl create -f all-in-one-client.yaml
+```
+
+where the contents of all-in-one-client.yaml are
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: all-in-one-client
+  name: all-in-one-client
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: all-in-one-client
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: all-in-one-client
+        tbn_cluster: all-in-one-client
+        app: all-in-one-client
 
     spec:
       containers:
-      - image: gcr.io/testbed-141620/hello-node:v1
+      - image: turbinelabs/all-in-one-client:latest
         imagePullPolicy: IfNotPresent
-        name: hello-node
+        name: all-in-one-client
         ports:
         - containerPort: 8080
           name: http
@@ -99,121 +180,271 @@ spec:
         resources: {}
 ```
 
-Kubernetes will automatically terminate the old instance and start a new,
-discoverable copy.
-
-## Deploying tbnproxy
-Next, you deploy tbnproxy with this command:
+Next, deploy the all-in-one server by running
 
 ```shell
-kubectl run tbnproxy --image=gcr.io/$PROJECT_ID/tbnproxy:latest --port=80 --env="TBNPROXY_API_KEY=$TBN_API_KEY" --env="TBNPROXY_API_ZONE_NAME=testbed" --env="TBNPROXY_PROXY_NAME=tbnproxy-1"
+kubectl -f all-in-one-server.yaml
 ```
 
-### Deploying tbncollect
-Use the following to deploy tbncollect:
+Where all-in-one-server.yaml is
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: all-in-one-server
+  name: all-in-one-server
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: all-in-one-server
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: all-in-one-server
+        tbn_cluster: all-in-one-server
+        stage: prod
+        app: all-in-one-server
+
+    spec:
+      containers:
+      - image: turbinelabs/all-in-one-server:latest
+        imagePullPolicy: IfNotPresent
+        name: all-in-one-server
+        env:
+        - name: TBN_COLOR
+          value: 1B9AE4
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}
+```
+
+Now we'll deploy a new version of the server that returns green as the
+color to paint blocks.
 
 ```shell
-kubectl run tbncollect --image=gcr.io/$PROJECT_ID/tbncollect:v1 --env=”TBNCOLLECT_CMD=Kubernetes” --env=”TBNCOLLECT_API_KEY=$TBN_API_KEY” --env=”TBNCOLLECT_API_ZONE_NAME=testbed”
+kubectl -f all-in-one-server.yaml
 ```
 
-### Verifying the Demo Instances
-Once these pods are running, you should be able to see instances show up in the
-Turbine Labs Service:
+Where all-in-one-server.yaml is
 
-```shell
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
+```yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: all-in-one-server
+  name: all-in-one-server
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: all-in-one-server
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: all-in-one-server
+        tbn_cluster: all-in-one-server
+        stage: prod
+        app: all-in-one-server
+
+    spec:
+      containers:
+      - image: turbinelabs/all-in-one-server:latest
+        imagePullPolicy: IfNotPresent
+        name: all-in-one-server
+        env:
+        - name: TBN_COLOR
+          value: 83D061
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}
 ```
 
-*Example Response*:
-
-```javascript
-{
-   "result" : {
-      "checksum" : "<your checksum value>",
-      "name" : "hello-node",
-      "instances" : [
-         {
-            "metadata" : [
-               {
-                  "key" : "pod-template-hash",
-                  "value" : "3891907727"
-               },
-               {
-                  "key" : "run",
-                  "value" : "hello-node"
-               }
-            ],
-            "host" : "10.0.0.4",
-            "port" : 8080
-         }
-      ],
-      "cluster_key" : "<your cluster key>",
-      "zone_key" : "<your zone key>"
-   }
-}
-```
-
-You should also be able to see your instances mapped to the nginx config
-running in tbnproxy
+Ensure that these pods have started correctly by running
 
 ```shell
 kubectl get pods
 ```
 
-```
-NAME                             READY     STATUS    RESTARTS   AGE
-hello-node-3891907727-oxy9c      1/1       Running   0          10m
-tbnproxy-741222945-xzpdt     1/1       Running   0          7m
-tbncollect-3747088091-thd4q   1/1       Running   0          6m
-```
+And then verify tbncollect has discovered them and added them to
+appropriate clusters by running
 
 ```shell
-kubectl exec tbnproxy-741222945-xzpdt cat /etc/nginx/nginx.conf | grep -A 6 "upstream hello-node"
+tbnctl list cluster
 ```
+
+You should see an all-in-one-client and all-in-one-server cluster,
+each with a single node
+
+## Adding a domain and proxy
+
+Tbnproxy is the container that handles request routing. It serves
+traffic for a set of domains, which in turn contain release groups and
+routes. We'll create the domain first
+
+```shell
+echo '{"name": "testbed-domain", "zone_key": "<your zone key>", "port": 80}' | tbnctl create domain
+```
+
+And then add the proxy, substituting the domain key from the create
+domain command.
+
+```shell
+echo '{"name": "testbed-proxy", "zone_key": "<your zone key>", "domain_keys": ["<domain_key>"]}' | tbnctl create proxy
+```
+
+Now we're ready to deploy tbnproxy to kubernetes.
+
+```shell
+kubectl create -f tbnproxy-spec.yaml
+```
+
+where tbnproxy-spec.yaml contains
 
 ```yaml
-  upstream hello-node {
-    tbn_balancer {
-      tbn_server 10.0.0.4:8080 {
-        metadatum pod-template-hash 3891907727;
-        metadatum run hello-node;
-      }
-    }
---
-          upstream hello-node {
-            weight 100;
-            constraint app hello-node;
-          }
-        }
-      }
-    }
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: tbnproxy
+  name: tbnproxy
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: tbnproxy
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: tbnproxy
+    spec:
+      containers:
+      - image: turbinelabs/tbnproxy:latest
+        imagePullPolicy: Always
+        name: tbnproxy
+        env:
+        - name: TBNPROXY_PROXY_NAME
+          value: testbed-proxy
+        - name: TBNPROXY_API_ZONE_NAME
+          value: testbed
+        - name: TBNPROXY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tbnsecret
+              key: apikey
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
 ```
 
-## Exposing tbnproxy to the internet
+## Expose tbnproxy to the external network
 
-### GKE
-To expose tbnproxy to the internet you create a LoadBalancer for the service
+This is environment specific. If you're running in GKE you can use the
+following path. First, expose the deployment on a NodePort to make it
+accessible outside the local kubernetes network
 
 ```shell
-kubectl expose deployment tbnproxy --type="LoadBalancer"
+kubectl expose deployment tbnproxy --target-port=80 --type=LoadBalancer
 ```
 
 Then wait for an external IP address to be created (this may take some time)
 
 ```shell
-kubectl get services
+kubectl get services --watch
 ```
 
-```
+```shell
 NAME           CLUSTER-IP     EXTERNAL-IP       PORT(S)   AGE
 Kubernetes     10.3.240.1     <none>            443/TCP   24m
 tbnproxy   10.3.241.247   104.198.110.237   80/TCP    5m
 ```
+## Configure routes
+
+Now we have a proxy running and exposed to the internet, along with
+clusters and instances configured in the Turbine Labs service. Next we
+map requests to clusters. Log in to https://app.turbinelabs.io with
+your email address and API key.
+
+First we'll create a route to send traffic to the all-in-one
+client.
+
+1. Make sure you have the appropriate zone selected in the top left
+portion of the screen.
+2. Click settings in  the top right portion of the screen, and then
+click edit routes.
+3. Click more, then create route.
+4. Select your domain in the domain drop down
+5. Enter "/" in the path field
+5. Click the release group dropdown and select "create new release
+   group"
+6. Select "all-in-one-client" from the service drop down
+7. Enter "client" in the release group name field
+8. Click "create route and release group"
+
+Now we'll repeat these steps to create a route to send anything going
+to /api to the all-in-one server
+
+1. Click settings in  the top right portion of the screen, and then
+click edit routes.
+2. Click more, then create route.
+3. Select your domain in the domain drop down
+4. Enter "/api" in the path field
+4. Click the release group dropdown and select "create new release
+   group"
+5. Select "all-in-one-server" from the service drop down
+6. Enter "server" in the release group name field
+7. Click "create route and release group"
+
+## Verifying your deploy
+
+Now visit your load balancer, and you should see the all-in-one client
+running. To get the IP address for your deployment you can run 
+
 
 ```shell
-curl <ip address> -H "Host: <my.example.domain>"
+kubectl get service
 ```
 
-```
-Hello World!
-```
+copy the EXTERNAL-IP field for the tbnproxy service, and paste that
+into the address bar of your browser.
