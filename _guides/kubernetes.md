@@ -1,3 +1,7 @@
+---
+layout: page
+title: Kubernetes Guide
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
@@ -129,7 +133,7 @@ spec:
 
 We'll use the same client application described in
 our
-[quickstart](https://docs.turbinelabs.io/docs/versions/1.0/quick-start) for
+[quickstart]({{ "/reference/#quick-start" | relative_url }}) for
 these examples. To deploy the all-in-one client, run
 
 ```shell

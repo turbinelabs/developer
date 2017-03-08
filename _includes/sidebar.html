@@ -1,0 +1,15 @@
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <a href="/"><img src="/assets/Turbine_Labs_Logo_Horiz_3c_Reverse.svg"/></a>
+
+    <nav class="sidebar-nav">
+        {% assign sorted_refs = site.reference | sort: 'print_order' %}
+        {% include sidebar_section.html collection=sorted_refs %}
+        <p>
+        {% assign sorted_guides = site.guides | sort_natural: 'print_orderk' %}
+        {% include sidebar_section.html collection=sorted_guides %}
+    </nav>
+
+    <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
+  </div>
+</div>

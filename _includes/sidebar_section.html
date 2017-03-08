@@ -1,0 +1,22 @@
+{% assign has_summary = false %}
+{% assign collection = include.collection %}
+
+{% for node in collection %}
+  {% if node.relative_path contains "index.md" %}
+    {% assign has_summary = true %}
+  {% endif %}
+{% endfor %}
+
+<h2>{{ collection[0].collection | capitalize }}</h2>
+{% for node in collection %}
+{% if node.title != null %}
+{% if node.relative_path contains "index.md" %}
+{% else %}
+{% if has_summary %}
+<a class="sidebar-nav-item" href="/{{ node.collection }}#{{ node.title | slugify }}">{{node.title }}</a>
+{% else %}
+<a class="sidebar-nav-item" href="{{ node.url }}">{{node.title }}</a>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

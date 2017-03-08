@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+{% for coll in site.collections %}
+  {% if coll.label == page.collection_name %}
+    {% if coll.docs[0].print_order == nil %}
+      {% assign sorted_pages = coll.docs %}
+    {% else %}
+      {% assign sorted_pages = coll.docs | sort: 'print_order' %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% for page in sorted_pages %}
+{% if page.relative_path contains 'index.md' %}
+{% else %}
+<a name="{{page.title | slugify }}"></a>
+<h1>{{page.title}}</h1>
+{{ page.content | markdownify }}
+{% endif %}
+{% endfor %}

@@ -1,3 +1,7 @@
+---
+layout: page
+title: Consul Guide
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
@@ -13,7 +17,8 @@
 
 [//]: # (Integrating Houston with Consul)
 
-## Follow the [configuration guide](https://docs.turbinelabs.io/docs/versions/1.0/configuration)
+## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
+
 This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 

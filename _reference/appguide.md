@@ -1,3 +1,8 @@
+---
+layout: page
+title: Application Usage Guide
+print_order: 6
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )

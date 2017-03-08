@@ -1,3 +1,8 @@
+---
+layout: page
+title: Use Cases
+print_order: 2
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
@@ -11,7 +16,8 @@
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-## Incremental release <a id="incremental-release"></a>
+<a id="incremental-release"></a>
+## Incremental release
 
 Blue/green deploy (aka Red/Black deploys or A/B deploys) is a
 technique detailed by Martin Fowler -
@@ -29,7 +35,8 @@ traffic away from the new version.
 
 <img width="70%" height="70%" alt="Blue Green" src="https://img.turbinelabs.io/2017-02-09/bluegreen_lm.svg"/>
 
-## Testing in production <a id="testing"></a>
+<a id="testing"></a>
+## Testing in production
 
 There are a lot of ways to test software. Unit tests, integration tests,
 staging environments, and manual test suites are all good at catching different
@@ -43,7 +50,8 @@ allow engineers to inspect the bad version at their own pace.
 
 <img width="70%" height="70%" alt="Test in Prod" src="https://img.turbinelabs.io/2017-02-09/testinprod_lm.svg"/>
 
-## Monolith decomposition <a id="monolith"></a>
+<a id="monolith"></a>
+## Monolith decomposition
 
 Many applications begin life as a single, monolithic service. As both the
 application and the team grow, there is often a desire to split the monolith

@@ -1,3 +1,8 @@
+---
+layout: page
+title: Houston Architecture
+print_order: 3
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
@@ -64,9 +69,9 @@ granularity.
 While the Turbine Labs software will run on a wide variety of
 architectures, we've built specific integrations
 with
-[Kubernetes](https://docs.turbinelabs.io/guides/integrating-houston-with-kubernetes),
-[Marathon](https://docs.turbinelabs.io/guides/integrating-houston-with-marathon),
-[Docker on EC2](https://docs.turbinelabs.io/guides/integrating-houston-with-docker-on-ec2), [ECS](https://docs.turbinelabs.io/guides/integrating-houston-with-ecs), and [Consul](https://docs.turbinelabs.io/guides/integrating-houston-with-consul) We
+[Kubernetes]({{ "/guides/kubernetes.html" | relative_url }}),
+[Marathon]({{ "/guides/marathon.html" | relative_url }}),
+[Docker on EC2]({{ "/guides/ec2-setup.html" | relative_url }}), [ECS]({{ "/guides/ecs-setup.html" | relative_url }}), and [Consul]({{ "/guides/consul.html" | relative_url }}) We
 plan to add more integrations in the future, and our YAML/JSON file
 polling mechanism provides extensibility if you wish to create your
 own.

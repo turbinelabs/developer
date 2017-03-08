@@ -1,3 +1,9 @@
+---
+layout: page
+title: Quickstart
+print_order: 4
+---
+
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
 [//]: # ( You may obtain a copy of the License at                             )
@@ -241,12 +247,8 @@ The latency and error rates are passed to the demo servers as HTTP headers with 
 Now that you've seen demo app in action, you can move on to deploying Houston in your own environment. After reading the configuration guide below, proceed to
 one of the following cloud integrations:
 
-- [Kubernetes](https://docs.turbinelabs.io/guides/integrating-houston-with-kubernetes)
-
-- [Marathon](https://docs.turbinelabs.io/guides/integrating-houston-with-marathon)
-
-- [Docker on EC2](https://docs.turbinelabs.io/guides/integrating-houston-with-docker-on-ec2)
-
-- [ECS](https://docs.turbinelabs.io/guides/integrating-houston-with-ecs
-
-- [Consul](https://docs.turbinelabs.io/guides/integrating-houston-with-consul)
+- [Kubernetes](../guides/kubernetes.html)
+- [Marathon](../guides/marathon.html)
+- [Docker on EC2](../guides/ec2-setup.html)
+- [ECS](../guides/ecs-setup.html)
+- [Consul](../guides/consul.html)

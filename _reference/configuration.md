@@ -1,3 +1,8 @@
+---
+layout: page
+title: Configuration
+print_order: 5
+---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
@@ -31,7 +36,7 @@ Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your
 [Github](https://www.github.com) account and we'll get you set up with an
 account.
 
-[tbnctl](https://docs.turbinelabs.io/guides/tbnctl-guide) is a CLI for
+[tbnctl]({{ "/guides/tbnctlguide.html" | relative_url }}) is a CLI for
 interacting with the Turbine Labs public API, and is used throughout this guide
 to set up tbnproxy. Install tbnctl with these commands (Requires installation of [Go](https://golang.org/dl/)):
 
@@ -459,12 +464,8 @@ Domain <my.example.com>.
 With your initial setup complete, choose one of the below cloud platforms to
 learn how to install, run, and use tbnproxy:
 
-- [Kubernetes](https://docs.turbinelabs.io/guides/integrating-houston-with-kubernetes)
-
-- [Marathon](https://docs.turbinelabs.io/guides/integrating-houston-with-marathon)
-
-- [Docker on EC2](https://docs.turbinelabs.io/guides/integrating-houston-with-docker-on-ec2)
-
-- [ECS](https://docs.turbinelabs.io/guides/integrating-houston-with-ecs
-
-- [Consul](https://docs.turbinelabs.io/guides/integrating-houston-with-consul)
+- [Kubernetes](../guides/kubernetes.html)
+- [Marathon](../guides/marathon.html)
+- [Docker on EC2](../guides/ec2-setup.html)
+- [ECS](../guides/ecs-setup.html)
+- [Consul](../guides/consul.html)
