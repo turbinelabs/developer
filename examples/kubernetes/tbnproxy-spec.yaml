@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: tbnproxy
+  name: tbnproxy
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: tbnproxy
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: tbnproxy
+    spec:
+      containers:
+      - image: turbinelabs/tbnproxy:latest
+        imagePullPolicy: Always
+        name: tbnproxy
+        env:
+        - name: TBNPROXY_PROXY_NAME
+          value: testbed-proxy
+        - name: TBNPROXY_API_ZONE_NAME
+          value: testbed
+        - name: TBNPROXY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tbnsecret
+              key: apikey
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}

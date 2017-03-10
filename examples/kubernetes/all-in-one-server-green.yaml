@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.Kubernetes.io/revision: "2"
+  generation: 4
+  labels:
+    run: all-in-one-server
+  name: all-in-one-server-green
+  namespace: default
+  resourceVersion: "427"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: all-in-one-server-green
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: all-in-one-server-green
+        tbn_cluster: all-in-one-server
+        stage: prod
+        app: all-in-one-server
+        version: green
+    spec:
+      containers:
+      - image: turbinelabs/all-in-one-server:latest
+        imagePullPolicy: IfNotPresent
+        name: all-in-one-server
+        env:
+        - name: TBN_COLOR
+          value: 83D061
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}
