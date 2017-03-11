@@ -7,7 +7,7 @@
 
 .sidebar {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: $spacing-unit/2 $spacing-unit;
   color: rgba(255,255,255,.5);
   background-color: $tbn-grey;
 
@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 18rem;
+    width: 6 * $spacing-unit;
     text-align: left;
   }
 }
