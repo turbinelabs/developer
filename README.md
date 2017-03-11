@@ -20,7 +20,8 @@ The developer project is meant to:
 1. describe our methodology for open-sourcing software
 
 2. provide a mechanism for the community to submit patches to our
-   [documentation](https://docs.turbinelabs.io/).
+   [documentation](https://docs.turbinelabs.io/). See
+   [docs-site](docs-site/README.md) for more info.
 
 # Turbine Labs Open Source Projects
 

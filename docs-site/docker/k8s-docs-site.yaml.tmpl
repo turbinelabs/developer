@@ -1,0 +1,38 @@
+#@COOKIE=Tbn-Docs-site-Version
+#@REPLICAS_PROD=3
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: docs-site-{{stage}}-{{tag}}
+  labels:
+    app: docs-site
+    stage: {{stage}}
+    version: {{tag}}
+spec:
+  replicas: {{replicas}}
+  template:
+    metadata:
+      labels:
+        app: docs-site
+        stage: {{stage}}
+        version: {{tag}}
+        tbn_cluster: docs-site
+    spec:
+      containers:
+      - name: docs-site
+        image: "turbinelabs/docs-site:{{tag}}"
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+        env:
+        - name: STATIC_HOST_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: GOOGLE_ANALYTICS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: docs-google-analytics
+              key: trackingID

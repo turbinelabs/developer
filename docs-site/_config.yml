@@ -22,6 +22,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: goturbine
 github_username:  turbinelabs
+google_analytics: "{{env GOOGLE_ANALYTICS_KEY}}"
 
 # Build settings
 markdown: redcarpet
@@ -35,7 +36,7 @@ exclude:
   - LICENSE
   - README.md
   - README-jekyll.md
-  - developer.
+  - docker
 collections:
   reference:
     output: true

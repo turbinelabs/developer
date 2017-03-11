@@ -19,7 +19,7 @@ categories to group content. Reference (located in the _reference
 directory) contains a linear walk through of concepts, architecture,
 all-in-one demo, and installation and configuration. Guides (located
 in the _guides directory) are focused, goal oriented articles,
-e.g. "get this working on GKE". 
+e.g. "get this working on GKE".
 
 Open items include
 
@@ -29,7 +29,7 @@ Open items include
 # Getting your rubies set up
 
 Jekyll is built with ruby. There are many ways to install ruby on a
-mac. Pic the one that is least infuriating to you. Using homebrew is a
+mac. Pick the one that is least infuriating to you. Using homebrew is a
 fine answer. You'll also need gems (installed with ruby if you're
 using homebrew) and bundler, because how else are you going to gem
 up your gems.
@@ -43,7 +43,7 @@ then verify you have reasonably modern versions
 
 ```shell
 > ruby -v
-ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin16]
+ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
 > bundle -v
 Bundler version 1.14.6
 ```
