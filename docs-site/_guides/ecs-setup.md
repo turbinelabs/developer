@@ -146,7 +146,7 @@ _Example task definition_
 ## Install tbncollect
 Install tbncollect with this task definition and note the variables you'll need
 to modify to match your environment and API key. Please note you can only
-install one cluster per Turbine Labs' zone:
+run one collector per Turbine Labs' zone:
 
 ```command
 aws ecs \
