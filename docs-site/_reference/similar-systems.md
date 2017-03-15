@@ -22,6 +22,7 @@ Amazon's Elastic Load Balancer (ELB) is the standard load balancing solution
 for AWS. It provides basic layer 4 and layer 7 load balancing as well as SSL
 termination, and is deeply integrated with AWS networking. Houston works
 well in conjunction with ELB, offering:
+
   * Finer grained layer 7 request routing
   * Deeper, customer-centric request metrics
   * A web UI optimized to quickly and safely shift production traffic
@@ -34,6 +35,7 @@ Amazon recently released their Application Load Balancer (ALB). It adds support
 for HTTP/2, web sockets, and balancing across multiple service ports (provided
 you're using ECS, Amazon's Container Service). Houston also works well in
 conjunction with ALB, offering most of the same advantages over ELB:
+
   * Finer grained layer 7 request routing
   * Deeper, customer-centric request metrics
   * A web UI optimized to quickly and safely shift production traffic
@@ -43,6 +45,7 @@ conjunction with ALB, offering most of the same advantages over ELB:
 
 NGINX is one of the most commonly used reverse proxies, and Houston uses
 it for traffic handling. Compared to a standard NGINX proxy Houston adds:
+
   * A centralized configuration management UI
   * Deeper, customer-centric request metrics
   * Finer grained layer 7 request routing
@@ -54,6 +57,7 @@ it for traffic handling. Compared to a standard NGINX proxy Houston adds:
 HAProxy is another widely used software load balancer. The advantages Houston
 provides over a standard HAProxy install are similar to its advantages
 over NGINX:
+
   * A centralized configuration management UI
   * Deeper, customer centric request metrics
   * Finer grained layer 7 request routing
