@@ -49,18 +49,21 @@ source projects, while keeping each project relatively small and purpose-driven.
 - [Project layout](#layout)
 
 <a name="languages"/>
+
 ## Languages
 
 Our source code is written almost entirely in [Go](https://golang.org/).
 Most of what we talk about below is targeted at Go development.
 
 <a name="homing"/>
+
 ## Homing
 
 The source of truth for all projects is our internal monorepo. We will push
 "slices" of it to smaller open-source projects at a roughly weekly cadence.
 
 <a name="versioning"/>
+
 ## Versioning
 
 We maintain a single, global version string for all Turbine Labs open-source
@@ -81,6 +84,7 @@ for lower-velocity repositories. We may introduce project-specific version
 numbers in the future, but for now are avoiding the operational overhead.
 
 <a name="vendoring"/>
+
 ## Dependencies and vendoring
 
 Turbine Labs open-source go projects will never publicly depend on anything
@@ -121,6 +125,7 @@ other code. Similarly, you will find it onerous to pin yourself to whatever
 old package version we're using. Best to pretend our vendored code isn't there.
 
 <a name="contributing"/>
+
 ## Contributing
 
 We decided to open-source our software chiefly because we felt people had a
@@ -146,6 +151,7 @@ All Turbine Labs open-sourced projects are released with a
 projects you agree to abide by its terms, which will be carefully enforced.
 
 <a name="layout"/>
+
 ## Project layout
 
 Here we describe each of the projects in brief, and show how they depend on
