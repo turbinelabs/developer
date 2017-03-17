@@ -152,16 +152,14 @@ green.
 
 ### Incremental release
 
-If you navigate to [localhost?X-TBN-Version=green](http://localhost?X-TBN-
-Version=green), you can verify that the green "production" version works too.
 Now we're ready to do an incremental release from blue to green. Right now the
 default rules for `/api` send all traffic to blue. Let’s introduce a small
 percentage of green traffic to customers.
 
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
 "Release Groups" below the top-line charts. The row "local-demo-api-cluster "
-should be marked "RELEASE READY". Click anywhere in the row to expand it, then
-click "release".
+should be marked "release ready". Click anywhere in the row to expand it, then
+click "start release".
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
 
@@ -190,11 +188,11 @@ the zone you’re working with (local-demo by default). Click settings -> edit
 routes, and select local-demo:80/api from the top left dropdown. You should see
 the following screen
 
-![new screenshot of yellow release](link to release image)
+<img src="https://img.turbinelabs.io/2017-03-17/all-in-one-edit-route.png"/>
 
 Click “Add Rule” from the top right, and enter the following values.
 
-![new screenshot of settings to use yellow version](link to app with values for yellow server)
+<img src="https://img.turbinelabs.io/2017-03-17/all-in-one-add-rule.png"/>
 
 This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
 finds that header, it uses the value to find servers in the local-demo-api-
