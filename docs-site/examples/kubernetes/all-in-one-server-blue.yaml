@@ -37,6 +37,8 @@ spec:
         env:
         - name: TBN_COLOR
           value: 1B9AE4
+        - name: TBN_NAME
+          value: blue
         ports:
         - containerPort: 8080
           name: http

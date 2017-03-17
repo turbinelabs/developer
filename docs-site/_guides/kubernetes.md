@@ -100,13 +100,6 @@ Next, deploy the all-in-one server by running
 kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-blue.yaml
 ```
 
-Now we'll deploy a new version of the server that returns green as the color to
-paint blocks.
-
-```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-green.yaml
-```
-
 Ensure that these pods have started correctly by running
 
 ```shell
@@ -119,7 +112,6 @@ You should see output similar to the following
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
-all-in-one-server-green-3537570873-7npmx   1/1       Running   0          22s
 tbncollect-3235735371-f594t                1/1       Running   0          3m
 ```
 
@@ -131,8 +123,8 @@ tbnctl list --format=summary cluster
 ```
 
 You should see a `name: all-in-one-client` cluster with a single instance and a
-`name: all-in-one-server` cluster with two instances, one with `version: green`
-and one with `version: blue`.
+`name: all-in-one-server` cluster with one instances and a `name:
+all-in-one-client`.
 
 ## Adding a domain and proxy
 
@@ -227,7 +219,202 @@ kubectl get service
 copy the EXTERNAL-IP field for the tbnproxy service, and paste that into the
 address bar of your browser.
 
-Now that you're up and running with Houston on Kubernetes, you should head over
-to [Demo
-Exercises](https://docs.turbinelabs.io/docs/versions/1.0/quick-start#demo-exercises)
-to learn more about metrics, dynamic routing, and managing releases.
+## Demo Exercises
+
+Now that you're up and running with Houston on Kubernetes, let's walk
+through some product use cases.
+
+### What's going on here?
+
+The all-in-one client provides
+a UI and a set of services that help visualize changes in the mapping of user
+requests to backend services. This lets you visualize the impact of
+Houston on a real deployment without having to involve real customer
+traffic or load generators.
+
+The application is composed of three sets of
+blocks, each simulating a user making a request. These are simple users, and
+they all repeat the same request forever. The services they call return a color.
+When a user receives a response it paints the box that color, then waits a
+random amount of time to make another request. While it’s waiting the colors in
+the box fade. Users are organized into rows based on URL.
+
+<img height="50%" width="50%" src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684824296811398630/85fd3f987358bbbf866ace1ac6193f07fb5788a4302291a8e29c3eef7ac8c973/column_sized_Screen_Shot_2017-01-26_at_9.40.43_PM.png"/>
+
+You should see pulsating blue boxes for each service, to indicate the initial
+state of your production services.
+
+### Deployed state
+
+Let’s dig deeper into how tbnproxy routes traffic. Traffic is received by a
+proxy that handles traffic for a given domain. The proxy maps requests to
+service instances via routes and rules. Routes let you split your domain into
+manageable segments, for example `/bar` and `/baz`. Rules let you map requests
+to a constrained set of service instances in clusters, for example “by default
+send traffic to servers tagged with a key-value mapping of stage=production”.
+Clusters contain sets of service instances, each of which can be tagged with
+key/value pairs to provide more information to the routing engine.
+
+Your environment should look like the following
+
+<img src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-1.png"/>
+
+There is a single domain (`testbed-domain:80`) that contains two routes. `/api`
+handles requests to our demo service instances, and `/` handles
+requests for everything else (in this case the all-in-one app). There are
+two clusters. All-in-one-server cluster has 1 instance, tagged with a
+ version "blue" and a stage "prod". The all-in-one-client cluster has a single instance
+tagged prod.
+
+### Set up an initial route
+
+The rules currently map api traffic to all instances in the cluster.
+which is why an even split of green and blue boxes is showing. To
+enable the release workflow we need to constrain routing to a single
+version at a single stage, so let's configure Houston to route traffic
+to the blue version.
+
+1. Make sure you have the 'testbed' zone selected in the top left portion of the
+screen.
+2. Click the "Settings" menu in the top right portion of the screen, and then
+select "Edit Routes".
+3. Click the "select view" menu in the top left portion of the screen,
+   and select the api route.
+4. Change `1 to 'all-in-one-server'` to `1 to 'all-in-one-server
+   stage = prod & version = blue`
+5. Click "Save Release Group"
+
+If you look at the all-in-one client you should see all blue blocks,
+because we've constrained the routing to only go to servers in the
+cluster tagged with a version of "blue".
+
+### Deploying a new version
+
+Now we'll deploy a new version of the server that returns green as the color to
+paint blocks.
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-green.yaml
+```
+
+if you run 
+
+```shell
+kubectl get pods
+```
+
+you should see a new server pod running the green version
+
+```shell
+NAME                                       READY     STATUS    RESTARTS   AGE
+all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
+all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
+all-in-one-server-green-3537570873-7npmx   1/1       Running   0          22s
+tbncollect-3235735371-f594t                1/1       Running   0          3m
+```
+
+Your environment now looks like the following
+
+<img
+src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-2.png"/>
+
+The a new instance has been added to the all-in-one-server cluster,
+but no traffic is routed to it. Going to your client app you should
+still see only blue blocks, because we set our routing constraints in
+the previous step. Your environment now looks like the following
+
+### Testing before release
+
+Let’s test our green version before we release it to customers. tbnproxy
+allows you to route to service instances based on headers set in the request.
+Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
+the zone you’re working with (testbed by default). Click settings -> edit
+routes, and select testbed-domain:80/api from the top left dropdown. You should see
+the following screen
+
+Click “Add Rule” from the top right, and enter the following values.
+
+<img
+src="https://img.turbinelabs.io/2017-03-17/all-in-one-server-header-rule.png"/>
+
+This tells the proxy to look for a header called `X-TBN-Version`. If
+the proxy finds that header, it uses the value to find servers in the
+all-in-one-client cluster that have a matching version tag. For
+example, setting `X-TBN-Version: blue` on a request would match blue
+production servers, and `X-TBN-Version: green` would match yellow dev
+servers.
+
+The demo app converts a `X-TBN-Version` query parameter into a header
+in calls to the backend; if you navigate to
+`http://<your-client>?X-TBN-Version=green`
+you should see all green boxes. Meanwhile going to
+`http://<your-client>` without that parameter still shows blue.
+
+This technique is extremely powerful. New software was previewed in
+production without customers being affected. You were able to test the new
+software on the live site before releasing to customers. In a real world
+scenario your testers can perform validation, you can load test, and you can
+demo to stakeholders without running through a complicated multi-environment
+scenario, even during another release.
+
+### Incremental release
+
+Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
+"Release Groups" below the top-line charts. The row "server"
+should be marked "RELEASE READY". Click anywhere in the row to expand it, then
+click "start release".
+
+<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
+
+Let's send 25% of traffic to our new green version by 
+moving the slider and clicking "start release". The Release Group should now
+be marked "RELEASING".
+
+![Screen Shot 2017 01 26 At 9.48.28 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828276752909802/f33f12bdbbfc7ec76f36f51cbbfaa6ea4ed2acc8bb4a961363bdbe2003ec483c/column_sized_Screen_Shot_2017-01-26_at_9.48.28_PM.png)
+
+The all in one client should now show a mix of blue and green. You can
+increment the green percentage as you like. When you get to 100%, the release
+is complete.
+
+<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828961254933996/b030e8b9bbcbe04c615c87a327bebe7525ec97c4b82e71be357e71efe28a9b16/column_sized_Screen_Shot_2017-01-26_at_9.49.37_PM.png" width="50%" height="50%"/>
+
+Congratulations! You've safely and incrementally released a new version of your
+production software. Both blue and green versions are still running; if a
+problem were found with green, a rollback to blue would be just as easy.
+
+### Testing latency and error rates
+
+In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
+
+URL parameters passed to the client web page at can be used to control the mean latency and error rate of each of the different server colors.
+
+*an example*
+The following URL will show an error rate and delayed response for green and blue servers.
+
+```
+http://<your client>/?x-blue-delay=25&x-blue-error=.001&x-green-delay=10&x-green-error=.25
+```
+
+This will simulate a bad green release, and a need to rollback to a known good blue release.
+
+#### Parameter effect
+
+These parameters can be modified in the above example as follows:
+
+- x-color-delay
+  Sets the mean delay in milliseconds.
+- x-color-error
+  Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
+
+The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described. This effect can help you visualize the effects of a bad release, or issue with the code in a new version of your application, which would be cause to step-down the release and return traffic to a known good version.
+
+## Next steps
+
+Now that you've seen demo app in action, you can move on to deploying Houston in your own environment. After reading the configuration guide below, proceed to
+one of the following cloud integrations:
+
+- [Kubernetes](../guides/kubernetes.html)
+- [Marathon](../guides/marathon.html)
+- [Docker on EC2](../guides/ec2-setup.html)
+- [ECS](../guides/ecs-setup.html)
+- [Consul](../guides/consul.html)
