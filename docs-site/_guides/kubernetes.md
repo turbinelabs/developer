@@ -80,54 +80,7 @@ them into clusters in the Turbine Labs API. To deploy tbncollect to your
 Kubernetes cluster, run
 
 ```shell
-kubectl create -f tbncollect-spec.yaml
-```
-
-Where `tbncollect-spec.yaml` contains
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: tbncollect
-  name: tbncollect
-  namespace: default
-  resourceVersion: "427"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: tbncollect
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: tbncollect
-    spec:
-      containers:
-      - image: turbinelabs/tbncollect:latest
-        imagePullPolicy: IfNotPresent
-        name: tbncollect
-        env:
-        - name: TBNCOLLECT_CMD
-          value: kubernetes
-        - name: TBNCOLLECT_API_ZONE_NAME
-          value: testbed
-        - name: TBNCOLLECT_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tbnsecret
-              key: apikey
-        resources: {}
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbncollect-spec.yaml
 ```
 
 ## The all-in-one demo
@@ -138,161 +91,20 @@ our
 these examples. To deploy the all-in-one client, run
 
 ```shell
-kubectl create -f all-in-one-client.yaml
-```
-
-Where `all-in-one-client.yaml` contains
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: all-in-one-client
-  name: all-in-one-client
-  namespace: default
-  resourceVersion: "427"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: all-in-one-client
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: all-in-one-client
-        tbn_cluster: all-in-one-client
-        app: all-in-one-client
-
-    spec:
-      containers:
-      - image: turbinelabs/all-in-one-client:latest
-        imagePullPolicy: IfNotPresent
-        name: all-in-one-client
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        resources: {}
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-client.yaml
 ```
 
 Next, deploy the all-in-one server by running
 
 ```shell
-kubectl create -f all-in-one-server-blue.yaml
-```
-
-Where `all-in-one-server-blue.yaml` contains
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: all-in-one-server
-  name: all-in-one-server
-  namespace: default
-  resourceVersion: "427"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: all-in-one-server
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: all-in-one-server
-        tbn_cluster: all-in-one-server
-        stage: prod
-        app: all-in-one-server
-        version: blue
-
-    spec:
-      containers:
-      - image: turbinelabs/all-in-one-server:latest
-        imagePullPolicy: IfNotPresent
-        name: all-in-one-server
-        env:
-        - name: TBN_COLOR
-          value: 1B9AE4
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        resources: {}
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-blue.yaml
 ```
 
 Now we'll deploy a new version of the server that returns green as the color to
 paint blocks.
 
 ```shell
-kubectl create -f all-in-one-server-green.yaml
-```
-
-Where `all-in-one-server-green.yaml` contains
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: all-in-one-server
-  name: all-in-one-server-green
-  namespace: default
-  resourceVersion: "427"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: all-in-one-server-green
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: all-in-one-server-green
-        tbn_cluster: all-in-one-server
-        stage: prod
-        app: all-in-one-server
-        version: green
-    spec:
-      containers:
-      - image: turbinelabs/all-in-one-server:latest
-        imagePullPolicy: IfNotPresent
-        name: all-in-one-server
-        env:
-        - name: TBN_COLOR
-          value: 83D061
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        resources: {}
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-green.yaml
 ```
 
 Ensure that these pods have started correctly by running
@@ -315,7 +127,7 @@ Now verify that tbncollect has discovered your new pods and added them to the
 appropriate clusters by running
 
 ```shell
-tbnctl list cluster
+tbnctl list --format=summary cluster
 ```
 
 You should see a `name: all-in-one-client` cluster with a single instance and a
@@ -344,57 +156,7 @@ echo '{"name": "testbed-proxy", "zone_key": "<your zone key>", "domain_keys": ["
 Now we're ready to deploy tbnproxy to Kubernetes.
 
 ```shell
-kubectl create -f tbnproxy-spec.yaml
-```
-
-Where `tbnproxy-spec.yaml` contains
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: tbnproxy
-  name: tbnproxy
-  namespace: default
-  resourceVersion: "427"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: tbnproxy
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: tbnproxy
-    spec:
-      containers:
-      - image: turbinelabs/tbnproxy:latest
-        imagePullPolicy: Always
-        name: tbnproxy
-        env:
-        - name: TBNPROXY_PROXY_NAME
-          value: testbed-proxy
-        - name: TBNPROXY_API_ZONE_NAME
-          value: testbed
-        - name: TBNPROXY_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tbnsecret
-              key: apikey
-        ports:
-        - containerPort: 80
-          protocol: TCP
-        resources: {}
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbnproxy-spec.yaml
 ```
 
 ## Expose tbnproxy to the external network
