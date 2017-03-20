@@ -123,7 +123,7 @@ tbnctl list --format=summary cluster
 ```
 
 You should see a `name: all-in-one-client` cluster with a single instance and a
-`name: all-in-one-server` cluster with one instances and a `name:
+`name: all-in-one-server` cluster with one instance and a `name:
 all-in-one-client`.
 
 ## Adding a domain and proxy
@@ -259,16 +259,16 @@ Your environment should look like the following
 
 <img src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-1.png"/>
 
-There is a single domain (`testbed-domain:80`) that contains two routes. `/api`
-handles requests to our demo service instances, and `/` handles
-requests for everything else (in this case the all-in-one app). There are
-two clusters. All-in-one-server cluster has 1 instance, tagged with a
- version "blue" and a stage "prod". The all-in-one-client cluster has a single instance
-tagged prod.
+There is a single domain (`testbed-domain:80`) that contains two
+routes. `/api` handles requests to our demo service instances, and `/`
+handles requests for everything else (in this case the all-in-one
+app). There are two clusters. All-in-one-server cluster has one
+instance, tagged with a version "blue" and a stage "prod". The
+all-in-one-client cluster has a single instance tagged stage "prod".
 
 ### Set up an initial route
 
-The rules currently map api traffic to all instances in the cluster.
+The rules currently map api traffic to all instances in the cluster,
 which is why an even split of green and blue boxes is showing. To
 enable the release workflow we need to constrain routing to a single
 version at a single stage, so let's configure Houston to route traffic
@@ -278,9 +278,9 @@ to the blue version.
 screen.
 2. Click the "Settings" menu in the top right portion of the screen, and then
 select "Edit Routes".
-3. Click the "select view" menu in the top left portion of the screen,
+3. Click the "Select View" menu in the top left portion of the screen,
    and select the api route.
-4. Change `1 to 'all-in-one-server'` to `1 to 'all-in-one-server
+4. Change `1 to 'all-in-one-server'` to `1 to 'all-in-one-server'
    stage = prod & version = blue`
 5. Click "Save Release Group"
 
@@ -318,18 +318,18 @@ Your environment now looks like the following
 <img
 src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-2.png"/>
 
-The a new instance has been added to the all-in-one-server cluster,
-but no traffic is routed to it. Going to your client app you should
-still see only blue blocks, because we set our routing constraints in
-the previous step. Your environment now looks like the following
+The new instance has been added to the all-in-one-server cluster, but
+no traffic is routed to it. When returning to your client app, you
+should still see only blue blocks, because we set our routing
+constraints in the previous step.
 
 ### Testing before release
 
 Let’s test our green version before we release it to customers. tbnproxy
 allows you to route to service instances based on headers set in the request.
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
-the zone you’re working with (testbed by default). Click settings -> edit
-routes, and select testbed-domain:80/api from the top left dropdown. You should see
+the zone you’re working with (testbed by default). Click "Settings" -> "Edit
+Routes", and select testbed-domain:80/api from the top left dropdown. You should see
 the following screen
 
 Click “Add Rule” from the top right, and enter the following values.
@@ -341,8 +341,7 @@ This tells the proxy to look for a header called `X-TBN-Version`. If
 the proxy finds that header, it uses the value to find servers in the
 all-in-one-client cluster that have a matching version tag. For
 example, setting `X-TBN-Version: blue` on a request would match blue
-production servers, and `X-TBN-Version: green` would match yellow dev
-servers.
+servers, and `X-TBN-Version: green` would match green servers.
 
 The demo app converts a `X-TBN-Version` query parameter into a header
 in calls to the backend; if you navigate to
@@ -362,12 +361,12 @@ scenario, even during another release.
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
 "Release Groups" below the top-line charts. The row "server"
 should be marked "RELEASE READY". Click anywhere in the row to expand it, then
-click "start release".
+click "Start Release".
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
 
 Let's send 25% of traffic to our new green version by 
-moving the slider and clicking "start release". The Release Group should now
+moving the slider and clicking "Start Release". The release group should now
 be marked "RELEASING".
 
 ![Screen Shot 2017 01 26 At 9.48.28 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828276752909802/f33f12bdbbfc7ec76f36f51cbbfaa6ea4ed2acc8bb4a961363bdbe2003ec483c/column_sized_Screen_Shot_2017-01-26_at_9.48.28_PM.png)
@@ -406,15 +405,9 @@ These parameters can be modified in the above example as follows:
 - x-color-error
   Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
 
-The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described. This effect can help you visualize the effects of a bad release, or issue with the code in a new version of your application, which would be cause to step-down the release and return traffic to a known good version.
-
-## Next steps
-
-Now that you've seen demo app in action, you can move on to deploying Houston in your own environment. After reading the configuration guide below, proceed to
-one of the following cloud integrations:
-
-- [Kubernetes](../guides/kubernetes.html)
-- [Marathon](../guides/marathon.html)
-- [Docker on EC2](../guides/ec2-setup.html)
-- [ECS](../guides/ecs-setup.html)
-- [Consul](../guides/consul.html)
+The latency and error rates are passed to the demo servers as HTTP
+headers with the same name and value as the URL parameters
+described. You can use these parameters to help you visualize the
+effects of a bad release, or an issue with the code in a new version
+of your application, which would be cause to step-down the release and
+return traffic to a known-good version.

@@ -158,13 +158,13 @@ percentage of green traffic to customers.
 
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
 "Release Groups" below the top-line charts. The row "local-demo-api-cluster "
-should be marked "release ready". Click anywhere in the row to expand it, then
-click "start release".
+should be marked "RELEASE READY". Click anywhere in the row to expand it, then
+click "Start Release".
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
 
-Let's send 25% of traffic to our new green version by either
-moving the slider or typing "25" in the text box. The Release Group should now
+Let's send 25% of traffic to our new green version by
+moving the slider and clicking "Start Release". The release group should now
 be marked "RELEASING".
 
 ![Screen Shot 2017 01 26 At 9.48.28 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828276752909802/f33f12bdbbfc7ec76f36f51cbbfaa6ea4ed2acc8bb4a961363bdbe2003ec483c/column_sized_Screen_Shot_2017-01-26_at_9.48.28_PM.png)
@@ -184,8 +184,8 @@ problem were found with green, a rollback to blue would be just as easy.
 Let’s test our yellow dev version before we release it to customers. tbnproxy
 allows you to route to service instances based on headers set in the request.
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
-the zone you’re working with (local-demo by default). Click settings -> edit
-routes, and select local-demo:80/api from the top left dropdown. You should see
+the zone you’re working with (local-demo by default). Click "Settings" -> "Edit
+Routes", and select local-demo:80/api from the top left dropdown. You should see
 the following screen
 
 <img src="https://img.turbinelabs.io/2017-03-17/all-in-one-edit-route.png"/>
@@ -238,7 +238,12 @@ These parameters can be modified in the above example as follows:
 - x-color-error
   Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
 
-The latency and error rates are passed to the demo servers as HTTP headers with the same name and value as the URL parameters described. This effect can help you visualize the effects of a bad release, or issue with the code in a new version of your application, which would be cause to step-down the release and return traffic to a known good version.
+The latency and error rates are passed to the demo servers as HTTP
+headers with the same name and value as the URL parameters
+described. You can use these parameters to help you visualize the
+effects of a bad release, or an issue with the code in a new version
+of your application, which would be cause to step-down the release and
+return traffic to a known-good version.
 
 ## Next steps
 
