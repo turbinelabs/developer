@@ -235,6 +235,7 @@ cat cluster.json | tbnctl --api.key="<your api key>" create cluster
 ```
 
 *example cluster.json*
+
 ```shell
 {
   "zone_key": "<your zone key>",
@@ -283,6 +284,7 @@ cat sharedrules.json | tbnctl --api.key="<your api key>" create shared_rules
 ```
 
 *example sharedrules.json*
+
 ```javascript
 {
   "name":"<your shared rules name>",
