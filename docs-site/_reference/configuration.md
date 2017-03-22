@@ -82,6 +82,7 @@ cat zone.json  | tbnctl --api.key="<your api key>" create zone
 ```
 
 *example zone.json*
+
 ```javascript
 {
   "name": "<your zone name>"
@@ -89,6 +90,7 @@ cat zone.json  | tbnctl --api.key="<your api key>" create zone
 ```
 
 *example response*
+
 ```javascript
 {
   "zone_key": "<your zone key",
@@ -125,7 +127,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 {"zone_key": "<your zone key>", "name": "<my.example.com>", "port": 80}
 ```
 
-*example Response:*
+*example response:*
 
 ```javascript
 {
@@ -142,7 +144,7 @@ Alternatively, with `curl`:
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinelabs.io/v1.0/domain
 ```
 
-*Example domain post*
+*example domain post*
 
 ```javascript
 {"zone_key": "<your zone key>", "name": "<my.example.com>", "port": 80}
@@ -158,7 +160,7 @@ it to to the domain you just created.
 cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 ```
 
-*example contents of proxy.json*
+*example content of proxy.json*
 
 ```javascript
 {
@@ -191,7 +193,7 @@ Alternatively, with `curl`:
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turbinelabs.io/v1.0/proxy
 ```
 
-*Example contents of proxy_post.json*
+*example content of proxy_post.json*
 
 ```javascript
 {
@@ -203,7 +205,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turb
 }
 ```
 
-*Example response*:
+*example response*:
 
 ```javascript
 {
@@ -240,7 +242,7 @@ cat cluster.json | tbnctl --api.key="<your api key>" create cluster
 }
 ```
 
-*example Response:*
+*example response:*
 
 ```javascript
 {
@@ -258,7 +260,7 @@ Alternatively, with `curl`:
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d '{"zone_key": "<your zone key>", "name": "hello-node"}' https://api.turbinelabs.io/v1.0/cluster
 ```
 
-*Example Response:*
+*example response:*
 
 ```javascript
 {
@@ -332,6 +334,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@shared_rules_post.json https://a
 ```
 
 *example shared_rules_post_json*
+
 ```javascript
 {
   "name":"<your shared rules name>",
@@ -387,6 +390,7 @@ cat route.json | tbnctl --api.key="<your api key>" create route
 ```
 
 *example route.json*
+
 ```javascript
 {
   "domain_key": "<your domain key>",
@@ -396,7 +400,7 @@ cat route.json | tbnctl --api.key="<your api key>" create route
 }
 ```
 
-*example Response:*
+*example response:*
 
 ```javascript
 {
@@ -417,7 +421,8 @@ Alternatively, with `curl`:
 Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.turbinelabs.io/v1.0/route
 ```
 
-*Example route_post.json*
+*example route_post.json*
+
 ```javascript
 {
   "domain_key": "<your domain key>",
@@ -427,7 +432,7 @@ Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.
 }
 ```
 
-*Example Response:*
+*example response:*
 
 ```javascript
 {
