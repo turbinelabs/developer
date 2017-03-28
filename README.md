@@ -35,11 +35,11 @@ methodology for open-sourcing projects:
 
 - As strongly as we feel developing in a monorepo is great for internal
   development, it's terrible for external developers, who will typically be
-  submitting patches to isolated portions of the software stack.
+  submitting patches to individual projects.
 
-Our goal is to bring many of the benefits of developing in a monorepo
-(chiefly atomicity of large changes and compatibility guarantees) to our open
-source projects, while keeping each project relatively small and purpose-driven.
+Our goal is to bring many of the benefits of developing in a monorepo (chiefly
+atomicity of large changes and compatibility guarantees) to our open-source
+projects, while keeping each project relatively small and purpose-driven.
 
 - [Languages](#languages)
 - [Homing](#homing)
@@ -75,13 +75,13 @@ The version string follows [Semantic Versioning](http://semver.org/) rules,
 but applied to the aggregation of all projects. We push all projects every push
 (though some will be no-ops), and we tag all projects with the same version tag.
 
-The benefits of this approach are that contributors to our projects can start
-in smaller, less overwhelming projects, while enjoying the compatibility
-guarantees of our monorepo as they extend their reach.
+The main benefit of this approach is that contributors can easily work in
+individual projects, while enjoying the compatibility guarantees of our monorepo
+as they extend their reach. The downside is that the version increments will
+seem pretty chatty, especially for lower-velocity repositories. We may introduce
+project-specific semantic version numbers in the future, but for now are
+avoiding the operational overhead.
 
-The downside is that the version increments will seem pretty chatty, especially
-for lower-velocity repositories. We may introduce project-specific version
-numbers in the future, but for now are avoiding the operational overhead.
 
 <a name="vendoring"/>
 
@@ -128,18 +128,17 @@ old package version we're using. Best to pretend our vendored code isn't there.
 
 ## Contributing
 
-We decided to open-source our software chiefly because we felt people had a
-right to see what we're asking them to install in their hosting environments,
-but we also know the satisfaction gained from finding and fixing a good bug.
-That's where you come in.
+We decided to open-source some of our software because we thought it would be
+useful to people outside our company, but we also know the satisfaction gained
+from finding and fixing a tricky bug. That's where you come in.
 
-We'd love for you to fork and contribute back to any of our projects, though
-the process has a little more overhead than the usual github workflow. Filing
-issues for bugs you've found is the same, but pull requests behave a little
+We'd love for you to fork and contribute back to any of our projects, though the
+process has a little more overhead than the usual GitHub workflow. Filing issues
+for bugs you've found is the same, but pull requests behave a little
 differently. While the code review process will feel familiar, because of the
-unidirectionality of our open-source export, your pull request will be applied as a
-patch in our monorepo, and then pushed back out. We'll do this by hand until
-it becomes onerous, at which point we'll build some automation.
+unidirectionality of our open-source export, your pull request will be applied
+as a patch in our monorepo, and then pushed back out. We'll do this by hand
+until it becomes onerous, at which point we'll build some automation.
 
 If you have a patch that affects multiple projects, that's fine! Be sure to
 reference each pull request in each other pull request, and we'll apply the
