@@ -25,7 +25,7 @@ accomplish.
 ## Signing up for an account
 
 To get started with Houston, you'll need a Turbine Labs
-account. Email[support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
+account. Email [support@turbinelabs.io](mailto:support@turbinelabs.io) and we'll
 create one for you.
 
 ## What's in the All-In-One image?
