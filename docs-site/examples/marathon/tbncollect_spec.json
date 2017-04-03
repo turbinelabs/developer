@@ -1,0 +1,55 @@
+{
+  "id": "/tbncollect",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "env": {
+    "TBNCOLLECT_API_KEY": "$TBN_API_KEY",
+    "TBNCOLLECT_CMD": "marathon",
+    "TBNCOLLECT_API_ZONE_NAME": "<your zone name>"
+  },
+  "portDefinitions": [
+    {
+      "port": 10101,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "turbinelabs/tbncollect",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 0,
+          "hostPort": 0,
+          "servicePort": 10101,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": false
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "TCP",
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "ignoreHttp1xx": false,
+      "port": 8080
+    }
+  ],
+  "labels": {
+  },
+  "acceptedResourceRoles": [
+  ]
+}

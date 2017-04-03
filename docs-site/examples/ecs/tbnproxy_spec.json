@@ -1,0 +1,30 @@
+{
+  "name": "tbnproxy",
+  "image": "tbnproxy:latest",
+  "cpu": 1,
+  "memory": 128,
+  "memoryReservation": 128,
+  "essential": true,
+  "command": [],
+  "environment": [
+    {
+      "name": "TBNPROXY_API_KEY",
+      "value": "<your api key>"
+    },
+    {
+      "name": "TBNPROXY_API_ZONE_NAME",
+      "value": "<your zone name>"
+    },
+    {
+      "name": "TBNPROXY_PROXY_NAME",
+      "value": "<your proxy name>"
+    }
+  ],
+  "image": "tbnproxy:latest",
+  "command": [],
+  "cpu": 0,
+}
+],
+"volumes": [],
+"family": "tbnproxy"
+}

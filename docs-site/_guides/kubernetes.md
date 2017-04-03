@@ -80,7 +80,7 @@ them into clusters in the Turbine Labs API. To deploy tbncollect to your
 Kubernetes cluster, run
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbncollect-spec.yaml
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbncollect_spec.yaml
 ```
 
 ## The all-in-one demo
@@ -91,13 +91,13 @@ our
 these examples. To deploy the all-in-one client, run
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-client.yaml
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one_client.yaml
 ```
 
 Next, deploy the all-in-one server by running
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-blue.yaml
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one_server_blue.yaml
 ```
 
 Ensure that these pods have started correctly by running
@@ -169,7 +169,7 @@ echo "{\"name\": \"testbed-proxy\", \"zone_key\": \"$ZONE_KEY\", \"domain_keys\"
 Now we're ready to deploy tbnproxy to Kubernetes.
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbnproxy-spec.yaml
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/tbnproxy_spec.yaml
 ```
 
 ## Expose tbnproxy to the external network
@@ -315,10 +315,10 @@ Now we'll deploy a new version of the server that returns green as the color to
 paint blocks.
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one-server-green.yaml
+kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/all-in-one_server_green.yaml
 ```
 
-if you run 
+if you run
 
 ```shell
 kubectl get pods
@@ -386,7 +386,7 @@ click "Start Release".
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
 
-Let's send 25% of traffic to our new green version by 
+Let's send 25% of traffic to our new green version by
 moving the slider and clicking "Start Release". The release group should now
 be marked "RELEASING".
 

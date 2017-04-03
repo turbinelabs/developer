@@ -1,0 +1,95 @@
+"attributes": null,
+"requiresAttributes": [
+  {
+    "value": null,
+    "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18",
+    "targetId": null,
+    "targetType": null
+  }
+],
+"taskDefinitionArn": "arn:aws:ecs:us-east-1:123456:task-definition/ecs-demo-httpd:1",
+"networkMode": "bridge",
+"status": "ACTIVE",
+"revision": 1,
+"taskRoleArn": null,
+"containerDefinitions": [
+  {
+    "volumesFrom": [],
+    "memory": 100,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      },
+      {
+        "hostPort": 0,
+        "containerPort": 80,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "mountPoints": [],
+    "name": "c1",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "httpd:latest",
+    "command": null,
+    "user": null,
+    "dockerLabels": {
+      "tbn-cluster": "svc1:80,svc2:8088"
+    },
+    "logConfiguration": null,
+    "cpu": 0,
+    "privileged": null,
+    "memoryReservation": null
+  },
+  {
+    "volumesFrom": [],
+    "memory": 100,
+    "extraHosts": null,
+    "dnsServers": null,
+    "disableNetworking": null,
+    "dnsSearchDomains": null,
+    "portMappings": [
+      {
+        "hostPort": 5432,
+        "containerPort": 5432,
+        "protocol": "tcp"
+      }
+    ],
+    "hostname": null,
+    "essential": true,
+    "entryPoint": null,
+    "mountPoints": [],
+    "name": "c2",
+    "ulimits": null,
+    "dockerSecurityOptions": null,
+    "environment": [],
+    "links": null,
+    "workingDirectory": null,
+    "readonlyRootFilesystem": null,
+    "image": "test/httpd:latest",
+    "command": null,
+    "user": null,
+    "dockerLabels": {
+      "tbn-cluster": "node:8090"
+    },
+    "logConfiguration": null,
+    "cpu": 0,
+    "privileged": null,
+    "memoryReservation": null
+  }
+],
+"placementConstraints": null,
+"volumes": [],
+"family": "ecs-demo-httpd"

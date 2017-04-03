@@ -18,7 +18,8 @@ title: Marathon Guide
 [//]: # (Integrating Houston with Marathon)
 
 ## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
-This will ensure your API key, domain, zone, routes, and other key components are set up correctly.
+This will ensure your API key, domain, zone, routes, and other key components
+are set up correctly.
 
 ## Configuring tbncollect
 In order to install tbncollect you can either configure the application using
@@ -28,68 +29,12 @@ JSON file into the JSON section:
 Be sure to fill in *your api key*, and *your zone name* (found by querying
 with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
 
-```javascript
-{
-  "id": "/tbncollect",
-  "cmd": null,
-  "cpus": 1,
-  "mem": 128,
-  "disk": 0,
-  "instances": 1,
-  "env": {
-    "TBNCOLLECT_API_KEY": "$TBN_API_KEY",
-    "TBNCOLLECT_CMD": "marathon",
-    "TBNCOLLECT_API_ZONE_NAME": "<your zone name>"
-  },
-  "portDefinitions": [
-    {
-      "port": 10101,
-      "protocol": "tcp",
-      "labels": {}
-    }
-  ],
-  "container": {
-    "type": "DOCKER",
-    "volumes": [],
-    "docker": {
-      "image": "turbinelabs/tbncollect",
-      "network": "BRIDGE",
-      "portMappings": [
-        {
-          "containerPort": 0,
-          "hostPort": 0,
-          "servicePort": 10101,
-          "protocol": "tcp",
-          "labels": {}
-        }
-      ],
-      "privileged": false,
-      "parameters": [],
-      "forcePullImage": false
-    }
-  },
-  "healthChecks": [
-    {
-      "protocol": "TCP",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 60,
-      "timeoutSeconds": 20,
-      "maxConsecutiveFailures": 3,
-      "ignoreHttp1xx": false,
-      "port": 8080
-    }
-  ],
-  "labels": {
-  },
-  "acceptedResourceRoles": [
-  ]
-}
-```
+Here is an [example configuration file for tbncollect](../examples/marathon/tbncollect_spec.json).
 
 You can also deploy the app via the command line with:
 
 ```shell
-dcos marathon app add </path/to/tbncollect.json>
+dcos marathon app add https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/marathon/tbncollect_example.json
 ```
 
 ## Deploying the Demo App
@@ -99,66 +44,7 @@ to an Application Group in Marathon. Create a JSON file (<your group>.json)
 Be sure to fill in *your group*, *your app*, and *your cluster name* (found by
 querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
 
-```javascript
-{
-  "apps": [
-    {
-      "id": "/<your group>/<your app>",
-      "cmd": null,
-      "cpus": 0.1,
-      "mem": 64,
-      "disk": 0,
-      "instances": 1,
-      "portDefinitions": [
-        {
-          "port": 0,
-          "protocol": "tcp",
-          "labels": {}
-        }
-      ],
-      "container": {
-        "type": "DOCKER",
-        "volumes": [],
-        "docker": {
-          "image": "<your company>/<your app>",
-          "network": "BRIDGE",
-          "portMappings": [
-            {
-              "containerPort": 0,
-              "hostPort": 8080,
-              "servicePort": 0,
-              "protocol": "tcp",
-              "labels": {}
-            }
-          ],
-          "privileged": false,
-          "parameters": [],
-          "forcePullImage": false
-        }
-      },
-      "healthChecks": [
-        {
-          "protocol": "TCP",
-          "gracePeriodSeconds": 300,
-          "intervalSeconds": 60,
-          "timeoutSeconds": 20,
-          "maxConsecutiveFailures": 3,
-          "ignoreHttp1xx": false,
-          "port": 8080
-        }
-      ],
-      "labels": {
-        "tbn_cluster": "<your cluster name>"
-        },
-      "acceptedResourceRoles": [
-      ]
-    }
-  ],
-  "dependencies": [],
-  "groups": [],
-  "id": "/<your group>"
-}
-```
+[Example demo app configuration JSON](../examples/marathon/app_spec.json).
 
 Then, load your new Application Group and Application into Marathon with this
 command:
@@ -240,176 +126,17 @@ and <your proxy name> found by querying with:
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/proxy
 ```
 
-*Example tbnproxy JSON*
-
-```javascript
-{
-  "id": "/tbnproxy",
-  "cmd": null,
-  "cpus": 0.1,
-  "mem": 1024,
-  "disk": 0,
-  "instances": 1,
-  "env": {
-    "TBNPROXY_API_KEY":"<your api key>",
-    "TBNPROXY_API_ZONE_NAME":"<your zone name>",
-    "TBNPROXY_PROXY_NAME":"<your proxy name>"
-  },
-  "uris": [
-    "URI to your Docker Hub or private repo key"
-  ],
-  "container": {
-    "type": "DOCKER",
-    "volumes": [],
-    "docker": {
-      "image": "turbinelabs/tbnproxy:latest",
-      "network": "BRIDGE",
-      "privileged": false,
-      "parameters": [],
-      "forcePullImage": false
-    }
-  },
-  "healthChecks": [
-    {
-      "protocol": "TCP",
-      "gracePeriodSeconds": 300,
-      "intervalSeconds": 60,
-      "timeoutSeconds": 20,
-      "maxConsecutiveFailures": 3,
-      "ignoreHttp1xx": false,
-      "port": 8080
-    }
-  ],
-  "labels": {
-    "HAPROXY_GROUP": "external,internal"
-  },
-  "acceptedResourceRoles": [
-  ]
-}
-```
+This [example tbnproxy JSON](../examples/marathon/tbnproxy_spec.json) should help you get started.
 
 ## Adding a new app to your group
 Modify your group's JSON file to add another version of your app, and then
 update your Application Group with this command:
 
 ```shell
-dcos marathon group update <your group> < group.json
+dcos marathon group update <your group> < https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/group_example.json
 ```
 
-*Example group.json*
-
-```javascript
-{
-  "apps": [
-    {
-      "id": "/mygroup/hello-node",
-      "cmd": null,
-      "cpus": 1.0,
-      "mem": 128,
-      "disk": 0,
-      "instances": 1,
-      "portDefinitions": [
-        {
-          "port": 0,
-          "protocol": "tcp",
-          "labels": {}
-        }
-      ],
-      "container": {
-        "type": "DOCKER",
-        "volumes": [],
-        "docker": {
-          "image": "turbinelabs/basicnode",
-          "network": "BRIDGE",
-          "portMappings": [
-            {
-              "containerPort": 0,
-              "hostPort": 8080,
-              "servicePort": 0,
-              "protocol": "tcp",
-              "labels": {}
-            }
-          ],
-          "privileged": false,
-          "parameters": [],
-          "forcePullImage": false
-        }
-      },
-      "healthChecks": [
-        {
-          "protocol": "TCP",
-          "gracePeriodSeconds": 300,
-          "intervalSeconds": 60,
-          "timeoutSeconds": 20,
-          "maxConsecutiveFailures": 3,
-          "ignoreHttp1xx": false,
-          "port": 8080
-        }
-      ],
-      "labels": {
-        "HAPROXY_GROUP": "external,internal",
-        "tbn_cluster": "hello-node"
-      },
-      "acceptedResourceRoles": [
-        "slave_public"
-      ]
-    },
-    {
-      "id": "/mygroup/hello-node2",
-      "cmd": null,
-      "cpus": 1.0,
-      "mem": 128,
-      "disk": 0,
-      "instances": 1,
-      "portDefinitions": [
-        {
-          "port": 0,
-          "protocol": "tcp",
-          "labels": {}
-        }
-      ],
-      "container": {
-        "type": "DOCKER",
-        "volumes": [],
-        "docker": {
-          "image": "turbinelabs/basicnode",
-          "network": "BRIDGE",
-          "portMappings": [
-            {
-              "containerPort": 0,
-              "hostPort": 8088,
-              "servicePort": 0,
-              "protocol": "tcp",
-              "labels": {}
-            }
-          ],
-          "privileged": false,
-          "parameters": [],
-          "forcePullImage": false
-        }
-      },
-      "healthChecks": [
-        {
-          "protocol": "TCP",
-          "gracePeriodSeconds": 300,
-          "intervalSeconds": 60,
-          "timeoutSeconds": 20,
-          "maxConsecutiveFailures": 3,
-          "ignoreHttp1xx": false,
-          "port": 8080
-        }
-      ],
-      "labels": {
-        "HAPROXY_GROUP": "external,internal",
-        "tbn_cluster": "hello-node"
-      }
-    }
-  ],
-  "dependencies": [],
-  "groups": [],
-  "id": "/mygroup"
-}
-```
+Finally, here is an [example of your group.json](../examples/group_spec.json)
 
 You can now view your services through curl:
 

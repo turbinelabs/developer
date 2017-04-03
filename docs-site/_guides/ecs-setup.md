@@ -41,107 +41,7 @@ The construction of the tag looks like this:
 The label key is the "cluster tag", which will associate the container with a
 Turbine Labs' cluster, and the value is Turbine Labs' cluster name and port.
 
-_Example task definition_
-
-```javascript
-{
-  "attributes": null,
-  "requiresAttributes": [
-    {
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18",
-      "targetId": null,
-      "targetType": null
-    }
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:123456:task-definition/ecs-demo-httpd:1",
-  "networkMode": "bridge",
-  "status": "ACTIVE",
-  "revision": 1,
-  "taskRoleArn": null,
-  "containerDefinitions": [
-    {
-      "volumesFrom": [],
-      "memory": 100,
-      "extraHosts": null,
-      "dnsServers": null,
-      "disableNetworking": null,
-      "dnsSearchDomains": null,
-      "portMappings": [
-        {
-          "hostPort": 0,
-          "containerPort": 80,
-          "protocol": "tcp"
-        },
-        {
-          "hostPort": 0,
-          "containerPort": 80,
-          "protocol": "tcp"
-        }
-      ],
-      "hostname": null,
-      "essential": true,
-      "mountPoints": [],
-      "name": "c1",
-      "ulimits": null,
-      "dockerSecurityOptions": null,
-      "environment": [],
-      "links": null,
-      "workingDirectory": null,
-      "readonlyRootFilesystem": null,
-      "image": "httpd:latest",
-      "command": null,
-      "user": null,
-      "dockerLabels": {
-        "tbn-cluster": "svc1:80,svc2:8088"
-      },
-      "logConfiguration": null,
-      "cpu": 0,
-      "privileged": null,
-      "memoryReservation": null
-    },
-    {
-      "volumesFrom": [],
-      "memory": 100,
-      "extraHosts": null,
-      "dnsServers": null,
-      "disableNetworking": null,
-      "dnsSearchDomains": null,
-      "portMappings": [
-        {
-          "hostPort": 5432,
-          "containerPort": 5432,
-          "protocol": "tcp"
-        }
-      ],
-      "hostname": null,
-      "essential": true,
-      "entryPoint": null,
-      "mountPoints": [],
-      "name": "c2",
-      "ulimits": null,
-      "dockerSecurityOptions": null,
-      "environment": [],
-      "links": null,
-      "workingDirectory": null,
-      "readonlyRootFilesystem": null,
-      "image": "test/httpd:latest",
-      "command": null,
-      "user": null,
-      "dockerLabels": {
-        "tbn-cluster": "node:8090"
-      },
-      "logConfiguration": null,
-      "cpu": 0,
-      "privileged": null,
-      "memoryReservation": null
-    }
-  ],
-  "placementConstraints": null,
-  "volumes": [],
-  "family": "ecs-demo-httpd"
-}
-```
+This [example task definition](../examples/ecs/task_spec.json) notes the values used for tbncollect.
 
 ## Install tbncollect
 Install tbncollect with this task definition and note the variables you'll need
@@ -153,39 +53,9 @@ aws ecs \
   register-task-definition \
     --family collector \
     --container-definitions='[
-  {
-    "name": "collector",
-    "image": "tbncollect:latest",
-    "cpu": 1,
-    "memory": 128,
-    "memoryReservation": 128,
-    "essential": true,
-    "command": [],
-    "environment": [
-      {
-        "name": "TBNCOLLECT_API_KEY",
-        "value": "your TBN api key"
-      },
-      {
-        "name": "TBNCOLLECT_API_ZONE_NAME",
-        "value": "your TBN zone name"
-      },
-      {
-        "name": "TBNCOLLECT_ECS_AWS_ACCESS_KEY_ID",
-        "value": "your AWS access key"
-      },
-      {
-        "name": "TBNCOLLECT_ECS_AWS_REGION",
-        "value": "your AWS region"
-      },
-      {
-        "name": "TBNCOLLECT_ECS_AWS_SECRET_ACCESS_KEY",
-        "value": "your AWS secret access key"
-      }
-    ]
-  }
 ]'
 ```
+[ecstbncollectexample.json](../examples/tbncollect_spec.json) shows our example definitions.
 
 With your task definition created, you can proceed to run Create Service from
 the ECS control panel, or through the CLI:
@@ -215,38 +85,10 @@ aws ecs \
   register-task-definition \
     --family tbnproxy \
     --container-definitions='[
-    {
-      "name": "tbnproxy",
-      "image": "tbnproxy:latest",
-      "cpu": 1,
-      "memory": 128,
-      "memoryReservation": 128,
-      "essential": true,
-      "command": [],
-      "environment": [
-        {
-          "name": "TBNPROXY_API_KEY",
-          "value": "<your api key>"
-        },
-        {
-          "name": "TBNPROXY_API_ZONE_NAME",
-          "value": "<your zone name>"
-        },
-        {
-          "name": "TBNPROXY_PROXY_NAME",
-          "value": "<your proxy name>"
-        }
-      ],
-      "image": "tbnproxy:latest",
-      "command": [],
-      "cpu": 0,
-    }
-  ],
-  "volumes": [],
-  "family": "tbnproxy"
-  }
 ]'
 ```
+
+[Our example definition](../examples/ecs/tbnproxy_spec.json) can be adapted to your needs or environment.
 
 With your task definition created, you can proceed to run Create Service using
 this container and your ELB from the [ECS control panel](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service.html#service-configure-load-balancing), or through the CLI:

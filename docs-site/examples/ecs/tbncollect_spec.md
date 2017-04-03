@@ -1,0 +1,31 @@
+{
+  "name": "collector",
+  "image": "tbncollect:latest",
+  "cpu": 1,
+  "memory": 128,
+  "memoryReservation": 128,
+  "essential": true,
+  "command": [],
+  "environment": [
+    {
+      "name": "TBNCOLLECT_API_KEY",
+      "value": "your TBN api key"
+    },
+    {
+      "name": "TBNCOLLECT_API_ZONE_NAME",
+      "value": "your TBN zone name"
+    },
+    {
+      "name": "TBNCOLLECT_ECS_AWS_ACCESS_KEY_ID",
+      "value": "your AWS access key"
+    },
+    {
+      "name": "TBNCOLLECT_ECS_AWS_REGION",
+      "value": "your AWS region"
+    },
+    {
+      "name": "TBNCOLLECT_ECS_AWS_SECRET_ACCESS_KEY",
+      "value": "your AWS secret access key"
+    }
+  ]
+}
