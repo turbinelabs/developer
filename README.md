@@ -48,23 +48,17 @@ projects, while keeping each project relatively small and purpose-driven.
 - [Contributing](#contributing)
 - [Project layout](#layout)
 
-<a name="languages"/>
-
-## Languages
+## <a name="languages"/>Languages
 
 Our source code is written almost entirely in [Go](https://golang.org/).
 Most of what we talk about below is targeted at Go development.
 
-<a name="homing"/>
-
-## Homing
+## <a name="homing"/>Homing
 
 The source of truth for all projects is our internal monorepo. We will push
 "slices" of it to smaller open-source projects at a roughly weekly cadence.
 
-<a name="versioning"/>
-
-## Versioning
+## <a name="versioning"/>Versioning
 
 We maintain a single, global version string for all Turbine Labs open-source
 projects, maintaining with the following invariant:
@@ -83,9 +77,9 @@ project-specific semantic version numbers in the future, but for now are
 avoiding the operational overhead.
 
 
-<a name="vendoring"/>
 
-## Dependencies and vendoring
+
+## <a name="vendoring"/>Dependencies and vendoring
 
 Turbine Labs open-source go projects will never publicly depend on anything
 other than other Turbine Labs open-source Go projects, with the exception of
@@ -124,9 +118,7 @@ we've chosen to vendor, and it will work either surprisingly or not at all with
 other code. Similarly, you will find it onerous to pin yourself to whatever
 old package version we're using. Best to pretend our vendored code isn't there.
 
-<a name="contributing"/>
-
-## Contributing
+## <a name="contributing"/>Contributing
 
 We decided to open-source some of our software because we thought it would be
 useful to people outside our company, but we also know the satisfaction gained
@@ -149,9 +141,7 @@ All Turbine Labs open-sourced projects are released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in our
 projects you agree to abide by its terms, which will be carefully enforced.
 
-<a name="layout"/>
-
-## Project layout
+## <a name="layout"/>Project layout
 
 Here we describe each of the projects in brief, and show how they depend on
 one another. We will do our best to keep this accurate.
