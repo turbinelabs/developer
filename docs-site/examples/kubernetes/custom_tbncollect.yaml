@@ -1,0 +1,44 @@
+kind: Deployment
+metadata:
+  name: tbncollect
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: tbncollect
+    spec:
+      containers:
+      - image: turbinelabs/tbncollect:latest
+        imagePullPolicy: Always
+        name: tbncollect
+        env:
+        - name: TBNCOLLECT_CMD
+          value: kubernetes
+        - name: TBNCOLLECT_API_ZONE_NAME
+          value: testbed
+        - name: TBNCOLLECT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tbnsecret
+              key: apikey
+        - name: TBNCOLLECT_KUBERNETES_NAMESPACE
+          value: customkube
+        - name: TBNCOLLECT_KUBERNETES_CLUSTER_LABEL
+          value: custom_cluster
+        - name: TBNCOLLECT_KUBERNETES_SELECTOR
+          value: custom_tbn_pods
+        - name: TBNCOLLECT_KUBERNETES_PORT_NAME
+          value: space_port
+        # - name: TBNCOLLECT_KUBERNETES_CA_CERT
+        #  value: path_to_your_cert
+        # - name: TBNCOLLECT_KUBERNETES_CLIENT_CERT
+        #  value: path_to_your_client_cert
+        # - name: TBNCOLLECT_KUBERNETES_CLIENT_KEY
+        #  value: path_to_your_cert_key_file
+        # - name: TBNCOLLECT_KUBERNETES_HOST
+        #  value: custom.example.com
+        # - name: TBNCOLLECT_KUBERNETES_TIMEOUT
+        #  value: 1m2s
+        # - name: TBNCOLLECT_KUBERNETES_CONSOLE_LEVEL
+        #  value: debug
