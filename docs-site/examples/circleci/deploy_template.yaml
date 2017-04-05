@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prismatic-spray-$TBN_STAGE-$TBN_VERSION
+spec:
+  replicas: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: prismatic-spray
+        tbn_cluster: prismatic-spray
+        app: prismatic-spray
+        git_sha: $CIRCLE_SHA1
+        git_branch: $CIRCLE_BRANCH
+        stage: $TBN_STAGE
+        version: $TBN_VERSION
+    spec:
+      containers:
+      - image: gcr.io/$GCLOUD_PROJECT_NAME/prismatic-spray:$CIRCLE_SHA1
+        imagePullPolicy: IfNotPresent
+        name: prismatic-spray
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
