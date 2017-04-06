@@ -1,11 +1,34 @@
-# Custom Kubernetes Environment
+---
+layout: page
+title: Customizing tbncollect For Your Kubernetes Environment
+child: true
+---
+
+[//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
+[//]: # ( you may not use this file except in compliance with the License.    )
+[//]: # ( You may obtain a copy of the License at                             )
+[//]: # (                                                                     )
+[//]: # (     http://www.apache.org/licenses/LICENSE-2.0                      )
+[//]: # (                                                                     )
+[//]: # ( Unless required by applicable law or agreed to in writing, software )
+[//]: # ( distributed under the License is distributed on an "AS IS" BASIS,   )
+[//]: # ( WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or     )
+[//]: # ( implied. See the License for the specific language governing        )
+[//]: # ( permissions and limitations under the License.                      )
+
+[//]: # (Customizing tbncollect For Your Kubernetes Environment)
+
 
 ## Prerequisites
-This guide assumes you have read our [guide to setting up Houston on Kubernetes](./kubernetes.md), and have an existing Kubernetes deployment.
 
-## Custom Environment Settings
+This guide assumes you have read our
+[guide to setting up Houston on Kubernetes](./kubernetes.html), and have an
+existing Kubernetes deployment.
+
+## Custom deployment settings
+
 In the previous Kubernetes guide, we instructed users to setup tbncollect using
-our [pre-baked yaml file](../examples/kubernetes/tbncollect_spec.yaml), but
+our [pre-baked yaml file](examples/kubernetes/tbncollect_spec.yaml), but
 this file makes a few assumptions about your environment. First of all, it
 assumes you have a named http port, then a label named `tbn_cluster`, as well
 as a few more settings.
@@ -20,53 +43,10 @@ the --port-name flag becomes TBNCOLLECT_KUBERNETES_PORT_NAME.
 These settings are likely different on your existing Kubernetes cluster, so
 it's important to configure your tbncollect yaml file to match your environment.
 
-*example custom_tbncollect_spec.yaml*
+*[example custom_tbncollect_spec.yaml](examples/kubernetes/custom_tbncollect_spec.yaml)*
 
 ```yaml
-kind: Deployment
-metadata:
-  name: tbncollect
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        run: tbncollect
-    spec:
-      containers:
-      - image: turbinelabs/tbncollect:latest
-        imagePullPolicy: Always
-        name: tbncollect
-        env:
-        - name: TBNCOLLECT_CMD
-          value: kubernetes
-        - name: TBNCOLLECT_API_ZONE_NAME
-          value: testbed
-        - name: TBNCOLLECT_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tbnsecret
-              key: apikey
-        - name: TBNCOLLECT_KUBERNETES_NAMESPACE
-          value: customkube
-        - name: TBNCOLLECT_KUBERNETES_CLUSTER_LABEL
-          value: custom_cluster
-        - name: TBNCOLLECT_KUBERNETES_SELECTOR
-          value: custom_tbn_pods
-        - name: TBNCOLLECT_KUBERNETES_PORT_NAME
-          value: space_port
-        # - name: TBNCOLLECT_KUBERNETES_CA_CERT
-        #  value: path_to_your_cert
-        # - name: TBNCOLLECT_KUBERNETES_CLIENT_CERT
-        #  value: path_to_your_client_cert
-        # - name: TBNCOLLECT_KUBERNETES_CLIENT_KEY
-        #  value: path_to_your_cert_key_file
-        # - name: TBNCOLLECT_KUBERNETES_HOST
-        #  value: custom.example.com
-        # - name: TBNCOLLECT_KUBERNETES_TIMEOUT
-        #  value: 1m2s
-        # - name: TBNCOLLECT_KUBERNETES_CONSOLE_LEVEL
-        #  value: debug
+{% include_relative examples/kubernetes/custom_tbncollect_spec.yaml %}
 ```
 
 Note the values near the bottom of the yaml file—these are a few of the values
@@ -82,7 +62,8 @@ override values set in a yaml file.*
 
 ### run: tbncollect
 
-Early in the file, you'll need to run tbncollect, and add whatever labels or namespaces are appropriate to your installation.
+Early in the file, you'll need to run tbncollect, and add whatever labels or
+namespaces are appropriate to your installation.
 
 ### TBNCOLLECT_KUBERNETES_NAMESPACE
 
@@ -138,7 +119,7 @@ recognizing your cluster and pods.
 With your environment variables correctly set, you can run tbncollect with the
 following command:
 
-`kubectl create -f https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/kubernetes/custom_tbncollect_spec.yaml`
+`kubectl create -f <filename of customized tbncollect spec.yaml>`
 
 ## Service Discovery
 

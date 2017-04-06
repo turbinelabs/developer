@@ -41,7 +41,11 @@ The construction of the tag looks like this:
 The label key is the "cluster tag", which will associate the container with a
 Turbine Labs' cluster, and the value is Turbine Labs' cluster name and port.
 
-This [example task definition](../examples/ecs/task_spec.json) notes the values used for tbncollect.
+[Example task definition](examples/ecs/task_spec.json):
+
+```javascript
+{% include_relative examples/ecs/task_spec.json %}
+```
 
 ## Install tbncollect
 Install tbncollect with this task definition and note the variables you'll need
@@ -55,7 +59,13 @@ aws ecs \
     --container-definitions='[
 ]'
 ```
-[ecstbncollectexample.json](../examples/tbncollect_spec.json) shows our example definitions.
+
+This [tbncollect task definition](examples/ecs/tbncollect_spec.json) notes the values
+used for tbncollect:
+
+```javascript
+{% include_relative examples/ecs/tbncollect_spec.json %}
+```
 
 With your task definition created, you can proceed to run Create Service from
 the ECS control panel, or through the CLI:
@@ -88,7 +98,12 @@ aws ecs \
 ]'
 ```
 
-[Our example definition](../examples/ecs/tbnproxy_spec.json) can be adapted to your needs or environment.
+This [tbnproxy task definition](examples/ecs/tbnproxy_spec.json) can be adapted to
+your needs or environment:
+
+```javascript
+{% include_relative examples/ecs/tbnproxy_spec.json %}
+```
 
 With your task definition created, you can proceed to run Create Service using
 this container and your ELB from the [ECS control panel](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service.html#service-configure-load-balancing), or through the CLI:

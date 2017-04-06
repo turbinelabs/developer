@@ -11,12 +11,12 @@
 {% for node in collection %}
 {% if node.title != null %}
 {% if node.relative_path contains "index.md" %}
+{% elsif has_summary %}
+<a class="sidebar-nav-item" href="/{{ node.collection }}#{{ node.title | slugify }}">{{ node.title }}</a>
+{% elsif node.child %}
+<a class="sidebar-nav-item sidebar-nav-sub-item" href="{{ node.url }}">{{ node.title }}</a>
 {% else %}
-{% if has_summary %}
-<a class="sidebar-nav-item" href="/{{ node.collection }}#{{ node.title | slugify }}">{{node.title }}</a>
-{% else %}
-<a class="sidebar-nav-item" href="{{ node.url }}">{{node.title }}</a>
-{% endif %}
+<a class="sidebar-nav-item" href="{{ node.url }}">{{ node.title }}</a>
 {% endif %}
 {% endif %}
 {% endfor %}

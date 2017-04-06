@@ -30,30 +30,33 @@ create one for you.
 
 ## What's in the All-In-One image?
 
-### Houston
-These two applications will run in a real-world deployment, connected to Turbine Labs' API.
+### tbnproxy and tbncollect
+
+These two applications will run in a real-world deployment, connected to Turbine
+Labs' API.
 
 - **tbnproxy**: The Turbine Labs reverse proxy as well as an admin agent that
-maintains proxy
-  configuration and sends metrics to the Turbine Labs Service.
-
+maintains proxy configuration and sends metrics to the Turbine Labs Service.
 - **tbncollect**: A service discovery agent that observes the service instances,
-  updating the Turbine Labs Service as services or applications come and go.
-  In this demo, the collector is watching for files instead of API instances.
+updating the Turbine Labs Service as services or applications come and go. In
+this demo, the collector is watching for files instead of API instances.
 
-### Demo server
+### All-in-one server
+
 A simple HTTP server application that returns hex color value strings. There
 are three "versions" of the server, each returning a different color value:
   - blue
   - green
   - yellow
 
-### Demo app
-This app is used to demo the use of Houston through a simple
+### All-in-one client
+
+This app is used to demonstrate the use of Houston through a simple
 visualization of routing and responses, but is disposable after experimenting
 with this demo.
 
 ## Starting the all-in-one example
+
 The three environment variables you'll need to set in order to run the demo are:
 
 - `TBNPROXY_API_KEY` - the Turbine Labs API key to use
@@ -61,14 +64,14 @@ The three environment variables you'll need to set in order to run the demo are:
 - `TBNPROXY_PROXY_NAME` - the name of the proxy, usually the zone name with a
   "-proxy" suffix
 
-To run the Docker container with tbnproxy, tbncollect, a demo app, and the
-associated NGINX hosts, use the following command:
+To run the Docker container with tbnproxy, tbncollect, and the all-in-one server
+and client, use the following command:
 
 ```shell
 docker run -p 80:80 \
   -e "TBNPROXY_API_KEY=$TBN_API_KEY" \
-  -e "TBNPROXY_API_ZONE_NAME=local-demo" \
-  -e "TBNPROXY_PROXY_NAME=local-demo-proxy" \
+  -e "TBNPROXY_API_ZONE_NAME=all-in-one-demo" \
+  -e "TBNPROXY_PROXY_NAME=all-in-one-demo-proxy" \
   turbinelabs/all-in-one:latest
 ```
 
@@ -79,113 +82,38 @@ have it.
 - Initialize your test zone if it doesn't already exist.
 - Launch tbnproxy.
 - Launch tbncollect.
-- Launch the three demo app instances.
+- Launch the client and server instances.
 
-> Note: In some cases the local Docker time may have drifted significantly
-> from your host's time. If this is the case, you'll see the following message
-in the
-> `docker run` output:
-> ```FATAL: your docker system clock differs from actual (google) time by more
-than a minute.
-     This will cause stats and charts to behave strangely.```
->
-> If you see this error, restart Docker and re-run the all-in-one container.
+_Note:_ In some cases the local Docker time may have drifted significantly  from
+your host's time. If this is the case, you'll see the following message in the
+`docker run` output:
 
-## Demo exercises
+```
+FATAL: your docker system clock differs from actual (google) time by more
+than a minute. This will cause stats and charts to behave strangely.
+```
 
-### What's going on here?
+If you see this error, restart Docker and re-run the all-in-one container.
 
-With the all-in-one container running, you should be able to navigate to
-[localhost](http://localhost/)* to view the demo app. The demo provides
-a UI and a set of services that help visualize changes in the mapping of user
-requests to backend services. The application is composed of three sets of
-blocks, each simulating a user making a request. These are simple users, and
-they all repeat the same request forever. The services they call return a color.
-When a user receives a response it paints the box that color, then waits a
-random amount of time to make another request. While it’s waiting the colors in
-the box fade. Users are organized into rows based on URL.
+{%
+  include guides/demo_exercises_whats_going_on.md
+  all_in_one="true"
+%}
 
-* On older versions of Docker for Mac, and on Windows < 10, you'll access the
-result of invoking `docker-machine ip` (with a standard value of
-`192.168.99.100`) rather than `localhost`
+{%
+  include guides/deployed_state.md
+  all_in_one="true"
+%}
 
-<img height="50%" width="50%" src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684824296811398630/85fd3f987358bbbf866ace1ac6193f07fb5788a4302291a8e29c3eef7ac8c973/column_sized_Screen_Shot_2017-01-26_at_9.40.43_PM.png"/>
-
-The colors indicate the following:
-
-- Blue: a production service
-- Green: another production service
-- Yellow: a dev service
-
-You should see pulsating blue boxes for each service, to indicate the initial
-state of your production services. The green and yellow services are deployed,
-but aren't released, so they won’t appear in this view yet.
-
-### Deployed State
-
-Let’s dig deeper into how tbnproxy routes traffic. Traffic is received by a
-proxy that handles traffic for a given domain. The proxy maps requests to
-service instances via routes and rules. Routes let you split your domain into
-manageable segments, for example `/bar` and `/baz`. Rules let you map requests
-to a constrained set of service instances in clusters, for example “by default
-send traffic to servers tagged with a key-value mapping of stage=production”.
-Clusters contain sets of service instances, each of which can be tagged with
-key/value pairs to provide more information to the routing engine.
-
-Your environment should look like the following
-
-![Prismatic Setup](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636842997144618507/0d8f89bd404654ad9ce3e35ee9d38960dd34c35661e89fcb561b6ae20e422283/column_sized_prismatic-setup.png)
-
-There is a single domain (`local-demo:80`) that contains two routes. `/api`
-handles requests to our demo service instances, and `/` handles
-requests for everything else (in this case the demo app). There are
-two clusters. Local-demo-api-cluster has 3 instances, each tagged with a
-different version (represented as a color). The blue and green instances are
-also tagged `stage=prod`. The local-demo-cluster has a single instance
-tagged prod.
-
-The rules currently only map traffic to instances tagged
-`stage=prod,version=blue`, which is why only blue is showing. If we were to map
-instead to `stage=prod`, both blue and green instances would match, and tbnproxy
-would load balance across them. In this case you'd see an even split of blue and
-green.
-
-### Incremental release
-
-Now we're ready to do an incremental release from blue to green. Right now the
-default rules for `/api` send all traffic to blue. Let’s introduce a small
-percentage of green traffic to customers.
-
-Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), then click
-"Release Groups" below the top-line charts. The row "local-demo-api-cluster "
-should be marked "RELEASE READY". Click anywhere in the row to expand it, then
-click "Start Release".
-
-<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684826314011575784/885556999d2fcb7e44ea4ecd2210f8e0f57227d0683b581d15f5103195e9d91e/column_sized_Screen_Shot_2017-01-26_at_9.44.35_PM.png" height="100%" width="100%"/>
-
-Let's send 25% of traffic to our new green version by
-moving the slider and clicking "Start Release". The release group should now
-be marked "RELEASING".
-
-![Screen Shot 2017 01 26 At 9.48.28 Pm](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828276752909802/f33f12bdbbfc7ec76f36f51cbbfaa6ea4ed2acc8bb4a961363bdbe2003ec483c/column_sized_Screen_Shot_2017-01-26_at_9.48.28_PM.png)
-
-[localhost](http://localhost) should now show a mix of blue and green. You can
-increment the green percentage as you like. When you get to 100%, the release
-is complete.
-
-<img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/684828961254933996/b030e8b9bbcbe04c615c87a327bebe7525ec97c4b82e71be357e71efe28a9b16/column_sized_Screen_Shot_2017-01-26_at_9.49.37_PM.png" width="50%" height="50%"/>
-
-Congratulations! You've safely and incrementally released a new version of your
-production software. Both blue and green versions are still running; if a
-problem were found with green, a rollback to blue would be just as easy.
+{% include guides/incremental_release.md %}
 
 ### Browser overrides
 
 Let’s test our yellow dev version before we release it to customers. tbnproxy
 allows you to route to service instances based on headers set in the request.
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
-the zone you’re working with (local-demo by default). Click "Settings" -> "Edit
-Routes", and select local-demo:80/api from the top left dropdown. You should see
+the zone you’re working with (all-in-one-demo by default). Click "Settings" -> "Edit
+Routes", and select all-in-one-demo:80/api from the top left dropdown. You should see
 the following screen
 
 <img src="https://img.turbinelabs.io/2017-03-17/all-in-one-edit-route.png"/>
@@ -195,15 +123,17 @@ Click “Add Rule” from the top right, and enter the following values.
 <img src="https://img.turbinelabs.io/2017-03-17/all-in-one-add-rule.png"/>
 
 This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
-finds that header, it uses the value to find servers in the local-demo-api-
+finds that header, it uses the value to find servers in the all-in-one-server
 cluster that have a matching version tag. For example, setting `X-TBN-Version:
-blue` on a request would match blue production servers, and `X-TBN-Version: yellow` would match yellow dev servers.
+blue` on a request would match blue production servers, and `X-TBN-Version:
+yellow` would match yellow dev servers.
 
-The demo app converts a `X-TBN-Version` query parameter into a
-header in calls to the backend; if you navigate to [localhost?X-TBN-
+The all-in-one client converts a `X-TBN-Version` query parameter into a header
+in calls to the backend; if you navigate to [localhost?X-TBN-
 Version=yellow](http://localhost?X-TBN- Version=yellow) you should see all
 yellow boxes. Meanwhile going to [localhost](http://localhost) without that
-parameter still shows blue or green based on the release state of previous steps in this guide.
+parameter still shows blue or green based on the release state of previous steps
+in this guide.
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619233248442058713/9e580867275ee1a7fd6b502c8b5c8e6fbc24ea8ec31759ac5b2326ea7fdc264c/column_sized_Screen_Shot_2016-10-28_at_10.43.02_AM.png" height="50%" width="50%"/>
 
@@ -214,41 +144,13 @@ scenario your testers can perform validation, you can load test, and you can
 demo to stakeholders without running through a complicated multi-environment
 scenario, even during another release.
 
-### Testing latency and error rates
-
-In order to demo what errors and latency issues may look like in a production environment, we implemented a few parameters that can be set to illustrate these scenarios. By default, each of the demo servers returns a successful (status code 200) response with its color (as a hex string) as the response body.
-
-URL parameters passed to the web page at http://localhost can be used to control the mean latency and error rate of each of the different server colors.
-
-*an example*
-The following URL will show an error rate and delayed response for green and blue servers.
-
-```
-http://localhost/?x-blue-delay=25&x-blue-error=.001&x-green-delay=10&x-green-error=.25
-```
-
-This will simulate a bad green release, and a need to rollback to a known good blue release.
-
-#### Parameter effect
-
-These parameters can be modified in the above example as follows:
-
-- x-color-delay
-  Sets the mean delay in milliseconds.
-- x-color-error
-  Sets the error rate, describe as a fraction of 1 (e.g., 0.5 causes an error 50% of the time).
-
-The latency and error rates are passed to the demo servers as HTTP
-headers with the same name and value as the URL parameters
-described. You can use these parameters to help you visualize the
-effects of a bad release, or an issue with the code in a new version
-of your application, which would be cause to step-down the release and
-return traffic to a known-good version.
+{% include guides/testing_latency_and_error_rates.md %}
 
 ## Next steps
 
-Now that you've seen demo app in action, you can move on to deploying Houston in your own environment. After reading the configuration guide below, proceed to
-one of the following cloud integrations:
+Now that you've seen all-in-one demo in action, you can move on to deploying
+Houston in your own environment. After reading the configuration guide below,
+proceed to one of the following cloud integrations:
 
 - [Kubernetes](../guides/kubernetes.html)
 - [Marathon](../guides/marathon.html)

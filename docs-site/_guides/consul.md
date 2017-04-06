@@ -23,6 +23,7 @@ This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 
 ##  Installing on EC2
+
 For this guide, we will assume you have a running Consul instance, as well as
 defined services. The following will show you how to launch tbncollect and
 tbnproxy on EC2 within Docker containers, but if you prefer launching with a
@@ -30,6 +31,7 @@ different configuration tool, please take note of the ports needed, as well as
 environment labeling.
 
 You will need:
+
 - Two EC2 micro instances running Docker on an OS of your choice. Be sure to
 configure security groups for these instances according to the the following
 list.
@@ -46,6 +48,7 @@ Your existing Consul services will also need the following:
     8080 from the IP of the tbnproxy instance
 
 ## Labeling your Consul nodes
+
 In order for tbncollect to see your Consul nodes, they will need the label
 `tbn-cluster`, which you can add in your service definitions as in this example:
 
@@ -71,9 +74,11 @@ appropriately.
 ## tbncollect and tbnproxy
 
 ### Installing tbncollect
+
 Choose a micro instance, note the IP address, and SSH into it.
 
 #### Run tbncollect
+
 Now, you can install and run tbncollect on your new micro EC2 instance, with
 your environment variables defined inside of the docker command:
 
@@ -115,6 +120,7 @@ curl -g -s -H "X-Turbine-API-Key: <your api key>" "api.turbinelabs.io/v1.0/clust
 ```
 
 ### Installing tbnproxy
+
 With tbncollect seeing your instances, move on to launching tbnproxy with the
 following command on the same instance as the collector with ports forwarded
 appropriate to your service or site:
@@ -128,6 +134,7 @@ SSH into this instance, and curl your new tbnproxy server's IP address at port
 to one of your node web servers.
 
 ## Mapping an ELB
+
 With your instance running both tbncollect and tbnproxy, create an Elastic Load
 Balancer through the AWS management console to send traffic through to your
 tbncollect and tbnproxy node on the appropriate ports - in this example, TCP

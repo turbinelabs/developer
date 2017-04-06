@@ -29,12 +29,16 @@ JSON file into the JSON section:
 Be sure to fill in *your api key*, and *your zone name* (found by querying
 with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
 
-Here is an [example configuration file for tbncollect](../examples/marathon/tbncollect_spec.json).
+Here is an [example configuration file for tbncollect](examples/marathon/tbncollect_spec.json):
+
+```javascript
+{% include_relative examples/marathon/tbncollect_spec.json %}
+```
 
 You can also deploy the app via the command line with:
 
 ```shell
-dcos marathon app add https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/marathon/tbncollect_example.json
+dcos marathon app add https://docs.turbinelabs.io/guides/examples/marathon/tbncollect_example.json
 ```
 
 ## Deploying the Demo App
@@ -44,7 +48,11 @@ to an Application Group in Marathon. Create a JSON file (<your group>.json)
 Be sure to fill in *your group*, *your app*, and *your cluster name* (found by
 querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
 
-[Example demo app configuration JSON](../examples/marathon/app_spec.json).
+[Example demo app configuration JSON](examples/marathon/app_spec.json):
+
+```javascript
+{% include_relative examples/marathon/app_spec.json %}
+```
 
 Then, load your new Application Group and Application into Marathon with this
 command:
@@ -126,17 +134,25 @@ and <your proxy name> found by querying with:
 curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/proxy
 ```
 
-This [example tbnproxy JSON](../examples/marathon/tbnproxy_spec.json) should help you get started.
+This [example tbnproxy JSON](examples/marathon/tbnproxy_spec.json) should help you get started:
+
+```javascript
+{% include_relative examples/marathon/tbnproxy_spec.json %}
+```
 
 ## Adding a new app to your group
 Modify your group's JSON file to add another version of your app, and then
 update your Application Group with this command:
 
 ```shell
-dcos marathon group update <your group> < https://raw.githubusercontent.com/turbinelabs/developer/master/docs-site/examples/group_example.json
+dcos marathon group update <your group> < https://docs.turbinelabs.io/guides/examples/marathon/group_spec.json
 ```
 
-Finally, here is an [example of your group.json](../examples/group_spec.json)
+Finally, here is an [example of your group.json](examples/group_spec.json)""
+
+```javascript
+{% include_relative examples/marathon/tbnproxy_spec.json %}
+```
 
 You can now view your services through curl:
 

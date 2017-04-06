@@ -1,32 +1,14 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: all-in-one-client
   name: all-in-one-client
-  namespace: default
-  resourceVersion: "427"
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      run: all-in-one-client
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: all-in-one-client
         tbn_cluster: all-in-one-client
-        app: all-in-one-client
-
     spec:
       containers:
       - image: turbinelabs/all-in-one-client:latest
@@ -36,4 +18,3 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        resources: {}

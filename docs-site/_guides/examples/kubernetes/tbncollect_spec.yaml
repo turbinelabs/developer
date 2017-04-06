@@ -1,33 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.Kubernetes.io/revision: "2"
-  generation: 4
-  labels:
-    run: tbncollect
   name: tbncollect
-  namespace: default
-  resourceVersion: "427"
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      run: tbncollect
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: tbncollect
     spec:
       containers:
       - image: turbinelabs/tbncollect:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: tbncollect
         env:
         - name: TBNCOLLECT_CMD
@@ -39,4 +23,3 @@ spec:
             secretKeyRef:
               name: tbnsecret
               key: apikey
-        resources: {}

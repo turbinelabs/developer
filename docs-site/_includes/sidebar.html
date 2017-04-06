@@ -6,7 +6,7 @@
         {% assign sorted_refs = site.reference | sort: 'print_order' %}
         {% include sidebar_section.html collection=sorted_refs %}
         <p>
-        {% assign sorted_guides = site.guides | sort_natural: 'print_orderk' %}
+        {% assign sorted_guides = site.guides | sort_natural: 'print_order' %}
         {% include sidebar_section.html collection=sorted_guides %}
     </nav>
 
