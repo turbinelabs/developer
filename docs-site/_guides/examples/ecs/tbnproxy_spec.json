@@ -1,6 +1,6 @@
 {
   "name": "tbnproxy",
-  "image": "tbnproxy:latest",
+  "image": "tbnproxy:0.6.1",
   "cpu": 1,
   "memory": 128,
   "memoryReservation": 128,
@@ -20,7 +20,7 @@
       "value": "<your proxy name>"
     }
   ],
-  "image": "tbnproxy:latest",
+  "image": "tbnproxy:0.6.1",
   "command": [],
   "cpu": 0,
 }

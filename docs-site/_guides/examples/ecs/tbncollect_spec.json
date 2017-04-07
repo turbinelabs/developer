@@ -1,6 +1,6 @@
 {
   "name": "collector",
-  "image": "tbncollect:latest",
+  "image": "tbncollect:0.6.1",
   "cpu": 1,
   "memory": 128,
   "memoryReservation": 128,
