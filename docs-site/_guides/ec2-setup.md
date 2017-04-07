@@ -66,7 +66,7 @@ Now, you can install and run tbncollect on your third new micro EC2 instance,
 with your environment variables defined inside of the docker command:
 
 ```shell
-docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" -e "TBNCOLLECT_CMD=aws" turbinelabs/tbncollect:0.6.1
+docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" -e "TBNCOLLECT_CMD=aws" turbinelabs/tbncollect:0.7.0
 ```
 
 Verify the node instances are being seen by tbncollect by curling the Turbine
@@ -105,7 +105,7 @@ following command on the same instance as the collector with ports forwarded
 appropriate to your service or site:
 
 ```shell
-docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.6.1
+docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.7.0
 ```
 
 SSH into this instance, and curl your new tbnproxy server's IP address at port

@@ -11,7 +11,7 @@ spec:
         tbn_cluster: all-in-one-client
     spec:
       containers:
-      - image: turbinelabs/all-in-one-client:0.6.1
+      - image: turbinelabs/all-in-one-client:0.7.0
         imagePullPolicy: IfNotPresent
         name: all-in-one-client
         ports:

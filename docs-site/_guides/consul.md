@@ -83,7 +83,7 @@ Now, you can install and run tbncollect on your new micro EC2 instance, with
 your environment variables defined inside of the docker command:
 
 ```shell
-docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_DC=<your datacenter>" -e "TBNCOLLECT_CMD=consul" turbinelabs/tbncollect:0.6.1
+docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_DC=<your datacenter>" -e "TBNCOLLECT_CMD=consul" turbinelabs/tbncollect:0.7.0
 ```
 
 _use `tbncollect help consul` to determine which environmental variables you can use and modify_
@@ -126,7 +126,7 @@ following command on the same instance as the collector with ports forwarded
 appropriate to your service or site:
 
 ```shell
-docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.6.1
+docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.7.0
 ```
 
 SSH into this instance, and curl your new tbnproxy server's IP address at port

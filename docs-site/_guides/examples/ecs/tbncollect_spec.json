@@ -1,6 +1,6 @@
 {
   "name": "collector",
-  "image": "tbncollect:0.6.1",
+  "image": "turbinelabs/tbnproxy:0.7.0",
   "cpu": 1,
   "memory": 128,
   "memoryReservation": 128,
