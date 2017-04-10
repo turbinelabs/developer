@@ -23,7 +23,8 @@ from the Turbine Labs API.
 Please use `tbnctl -h` for detailed help from the command line.
 
 ## Installation
-To install tbnctl, run the following commands, which will get the application, and install it using Go:
+To install tbnctl, run the following commands, which will get the application,
+and install it using Go:
 
 ```shell
 go get -u github.com/turbinelabs/tbnctl
@@ -40,11 +41,13 @@ include `--api.key` at a minimum.
   - name: if set this will override the more general json/yaml format flag. If
   a custom format is desired, it may be specified by prefixing the string with
   '+'. The available pre-defined formats vary based on the object type being
-  listed, e.g. cluster, or zone. For the full list of objects, use `tbnctl list -h`.
+  listed, e.g. cluster, or zone.
+  - For the full list of objects, use `tbnctl list -h`.
 
 - create: create a new resource from a file/flags, e.g. `cat zone.json | tbnctl
 create zone`. Equivalent to `POST <api>/v1.0/<object type>`. STDIN is used to
 provide the JSON file through the use of pipes.
+  - For more detailed help, please type `tbnctl create -h`
 
 - edit: modify a resource, e.g. tbnctl edit zone testbed. Equivalent to `PUT <api>/v1.0/<object type>/<object id>`. When changes need to be made an initial
 version of the object can be presented in an editor. The command used to launch
@@ -53,10 +56,18 @@ object and the editor is closed. For scripting purposes it may be useful to use
 STDIN to provide the edited object instead of using an interactive editor. If
 so, simply make the new version available on STDIN through standard use of
 pipes.
+  - For more detailed help, please type `tbnctl edit -h`.
 
 - delete: deletes a single resource, e.g. tbnctl delete zone testbed.
 Equivalent to `DELETE <api>/v1.0/<object type>/<object id>`.
+  - For more detailed help, please type `tbnctl delete -h`.
+
+- init-zone: initialize a named Zone in the Turbine Labs API, adding zero or
+more default routes for pairs of domain/port and cluster names, and zero or
+more proxies serving one or more domains each.
+  - Port/domain pairs are specified with `proxy=domain:port,...`.
+  - Routes are specified with `domain:port[/path]=cluster([:key=value]*),...`.
+  - For more detailed help, please type `tbnctl init-zone -h`.
 
 - proxy-config: Get the proxy config.
-
-- tbnctl -h <cmd>: Shows command details and command environmental variables.
+  - For more detailed help, please type `tbnctl proxy-config -h`.
