@@ -17,7 +17,7 @@ title: tbnctl Guide
 
 [//]: # (Guide to the tbnctl tool)
 This guide discusses the `tbnctl` tool, which is used as the primary CLI
-interaction method for creating, editing, and removing zones, clusters, etc,
+interaction method for creating, editing, and removing zones, clusters, etc.,
 from the Turbine Labs API.
 
 Please use `tbnctl -h` for detailed help from the command line.
