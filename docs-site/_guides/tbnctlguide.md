@@ -31,43 +31,57 @@ go get -u github.com/turbinelabs/tbnctl
 go install github.com/turbinelabs/tbnctl
 ```
 
-## List of commands
+## Commands
 
 Each command can be used with one of the following objects: user, zone, proxy,
 domain, route, shared_rules, or cluster. For each command, you will need to
 include `--api.key` at a minimum.
 
-- list: gets a list of resources, e.g. `tbnctl list zones`. Equivalent to `GET <api>/v1.0/<object type>`. Option: format=string (<format name> or <format string>). Some pre-defined format strings may be referenced by name.
-  - name: if set this will override the more general json/yaml format flag. If
-  a custom format is desired, it may be specified by prefixing the string with
-  '+'. The available pre-defined formats vary based on the object type being
-  listed, e.g. cluster, or zone.
-  - For the full list of objects, use `tbnctl list -h`.
+### list
 
-- create: create a new resource from a file/flags, e.g. `cat zone.json | tbnctl
+This gets a list of resources, e.g. `tbnctl list zones`. Equivalent to
+`GET <api>/v1.0/<object type>`. This includes the options of
+`format=string (<format name>` or `<format string>`). Some pre-defined format
+strings may be referenced by name.
+
+The flag `name` will override the more general json/yaml format flag. If a
+custom format is desired, it may be specified by prefixing the string with '+'.
+The available pre-defined formats vary based on the object type being listed,
+e.g. cluster, or zone. For the full list of objects, use `tbnctl list -h`.   
+
+### create
+
+This creates a new resource from a file/flags, e.g. `cat zone.json | tbnctl
 create zone`. Equivalent to `POST <api>/v1.0/<object type>`. STDIN is used to
-provide the JSON file through the use of pipes.
-  - For more detailed help, please type `tbnctl create -h`
+provide the JSON file through the use of pipes. For more detailed help, please
+type `tbnctl create -h`.
 
-- edit: modify a resource, e.g. tbnctl edit zone testbed. Equivalent to `PUT <api>/v1.0/<object type>/<object id>`. When changes need to be made an initial
-version of the object can be presented in an editor. The command used to launch
-the editor is taken from EDITOR and must block execution until the updated
-object and the editor is closed. For scripting purposes it may be useful to use
-STDIN to provide the edited object instead of using an interactive editor. If
-so, simply make the new version available on STDIN through standard use of
-pipes.
-  - For more detailed help, please type `tbnctl edit -h`.
+### edit
 
-- delete: deletes a single resource, e.g. tbnctl delete zone testbed.
-Equivalent to `DELETE <api>/v1.0/<object type>/<object id>`.
-  - For more detailed help, please type `tbnctl delete -h`.
+This modifies a resource, e.g. tbnctl edit zone testbed. Equivalent to
+`PUT <api>/v1.0/<object type>/<object id>`. When changes need to be made an
+initial version of the object can be presented in an editor. The command used
+to launch the editor is taken from EDITOR and must block execution until the
+updated object and the editor is closed. For scripting purposes it may be
+useful to use STDIN to provide the edited object instead of using an
+interactive editor. If so, simply make the new version available on STDIN
+through standard use of pipes. For more detailed help, please type
+`tbnctl edit -h`.  
 
-- init-zone: initialize a named Zone in the Turbine Labs API, adding zero or
-more default routes for pairs of domain/port and cluster names, and zero or
-more proxies serving one or more domains each.
-  - Port/domain pairs are specified with `proxy=domain:port,...`.
-  - Routes are specified with `domain:port[/path]=cluster([:key=value]*),...`.
-  - For more detailed help, please type `tbnctl init-zone -h`.
 
-- proxy-config: Get the proxy config.
-  - For more detailed help, please type `tbnctl proxy-config -h`.
+### delete
+
+This deletes a single resource, e.g. tbnctl delete zone testbed, and is
+equivalent to `DELETE <api>/v1.0/<object type>/<object id>`. For more detailed
+help, please type `tbnctl delete -h`.
+
+
+### init-zone
+
+This initializes a named Zone in the Turbine Labs API, adding zero or more
+default routes for pairs of domain/port and cluster names, and zero or more
+proxies serving one or more domains each.
+
+Port/domain pairs are specified with `proxy=domain:port,...`, while Routes are
+specified with `domain:port[/path]=cluster([:key=value]*),...`. For more
+detailed help, please type `tbnctl init-zone -h`.  

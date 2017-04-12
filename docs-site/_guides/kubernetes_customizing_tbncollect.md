@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Customizing tbncollect For Your Kubernetes Environment
+title: Customizing tbncollect
 child: true
 ---
 
