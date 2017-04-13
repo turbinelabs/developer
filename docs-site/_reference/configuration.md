@@ -117,6 +117,14 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbi
 Now that you've set up a Zone, you'll create a Domain. This represents the URL
 space of your service, in this case <my.example.com>
 
+Visit [Our app](https://app.turbinelabs.io), and navigate to your Zone after logging
+in. Choose `Edit Routes`, then `More`, then `Add Domain`. The dialog that
+appears will allow you to name your domain, choose a port, and connect it to
+any existing proxies (which should be empty if this is your first time
+configuring Houston).
+
+You may also create a Domain with tbnctl with the following commands:
+
 ```command
 cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 ```
@@ -155,6 +163,11 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 
 With a domain created, you’ll create a representation of your tbnproxy, and map
 it to to the domain you just created.
+
+In the same `More` menu as `Add Domain` is `Add Proxy`. Choose this menu item, 
+name your Proxy, and select the Domain you created you created in the previous step.
+
+You may also create a Proxy using tbnctl with the following commands:
 
 ```command
 cat proxy.json | tbnctl --api.key="your_api_key" create proxy

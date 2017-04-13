@@ -18,7 +18,10 @@ print_order: 6
 
 [//]: # ( Turbine Labs App Guide                                              )
 
-This guide explains the features, knobs, and buttons for the Houston web UI application. When using Houston, this web app let's you setup new releases, edit custom routes, monitor your site and applications, and view a robust changelog. Visit [our app](app.turbinelabs.io) to see more.
+This guide explains the features, knobs, and buttons for the Houston web app.
+With Houston, you can test and release new software incrementally to customers,
+compare the customer experience across software versions, and measure the
+quality and pace of iteration.
 
 ## Releases
 
@@ -29,8 +32,8 @@ which are available for test or release.
 
 ### Edit Routes
 
-Click to go the Route Editor, which allows you to view and edit current routes
-for your services.
+Click to go the Route Editor, which allows you to view and edit current Routes
+for your Services.
 
 ### Debug Info
 
@@ -39,8 +42,8 @@ Turbine Labs developers
 
 ## Zones
 
-The zone showing in the top bar is the currently selected zone. Clicking on it
-will show any other available zones.
+The Zone showing in the top bar is the currently selected Zone. Clicking on it
+will show any other available Zones.
 
 ## User
 
@@ -51,13 +54,13 @@ Click to return to the login screen, after logging your user out of the app.
 ## View Layout
 
 Each view in the app includes a top-line set of charts showing the aggregate
-data from the currently selected zone, domain, service, release group, or
-route. Below, "sparklines" rows are displayed for relevant sub-objects. These
+data from the currently selected Zone, Domain, Service, Release Group, or
+Route. Below, "sparklines" rows are displayed for relevant sub-objects. These
 charts all share a common x-axis. Each sparkline can be expanded to a larger
 inline chart view, or can be made the new top-line view.
 
 The default view is of a Zone, from which you can see sparklines for the
-underlying Domains, Services, and Release groups. The chart below summarizes
+underlying Domains, Services, and Release Groups. The chart below summarizes
 the different sparkline row types available for each top-line view:
 
 **The following chart shows the relationship between views, and sparklines**
@@ -76,68 +79,62 @@ the different sparkline row types available for each top-line view:
 ### Latency
 
 Displays the 50th and 99th percentile latencies, in milliseconds, of the
-currently selected zone, domain, service, route, or release group.
+currently selected Zone, Domain, Service, Route, or Release Group.
 
 ### Requests
 
 Displays requests, successes, errors, and failures for the currently selected
-zone, domain, service, route, or release group.
+Zone, Domain, Service, Route, or Release Group.
 
 ### Success Rate
 
 Displays the percentage of requests that were successful for the currently
-selected zone, domain, service, route, or release group.
+selected Zone, Domain, Service, Route, or Release Group.
 
 ### Time Filter
 
 This filters the time period for the charts. Choose from the past hour, the
 past day, the past week, or a custom time period.
 
-### Compare
-
-_Not Currently Implemented_ Each chart can show comparison data for versions or
-stages of your services or applications.
-
 ## Changelog
 
 All recent changes within the current view appear here. For example, in a Zone
 view, all changes to Routes, Release Groups, and Services would be present.
 
-### More
-
-_Not Currently Implemented_ This menu allows you to view the metric data in
-another service, download for use elsewhere, or share it with another team or
-coworker.
 
 ## Edit Routes
 
 ### Route list
 
-Each item in the dropdown list represents a route serving live traffic. Select
-a route to display existing rules for that route.
+Each item in the dropdown list represents a Route serving live traffic. Select
+a Route to display existing rules for that Route.
 
 ### Add rule
 
-This adds a new rule to the selected route. **This change applies to all Routes
+This adds a new rule to the selected Route. **This change applies to all Routes
 within the Release Group.** Choose Save Release Group to apply your change.
 
 ### More
 
 #### Create Route
 
-This option displays a screen allowing you to choose the domain, path, and
-release group for your new route. Once the new route is created, you can add
-addition rules for it.
-
-#### Split Route
-
-_Not Currently Implemented_
-
-#### Clone Route
-
-_Not Currently Implemented_ Copy an existing route, with all of its rules.
+This option displays a screen allowing you to choose the Domain, path, and
+Release Group for your new Route. Once the new Route is created, you can add
+additional rules to it.
 
 #### Delete Route
 
-Remove an existing route and its rules. _Caution, this is irreversible once you
-click Save Release Group_
+Remove an existing Route and its rules. A dialog will appear, showing which
+services are currently being routed to _Caution, this is irreversible once you
+confim by clicking Delete_
+
+#### Add Domain
+
+Add a new Domain, comprising a hostname and port. You can also map this Domain
+to one or more Proxies.
+
+#### Add Proxy
+
+Add a new Proxy, which represents the configuration of one or more tbnproxy
+instances. You can choose which Domains to make the Proxy available to from a
+list of Domains on your Zone.
