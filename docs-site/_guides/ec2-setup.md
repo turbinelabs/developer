@@ -23,6 +23,7 @@ This will ensure your API key, domain, zone, routes, and other key components ar
 
 ##  Installing on EC2
 You will need:
+
 - Three EC2 micro instances running Docker on an OS of your choice. Be sure to
 configure security groups for these instances according to the the following
 list.
@@ -117,6 +118,7 @@ With your instance running both tbncollect and tbnproxy, create an Elastic Load
 Balancer through the AWS management console to send traffic through to your
 tbncollect and tbnproxy node on the appropriate ports - in this example, TCP
 port 80.
+
 - Apply security group ELBGroup
 
 Once the ELB is up, you should be able to see your app or site in a browser, or
