@@ -1,6 +1,7 @@
 ## Prerequisites
 
 ### A Turbine Labs API key
+
 Make sure you have a valid Turbine Labs API key. If you don't, email
 support@turbinelabs.io to get set up. This tutorial assumes you've set an
 environment variable named $TBNCTL_API_KEY to the value of your API key, e.g.,
@@ -12,7 +13,8 @@ export TBNCTL_API_KEY=ed6b67e9-31d4-4413-5a8d-23c863405ecf
 
 ### A functional {{ include.platform }} install
 
-If you don't have one, the [{{ include.quick_start_name }}]({{ include.quick_start_url }}) is a great
+If you don't have one, the
+[{{ include.quick_start_name }}]({{ include.quick_start_url }}) is a great
 resource to get one set up quickly.
 
 ### The tbnctl command line interface (CLI)
@@ -26,6 +28,9 @@ is in your `$PATH`):
 go get -u github.com/turbinelabs/tbnctl
 go install github.com/turbinelabs/tbnctl
 ```
+
+In most cases you can also `curl` the api directly, though this is typically
+less convenient.
 
 ## Creating a Zone
 

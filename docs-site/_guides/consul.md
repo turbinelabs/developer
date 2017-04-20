@@ -93,7 +93,7 @@ curling the Turbine Labs API. Your cluster name should be URL encoded, and is
 the name of the service labeled with "tbn-cluster".
 
 ```shell
-curl -g -s -H "X-Turbine-API-Key: <your api key>" "api.turbinelabs.io/v1.0/cluster?filter[0].cluster_name=<cluster name>"
+curl -g -s -H "Authorization: <your api key>" "api.turbinelabs.io/v1.0/cluster?filter[0].cluster_name=<cluster name>"
 ```
 
 *Example Result*

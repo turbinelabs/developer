@@ -18,16 +18,18 @@ title: Marathon Guide
 [//]: # (Integrating Houston with Marathon)
 
 ## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
+
 This will ensure your API key, domain, zone, routes, and other key components
 are set up correctly.
 
 ## Configuring tbncollect
+
 In order to install tbncollect you can either configure the application using
 the GUI in Marathon to fill in each section of the setup, or drop the following
 JSON file into the JSON section:
 
 Be sure to fill in *your api key*, and *your zone name* (found by querying
-with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
+with: `curl -s -H "Authorization: <your api key>" https://api.turbinelabs.io/v1.0/zone`).
 
 Here is an [example configuration file for tbncollect](examples/marathon/tbncollect_spec.json):
 
@@ -42,11 +44,12 @@ dcos marathon app add https://docs.turbinelabs.io/guides/examples/marathon/tbnco
 ```
 
 ## Deploying the Demo App
+
 In order for your application to be seen by tbncollect you will need to add it
 to an Application Group in Marathon. Create a JSON file (<your group>.json)
 
 Be sure to fill in *your group*, *your app*, and *your cluster name* (found by
-querying with: `curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
+querying with: `curl -s -H "Authorization: <your api key>" https://api.turbinelabs.io/v1.0/cluster`).**
 
 [Example demo app configuration JSON](examples/marathon/app_spec.json):
 
@@ -62,11 +65,12 @@ dcos marathon group add > <your group>.json
 ```
 
 ### Verifying Deployment
+
 Once it deploys, you should be able to curl to see the instance being picked up
 by the collector:
 
 ```shell
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
+curl -s -H "Authorization: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
 ```
 
 *Example Response*
@@ -117,6 +121,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/clu
 ```
 
 ## Configuring and deploying tbnproxy
+
 With tbncollect running, you can move on to configuring and deploying tbnproxy.
 Use your preferred method of loading apps to deploy the app with the following
 JSON file.
@@ -125,13 +130,13 @@ Be sure to fill in *your api key*, *your zone name*, which found by querying
 with:
 
 ```shell
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/zone
+curl -s -H "Authorization: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/zone
 ```
 
 and <your proxy name> found by querying with:
 
 ```shell
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/proxy
+curl -s -H "Authorization: $TBN_API_KEY" https://api.turbinelabs.io/v1.0/proxy
 ```
 
 This [example tbnproxy JSON](examples/marathon/tbnproxy_spec.json) should help you get started:
@@ -141,6 +146,7 @@ This [example tbnproxy JSON](examples/marathon/tbnproxy_spec.json) should help y
 ```
 
 ## Adding a new app to your group
+
 Modify your group's JSON file to add another version of your app, and then
 update your Application Group with this command:
 

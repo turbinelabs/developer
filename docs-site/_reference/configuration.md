@@ -31,6 +31,7 @@ This guide walks you through the initial configuration steps for tbnproxy
 integration with your microservice scheduler or applications.
 
 ## Before you get started
+
 Email [support@turbinelabs.io](mailto:support@turbinelabs.io) with your
 [DockerHub](https://hub.docker.com) account, and a
 [Github](https://www.github.com) account and we'll get you set up with an
@@ -46,6 +47,7 @@ go install github.com/turbinelabs/tbnctl
 ```
 
 ## Overview of tbnproxy initial setup
+
 You'll be going through the following steps to configure tbnproxy integration:
 
 1. Create a zone.
@@ -66,6 +68,7 @@ to any members of the application group with an app label with value
 <my.example.com>.
 
 ### Setting up your zone in the Turbine Labs API
+
 In this example, you will set up a Domain with a single Route, “/”, that will
 forward all traffic to a running prismatic-spray application. This instance is
 represented in the Turbine Labs API as a Cluster.
@@ -102,7 +105,7 @@ cat zone.json  | tbnctl --api.key="<your api key>" create zone
 Alternatively, with `curl`:
 
 ```command
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbinelabs.io/v1.0/zone
+curl -s -H "Authorization: $TBN_API_KEY" -d@zone_post.json https://api.turbinelabs.io/v1.0/zone
 ```
 
 *example zone_post.json*
@@ -114,6 +117,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@zone_post.json https://api.turbi
 ```
 
 #### Creating a domain
+
 Now that you've set up a Zone, you'll create a Domain. This represents the URL
 space of your service, in this case <my.example.com>
 
@@ -149,7 +153,7 @@ cat domain_post.json  | tbnctl --api.key="<your api key> create domain
 Alternatively, with `curl`:
 
 ```command
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinelabs.io/v1.0/domain
+curl -s -H "Authorization: $TBN_API_KEY" -d@domain_post https://api.turbinelabs.io/v1.0/domain
 ```
 
 *example domain post*
@@ -164,7 +168,7 @@ curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@domain_post https://api.turbinel
 With a domain created, you’ll create a representation of your tbnproxy, and map
 it to to the domain you just created.
 
-In the same `More` menu as `Add Domain` is `Add Proxy`. Choose this menu item, 
+In the same `More` menu as `Add Domain` is `Add Proxy`. Choose this menu item,
 name your Proxy, and select the Domain you created you created in the previous step.
 
 You may also create a Proxy using tbnctl with the following commands:
@@ -203,7 +207,7 @@ cat proxy.json | tbnctl --api.key="your_api_key" create proxy
 Alternatively, with `curl`:
 
 ```command
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@proxy_post.json https://api.turbinelabs.io/v1.0/proxy
+curl -s -H "Authorization: $TBN_API_KEY" -d@proxy_post.json https://api.turbinelabs.io/v1.0/proxy
 ```
 
 *example content of proxy_post.json*
@@ -271,7 +275,7 @@ cat cluster.json | tbnctl --api.key="<your api key>" create cluster
 Alternatively, with `curl`:
 
 ```command
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d '{"zone_key": "<your zone key>", "name": "hello-node"}' https://api.turbinelabs.io/v1.0/cluster
+curl -s -H "Authorization: $TBN_API_KEY" -d '{"zone_key": "<your zone key>", "name": "hello-node"}' https://api.turbinelabs.io/v1.0/cluster
 ```
 
 *example response:*
@@ -345,7 +349,7 @@ cat sharedrules.json | tbnctl --api.key="<your api key>" create shared_rules
 Alternatively, with `curl`:
 
 ```command
-curl -s -H "X-Turbine-API-Key: $TBN_API_KEY" -d@shared_rules_post.json https://api.turbinelabs.io/v1.0/shared_rules
+curl -s -H "Authorization: $TBN_API_KEY" -d@shared_rules_post.json https://api.turbinelabs.io/v1.0/shared_rules
 ```
 
 *example shared_rules_post_json*
@@ -433,7 +437,7 @@ cat route.json | tbnctl --api.key="<your api key>" create route
 Alternatively, with `curl`:
 
 ```command
-Curl -s -H “X-Turbine-API-Key: $TBN_API_KEY” -d@route_post.json https://api.turbinelabs.io/v1.0/route
+Curl -s -H “Authorization $TBN_API_KEY” -d@route_post.json https://api.turbinelabs.io/v1.0/route
 ```
 
 *example route_post.json*

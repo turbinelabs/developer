@@ -45,6 +45,7 @@ this demo, the collector is watching for files instead of API instances.
 
 A simple HTTP server application that returns hex color value strings. There
 are three "versions" of the server, each returning a different color value:
+
   - blue
   - green
   - yellow
@@ -112,9 +113,9 @@ If you see this error, restart Docker and re-run the all-in-one container.
 Let’s test our yellow dev version before we release it to customers. tbnproxy
 allows you to route to service instances based on headers set in the request.
 Navigate to [app.turbinelabs.io](https://app.turbinelabs.io), log in and select
-the zone you’re working with (all-in-one-demo by default). Click "Settings" -> "Edit
-Routes", and select all-in-one-demo:80/api from the top left dropdown. You should see
-the following screen
+the zone you’re working with (all-in-one-demo by default). Click "Settings" ->
+"Edit Routes", and select all-in-one-demo:80/api from the top left dropdown. You
+should see the following screen
 
 <img src="https://img.turbinelabs.io/2017-03-17/all-in-one-edit-route.png"/>
 
@@ -129,11 +130,11 @@ blue` on a request would match blue production servers, and `X-TBN-Version:
 yellow` would match yellow dev servers.
 
 The all-in-one client converts a `X-TBN-Version` query parameter into a header
-in calls to the backend; if you navigate to [localhost?X-TBN-
-Version=yellow](http://localhost?X-TBN- Version=yellow) you should see all
-yellow boxes. Meanwhile going to [localhost](http://localhost) without that
-parameter still shows blue or green based on the release state of previous steps
-in this guide.
+in calls to the backend; if you navigate to
+[localhost?X-TBN-Version=yellow](http://localhost?X-TBN-Version=yellow) you
+should see all yellow boxes. Meanwhile going to [localhost](http://localhost)
+without that parameter still shows blue or green based on the release state of
+previous steps in this guide.
 
 <img src="https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/619233248442058713/9e580867275ee1a7fd6b502c8b5c8e6fbc24ea8ec31759ac5b2326ea7fdc264c/column_sized_Screen_Shot_2016-10-28_at_10.43.02_AM.png" height="50%" width="50%"/>
 

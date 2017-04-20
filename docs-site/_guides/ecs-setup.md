@@ -122,7 +122,7 @@ create-service \
 Verify your tasks are being seen by tbncollect by curling the Turbine Labs API:
 
 ```shell
-curl -s -H "X-Turbine-API-Key: <your api key>" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
+curl -s -H "Authorization: <your api key>" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
 ```
 
 Your site or application should now be available to users:
