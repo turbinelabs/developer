@@ -38,5 +38,13 @@ $on-laptop:        800px;
 //     }
 // }
 
+
 // Import partials from the `minima` theme.
 @import "minima";
+
+.time-to-complete {
+  font-family: $base-font-family;
+  font-size: $base-font-size * 1.25;
+  font-style: italic;
+  color: lighten($grey-color, 10%);
+}

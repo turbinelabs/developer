@@ -2,6 +2,7 @@
 layout: page
 title: Quickstart
 print_order: 4
+time_to_complete: 10 minutes
 ---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )

@@ -17,6 +17,9 @@ layout: default
 {% else %}
 <a name="{{page.title | slugify }}"></a>
 <h1>{{page.title}}</h1>
+{% if page.time_to_complete %}
+  <h2 class="time-to-complete">Time to complete: {{ page.time_to_complete }}</h2>
+{% endif %}
 {{ page.content | liquefy | markdownify }}
 {% endif %}
 {% endfor %}

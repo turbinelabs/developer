@@ -5,6 +5,9 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
+    {% if page.time_to_complete %}
+      <h2 class="time-to-complete">Time to complete: {{ page.time_to_complete }}</h2>
+    {% endif %}
   </header>
 
   <div class="post-content">

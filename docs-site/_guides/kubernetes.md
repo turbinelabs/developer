@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Kubernetes Guide
+time_to_complete: 10 minutes
 ---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
