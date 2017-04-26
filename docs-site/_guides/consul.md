@@ -17,10 +17,12 @@ title: Consul Guide
 
 [//]: # (Integrating Houston with Consul)
 
-## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
-
-This will ensure your API key, domain, zone, routes, and other key components
-are set up correctly.
+{%
+  include guides/prerequisites.md
+  platform="Consul"
+  quick_start_name="Consul Getting-Started"
+  quick_start_url="https://www.consul.io/intro/getting-started/install.html"
+%}
 
 ##  Installing on EC2
 

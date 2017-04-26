@@ -17,10 +17,12 @@ title: Marathon Guide
 
 [//]: # (Integrating Houston with Marathon)
 
-## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
-
-This will ensure your API key, domain, zone, routes, and other key components
-are set up correctly.
+{%
+  include guides/prerequisites.md
+  platform="Marathon"
+  quick_start_name="Application Basics"
+  quick_start_url="https://mesosphere.github.io/marathon/docs/application-basics.html"
+%}
 
 ## Configuring tbncollect
 

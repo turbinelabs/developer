@@ -17,9 +17,12 @@ title: EC2 Guide
 
 [//]: # (Integrating Houston with Docker on EC2)
 
-## Follow the [configuration guide]({{ "/reference#configuration" | relative_url }})
-
-This will ensure your API key, domain, zone, routes, and other key components are set up correctly.
+{%
+  include guides/prerequisites.md
+  platform="EC2"
+  quick_start_name="Docker Basics"
+  quick_start_url="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html"
+%}
 
 ##  Installing on EC2
 You will need:
