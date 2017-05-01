@@ -20,11 +20,5 @@
       "value": "<your proxy name>"
     }
   ],
-  "image": "turbinelabs/tbnproxy:0.7.0",
-  "command": [],
-  "cpu": 0,
-}
-],
-"volumes": [],
 "family": "tbnproxy"
 }

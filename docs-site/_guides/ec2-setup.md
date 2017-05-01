@@ -25,108 +25,56 @@ title: EC2 Guide
 %}
 
 ##  Installing on EC2
+
 You will need:
 
 - Three EC2 micro instances running Docker on an OS of your choice. Be sure to
-configure security groups for these instances according to the the following
-list.
+configure security groups with open ports for these instances according to the
+the following list. You'll also need the VPC ID of the VPC these instances are located on.
 - ELBGroup: a security group for your ELB
-  - Open ports:
-    TCP 80 inbound from the internet
-- TbnProxyGroup: a security group for your tbnproxy instance
-  - Open ports:
-    TCP 80 from ELBGroup
-    SSH 22 inbound from the internet
+  - TCP 80 inbound from the internet
+- TBNProxyGroup: a security group for your tbnproxy instance
+  - TCP 80 from ELBGroup
+  - SSH 22 inbound from the internet
 - AppGroup: a security group for your application instances
-  - Open ports:
-    8080 from TRPGroup
-    SSH 22 inbound from the internet
+  - 8080 from TBNProxyGroup
+  - SSH 22 inbound from the internet
 
-*[This guide will help if you want to run Docker on Ubuntu] (https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04).*
+## Setting up service discovery
 
-### Installing the test node app
-While configuring your instances to launch, be sure to add a tag, which in our
-example would be `"tbn:cluster:hellonode"="8080"`, to two of the three. These
-two instances are where you will install the test node app, or your own apps.
-You may run multiple different apps on different ports of the same instance;
-the tags are used to let the collector know which app is running on which port.
-
-### Running the test app
-With your new EC2 instances running Docker, you can now run the following test
-Node app after using SSH to connect to both of them.
-
-```shell
-docker run -p 8080:8080 -d turbinelabs/hellonode
-```
-
-SSH into one node server instance, and curl your new node server's IP address
-at port 8080, if you are using the test app, to verify it is exposed.
-
-### Installing tbncollect
-Choose your third micro instance, note the IP address, and SSH into it.
-
-#### Run tbncollect
-Now, you can install and run tbncollect on your third new micro EC2 instance,
-with your environment variables defined inside of the docker command:
+{% include guides/aws/now_install_tbncollect.md %}
 
 ```shell
 docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" -e "TBNCOLLECT_CMD=aws" turbinelabs/tbncollect:0.7.0
 ```
 
-Verify the node instances are being seen by tbncollect by curling the Turbine
-Labs API:
+{% include guides/aws/the_all_in_one_demo.md %}
 
-```shell
-curl -s -H "Authorization: <your api key>" https://api.turbinelabs.io/v1.0/cluster/<your cluster key>
-```
+{% include guides/adding_a_domain.md %}
 
-*Example Result*
+{% include guides/aws/installing_tbnproxy.md %}
 
-```javascript
-{
-  {
-    "cluster_key":"<your cluster key>",
-    "zone_key":"<your zone key>",
-    "name":"<your zone name>",
-    "instances":
-    [
-      {
-        "host":"123.456.78.90",
-        "port":8080,
-        "metadata":
-        []
-      }
-    ],
-    "deleted_at":null,
-    "checksum":"<checksum value>"
-  }
-}%
-```
+{% include guides/aws/mapping_elb.md %}
 
-### Installing tbnproxy
-With tbncollect seeing your instances, move on to launching tbnproxy with the
-following command on the same instance as the collector with ports forwarded
-appropriate to your service or site:
+{% include guides/configure_routes.md %}
 
-```shell
-docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.7.0
-```
+{% include guides/aws/verifying.md %}
 
-SSH into this instance, and curl your new tbnproxy server's IP address at port
-80 from this instance, to verify that tbnproxy is successfully routing traffic
-to one of your node web servers.
+{%
+  include guides/demo_exercises_whats_going_on.md
+  platform="Docker on EC2"
+%}
 
-## Mapping an ELB
-With your instance running both tbncollect and tbnproxy, create an Elastic Load
-Balancer through the AWS management console to send traffic through to your
-tbncollect and tbnproxy node on the appropriate ports - in this example, TCP
-port 80.
+{% include guides/deployed_state.md %}
 
-- Apply security group ELBGroup
+{% include guides/setup_initial_route.md %}
 
-Once the ELB is up, you should be able to see your app or site in a browser, or
-with curl:
+{% include guides/aws/deploying_new.md %}
 
-```shell
-curl <ip address> -H "Host: <my.example.domain>"
-```
+{% include guides/aws/your_environment.md %}
+
+{% include guides/testing_before_release.md %}
+
+{% include guides/incremental_release.md %}
+
+{% include guides/testing_latency_and_error_rates.md %}

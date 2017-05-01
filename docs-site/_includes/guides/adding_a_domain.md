@@ -8,7 +8,7 @@ the domain first
 echo '{"name": "testbed-domain", "zone_key": "<your zone key>", "port": 80}' | tbnctl create domain
 ```
 
-> Remember that you can get your zone's key by running `tbnctl list zone`
+**Remember that you can get your zone's key by running `tbnctl list zone`**
 
 If you want to use [jq](https://stedolan.github.io/jq/) (a fantastic
 sed-like tool for json), you can save
