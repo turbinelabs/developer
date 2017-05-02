@@ -17,8 +17,8 @@ Your environment should look like the following:
 <img src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-1.png"/>
 {% endif %}
 
-There is a single domain (`{% if include.all_in_one %}all-in-one-demo:80{% else
-%}local.domain{% endif %}`) that contains two routes. `/api` handles requests to
+There is a single domain, `{% if include.all_in_one %}all-in-one-demo:80{% else
+%}local.domain{% endif %}` that contains two routes. `/api` handles requests to
 our demo service instances, and `/` handles requests for everything else (in
 this case the demo app). There are two clusters:
 

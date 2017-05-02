@@ -11,7 +11,7 @@ First we'll create a route to send traffic to the all-in-one client.
 screen.
 2. Click the "Settings" menu in the top right portion of the screen, and then
 select "Edit Routes".
-3. Click the "More" menu, then select "Create Route".
+3. Click the "More" menu, then select "Add Route".
 4. Select your domain in the domain drop down
 5. Enter "/" in the path field
 6. Click the release group dropdown and select "Create New Release Group..."
@@ -24,7 +24,7 @@ the all-in-one server
 
 1. Click the "Settings" menu in the top right portion of the screen, and then
 select "Edit Routes".
-2. Click the "More" menu, then select "Create Route".
+2. Click the "More" menu, then select "Add Route".
 3. Select your domain in the domain drop down
 4. Enter "/api" in the path field
 5. Click the release group dropdown and select "Create New Release Group..."

@@ -1,0 +1,30 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "server-blue",
+      "image": "turbinelabs/all-in-one-server:latest",
+      "cpu": 1,
+      "memory": 128,
+      "memoryReservation": 128,
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "dockerLabels": {
+        "version": "blue",
+        "stage": "prod",
+        "tbn-cluster": "all-in-one-server:8080"
+      },
+      "environment": [
+        {
+          "name": "TBN_COLOR",
+          "value": "1B9AE4"
+        }
+      ]
+    }
+  ],
+  "family": "server"
+}
