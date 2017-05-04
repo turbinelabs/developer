@@ -50,6 +50,8 @@ $ docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME
 
 {% include guides/aws/the_all_in_one_demo.md %}
 
+{% include guides/aws/ec2_tags.md %}
+
 {% include guides/adding_a_domain.md %}
 
 {% include guides/aws/installing_tbnproxy.md %}

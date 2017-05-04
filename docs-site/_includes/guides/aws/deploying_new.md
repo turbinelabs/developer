@@ -7,8 +7,3 @@ all-in-one-client, then run a new Docker container with this command:
 ```console
 $ docker run -p 8081:8081 -e "TBN_COLOR=<83D061>" -d turbinelabs/all-in-one-server:0.7.0
 ```
-
-Once the instance is running, add the following tags in the EC2 Console:
-
-`"tbn:cluster:all-in-one-server"="8081"` and
-`"tbn:cluster:all-in-one-server:color"="green"`
