@@ -33,7 +33,7 @@ proceed when you're confident the user experience won't be
 impacted. Canceling the release is simple and fast. It's just routing
 traffic away from the new version.
 
-<img width="70%" height="70%" alt="Blue Green" src="https://img.turbinelabs.io/2017-02-09/bluegreen_lm.svg"/>
+<img width="70%" height="70%" alt="Blue/Green" src="/assets/bluegreen_lm.png" />
 
 <a id="testing"></a>
 ## Testing in production
@@ -48,7 +48,7 @@ without affecting customers. Defects in failed production releases can be
 safely root-caused; Simply shift customer traffic to a known-good version, and
 allow engineers to inspect the bad version at their own pace.
 
-<img width="70%" height="70%" alt="Test in Prod" src="https://img.turbinelabs.io/2017-02-09/testinprod_lm.svg"/>
+<img width="70%" height="70%" alt="Test in Prod" src="/assets/testinprod_lm.png" />
 
 <a id="monolith"></a>
 ## Monolith decomposition
@@ -61,4 +61,4 @@ without affecting production traffic. Then use the same tools and methods you
 use for blue/green deploy to safely and incrementally shift traffic for that
 route from the monolith to your new service.
 
-<img width="70%" height="70%" alt="Decomp" src="https://img.turbinelabs.io/2017-02-09/decomp_lm.svg"/>
+<img width="70%" height="70%" alt="Decomp" src="/assets/decomp_lm.png" />

@@ -30,15 +30,15 @@ Install tbncollect with this task definition and note the variables you'll need
 to modify to match your environment and API key. Please note you can only
 run one collector per Turbine Labs' zone:
 
-```javascript
+```json
 {% include_relative examples/ecs/tbncollect_spec.json %}
 ```
 
 With your task definition created, you can proceed to run Create Service from
 the ECS control panel, or through the CLI:
 
-```shell
-aws ecs \
+```console
+$ aws ecs \
 create-service \
   --cluster default \
   --service-name tbncollect \
@@ -86,13 +86,13 @@ Example task definitions are included later, which include these labels.
 Next, use following task definition is for the
 all-in-one-server-blue which returns the color blue to the all-in-one-client.
 
-```javascript
+```json
 {% include_relative examples/ecs/all_in_one_server_blue.json %}
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
 
-```shell
+```console
 aws ecs \
 create-service \
   --cluster default \
@@ -107,14 +107,14 @@ The following task definition is for the all-in-one-client, which will
 show the results of the color returned by the all-in-one-server visually as a
 blue block.
 
-```javascript
+```json
 {% include_relative examples/ecs/all_in_one_client.json %}
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
 
-```shell
-aws ecs \
+```console
+$ aws ecs \
 create-service \
   --cluster default \
   --service-name client \
@@ -134,7 +134,7 @@ connectivity to all ECS tasks.
 This [tbnproxy task definition](examples/ecs/tbnproxy_spec.json) can be adapted
 to your needs or environment:
 
-```javascript
+```json
 {% include_relative examples/ecs/tbnproxy_spec.json %}
 ```
 
@@ -159,14 +159,14 @@ Now we'll deploy a new version of the server that returns green as the color to
 paint blocks. Use this task definition to create a service for a new server that
 returns the color green to the all-in-one-client.
 
-```javascript
+```json
 {% include_relative examples/ecs/all_in_one_server_green.json %}
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
 
-```shell
-aws ecs \
+```console
+$ aws ecs \
 create-service \
   --cluster default \
   --service-name server-green \

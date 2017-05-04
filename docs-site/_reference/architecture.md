@@ -22,7 +22,7 @@ collector configured for your infrastructure. Our hosted API, web
 application, and analytics backend provide a control plane to observe
 and manage your application.
 
-<img src="http://img.turbinelabs.io/2017-02-09/arch_lm.svg"/>
+<img src="/assets/arch_lm.png"/>
 
 ## In your environment
 

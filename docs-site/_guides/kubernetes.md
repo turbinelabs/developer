@@ -33,8 +33,8 @@ as a [Kubernetes secret](https://kubernetes.io/docs/user-guide/secrets/).
 Running the following command will create a new secret with your API key that we
 can reference from other deployment specs.
 
-```shell
-kubectl create secret generic tbnsecret --from-literal=apikey=$TBNCTL_API_KEY
+```console
+$ kubectl create secret generic tbnsecret --from-literal=apikey=$TBNCTL_API_KEY
 ```
 
 ## Setting up service discovery
@@ -43,8 +43,8 @@ The tbncollect binary scans your Kubernetes cluster for pods and groups
 them into clusters in the Turbine Labs API. To deploy tbncollect to your
 Kubernetes cluster, run
 
-```shell
-kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbncollect_spec.yaml
+```console
+$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbncollect_spec.yaml
 ```
 
 [Customizing tbncollect For Your Kubernetes Environment](./kubernetes_customizing_tbncollect.html)
@@ -55,25 +55,25 @@ We'll use the same client application described in our [quickstart]({{
 "/reference/#quick-start" | relative_url }}) for these examples. To deploy the
 all-in-one client, run
 
-```shell
-kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_client.yaml
+```console
+$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_client.yaml
 ```
 
 Next, deploy the all-in-one server by running
 
-```shell
-kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_server_blue.yaml
+```console
+$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_server_blue.yaml
 ```
 
 Ensure that these pods have started correctly by running
 
-```shell
-kubectl get pods
+```console
+$ kubectl get pods
 ```
 
 You should see output similar to the following
 
-```shell
+```
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
@@ -83,8 +83,8 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 Now verify that tbncollect has discovered your new pods and added them to the
 appropriate clusters by running
 
-```shell
-tbnctl list --format=summary cluster
+```
+$ tbnctl list --format=summary cluster
 ```
 
 You should see a `name: all-in-one-client` cluster with a single instance and a
@@ -95,8 +95,8 @@ all-in-one-client`.
 
 Now we're ready to deploy tbnproxy to Kubernetes.
 
-```shell
-kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbnproxy_spec.yaml
+```console
+$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbnproxy_spec.yaml
 ```
 
 ## Expose tbnproxy to the external network
@@ -105,14 +105,14 @@ This is environment specific. If you're running in GKE you can use the following
 path. First, expose the deployment on a NodePort to make it accessible outside
 the local Kubernetes network
 
-```shell
-kubectl expose deployment tbnproxy --target-port=80 --type=LoadBalancer
+```console
+$ kubectl expose deployment tbnproxy --target-port=80 --type=LoadBalancer
 ```
 
 Then wait for an external IP address to be created (this may take some time)
 
-```shell
-kubectl get services --watch
+```console
+$ kubectl get services --watch
 ```
 
 ```shell

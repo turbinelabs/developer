@@ -48,3 +48,28 @@ $on-laptop:        800px;
   font-style: italic;
   color: lighten($grey-color, 10%);
 }
+
+// prefer centered images
+p img, svg {
+  margin-top: $spacing-unit;
+  margin-bottom: $spacing-unit;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.site-footer > img, svg {
+  margin: 0;
+}
+
+code, pre {
+  font-family: "Roboto Mono", monospace;
+  font-size: 13px;
+}
+
+@media (min-width: $on-laptop) {
+  .wrapper {
+    padding-left: 10px;
+    padding-right: $spacing-unit * 2;
+  }
+}

@@ -8,8 +8,8 @@ server on. You may run multiple different apps on different ports of the same in
 With your new EC2 instances running Docker, you can now run the
 all-in-one-client after using SSH to connect to your second instance.
 
-```shell
-docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.7.0
+```console
+$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.7.0
 ```
 
 Once the instance is running, add the following tags in the EC2 Console:
@@ -23,8 +23,8 @@ Once the instance is running, add the following tags in the EC2 Console:
 With your new EC2 instances running Docker, you can now run the
 all-in-one-client after using SSH to connect to your third instance.
 
-```shell
-docker run -p 8080:8080  -d turbinelabs/all-in-one-server:0.7.0
+```console
+$ docker run -p 8080:8080  -d turbinelabs/all-in-one-server:0.7.0
 ```
 
 Once the instance is running, add the following tags in the EC2 Console:

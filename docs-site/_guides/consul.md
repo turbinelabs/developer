@@ -54,7 +54,7 @@ Your existing Consul services will also need the following:
 In order for tbncollect to see your Consul nodes, they will need the label
 `tbn-cluster`, which you can add in your service definitions as in this example:
 
-```javascript
+```json
 {
   "service": {
     "name": "node",
@@ -84,8 +84,8 @@ Choose a micro instance, note the IP address, and SSH into it.
 Now, you can install and run tbncollect on your new micro EC2 instance, with
 your environment variables defined inside of the docker command:
 
-```shell
-docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_DC=<your datacenter>" -e "TBNCOLLECT_CMD=consul" turbinelabs/tbncollect:0.7.0
+```console
+$ docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_DC=<your datacenter>" -e "TBNCOLLECT_CMD=consul" turbinelabs/tbncollect:0.7.0
 ```
 
 _use `tbncollect help consul` to determine which environmental variables you can use and modify_
@@ -94,13 +94,13 @@ Verify your Consul instances and services are being seen by tbncollect by
 curling the Turbine Labs API. Your cluster name should be URL encoded, and is
 the name of the service labeled with "tbn-cluster".
 
-```shell
-curl -g -s -H "Authorization: <your api key>" "api.turbinelabs.io/v1.0/cluster?filter[0].cluster_name=<cluster name>"
+```console
+$ curl -g -s -H "Authorization: <your api key>" "api.turbinelabs.io/v1.0/cluster?filter[0].cluster_name=<cluster name>"
 ```
 
 *Example Result*
 
-```javascript
+```json
 {
   {
     "cluster_key":"<your cluster key>",
@@ -127,8 +127,8 @@ With tbncollect seeing your instances, move on to launching tbnproxy with the
 following command on the same instance as the collector with ports forwarded
 appropriate to your service or site:
 
-```shell
-docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.7.0
+```console
+$ docker run -p 80:80 -d -e "TBNPROXY_API_KEY=<your api key>" -e "TBNPROXY_API_ZONE_NAME=<your zone name>" -e "TBNPROXY_PROXY_NAME=tbnproxy-1" turbinelabs/tbnproxy:0.7.0
 ```
 
 SSH into this instance, and curl your new tbnproxy server's IP address at port
@@ -145,6 +145,6 @@ port 80.
 
 Once the ELB is up, you should be able to see your app or site in a browser, or with curl:
 
-```shell
-curl <ip address> -H "Host: <my.example.domain>""
+```console
+$ curl <ip address> -H "Host: <my.example.domain>""
 ```

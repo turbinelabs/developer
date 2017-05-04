@@ -26,9 +26,9 @@ Please use `tbnctl -h` for detailed help from the command line.
 To install tbnctl, run the following commands, which will get the application,
 and install it using Go:
 
-```shell
-go get -u github.com/turbinelabs/tbnctl
-go install github.com/turbinelabs/tbnctl
+```console
+$ go get -u github.com/turbinelabs/tbnctl
+$ go install github.com/turbinelabs/tbnctl
 ```
 
 ## Commands
@@ -47,7 +47,7 @@ strings may be referenced by name.
 The flag `name` will override the more general json/yaml format flag. If a
 custom format is desired, it may be specified by prefixing the string with '+'.
 The available pre-defined formats vary based on the object type being listed,
-e.g. cluster, or zone. For the full list of objects, use `tbnctl list -h`.   
+e.g. cluster, or zone. For the full list of objects, use `tbnctl list -h`.
 
 ### create
 
@@ -66,7 +66,7 @@ updated object and the editor is closed. For scripting purposes it may be
 useful to use STDIN to provide the edited object instead of using an
 interactive editor. If so, simply make the new version available on STDIN
 through standard use of pipes. For more detailed help, please type
-`tbnctl edit -h`.  
+`tbnctl edit -h`.
 
 
 ### delete
@@ -84,4 +84,4 @@ proxies serving one or more domains each.
 
 Port/domain pairs are specified with `proxy=domain:port,...`, while Routes are
 specified with `domain:port[/path]=cluster([:key=value]*),...`. For more
-detailed help, please type `tbnctl init-zone -h`.  
+detailed help, please type `tbnctl init-zone -h`.

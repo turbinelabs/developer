@@ -53,7 +53,9 @@ Note the values near the bottom of the yaml file—these are a few of the values
 you can set either in your CLI or in a yaml file, and the rest may be found in
 your CLI by running:
 
-`tbncollect kubernetes --help`
+```console
+$ tbncollect kubernetes --help
+```
 
 *Please note that any flags set explicitly in the CLI invocation will
 override values set in a yaml file.*
@@ -119,7 +121,9 @@ recognizing your cluster and pods.
 With your environment variables correctly set, you can run tbncollect with the
 following command:
 
-`kubectl create -f <filename of customized tbncollect spec.yaml>`
+```console
+$ kubectl create -f <filename of customized tbncollect spec.yaml>
+```
 
 ## Service Discovery
 

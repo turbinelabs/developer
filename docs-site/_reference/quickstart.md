@@ -69,8 +69,8 @@ The three environment variables you'll need to set in order to run the demo are:
 To run the Docker container with tbnproxy, tbncollect, and the all-in-one server
 and client, use the following command:
 
-```shell
-docker run -p 80:80 \
+```console
+$ docker run -p 80:80 \
   -e "TBNPROXY_API_KEY=$TBN_API_KEY" \
   -e "TBNPROXY_API_ZONE_NAME=all-in-one-demo" \
   -e "TBNPROXY_PROXY_NAME=all-in-one-demo-proxy" \
