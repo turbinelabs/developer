@@ -2,38 +2,29 @@
 
 Tbnproxy is the container that handles request routing. It serves traffic for a
 set of domains, which in turn contain release groups and routes. We'll create
-the domain first
+the domain first.
 
-```console
-$ echo '{"name": "testbed-domain", "zone_key": "<your zone key>", "port": 80}' | tbnctl create domain
-```
+Go to https://app.turbinelabs.io, and login with your email address
+and API key.
 
-**Remember that you can get your zone's key by running `tbnctl list zone`**
+Click "Settings" in the top right portion of the screen, then "Edit
+Routes".
 
-If you want to use [jq](https://stedolan.github.io/jq/) (a fantastic
-sed-like tool for json), you can save
-yourself some cutting and pasting by doing the following
+The screen should indicate that you have no domains. Click "Add One".
 
-```console
-$ export ZONE_KEY=`tbnctl list zone | jq -r ".[] | select(.name == \"testbed\") | .zone_key"`
+<img src="/assets/no_domain.png"/>
 
-$ echo "{\"name\": \"testbed-domain\", \"zone_key\": \"$ZONE_KEY\", \"port\": 80}" | tbnctl create domain
-```
+type "testbed-domain" in the Name field, then Click "Add Domain"
 
-This uses jq to store the zone key in an environment variable we can
-use in the tbnctl create command.
+<img src="/assets/add_domain.png"/>
 
-And then add the proxy, substituting the domain key from the create domain
-command.
+The screen should now indicate that you have no proxies. Click "Add
+One".
 
-```console
-$ echo '{"name": "testbed-proxy", "zone_key": "<your zone key>", "domain_keys": ["<domain_key>"]}' | tbnctl create proxy
-```
+<img src="/assets/no_proxies.png"/>
 
-or, using jq
+type "testbed-proxy" in the Name field, and then check the box next to
+testbed-domain:80. This indicates that the proxy you're adding will
+serve traffic for testbed-domain. Click "Add Proxy"
 
-```console
-$ export DOMAIN_KEY=`tbnctl list domain | jq -r ".[] | select(.name == \"testbed-domain\" and .zone_key == \"$ZONE_KEY\") | .domain_key"`
-
-$ echo "{\"name\": \"testbed-proxy\", \"zone_key\": \"$ZONE_KEY\", \"domain_keys\": [\"$DOMAIN_KEY\"]}" | tbnctl create proxy
-```
+<img src="/assets/add_proxy.png"/>
