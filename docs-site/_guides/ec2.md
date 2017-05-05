@@ -19,7 +19,7 @@ title: EC2 Guide
 
 {%
   include guides/prerequisites.md
-  platform="EC2"
+  platform="Docker on EC2"
   quick_start_name="Docker Basics"
   quick_start_url="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html"
 %}
@@ -80,3 +80,7 @@ $ docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+{% include guides/conclusion.md
+   platform="Docker on EC2"
+%}

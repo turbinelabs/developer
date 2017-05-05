@@ -177,3 +177,7 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+{% include guides/conclusion.md
+   platform="Kubernetes"
+%}

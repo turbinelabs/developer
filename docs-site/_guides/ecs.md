@@ -181,3 +181,7 @@ create-service \
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+{% include guides/conclusion.md
+   platform="ECS"
+%}
