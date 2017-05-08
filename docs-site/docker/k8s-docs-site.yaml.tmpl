@@ -4,7 +4,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: docs-site-{{stage}}-{{tag}}
+  name: {{appendStageAndTag "docs-site"}}
   labels:
     app: docs-site
     stage: {{stage}}
