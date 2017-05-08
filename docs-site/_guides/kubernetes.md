@@ -56,24 +56,19 @@ We'll use the same client application described in our [quickstart]({{
 all-in-one client, run
 
 ```console
-$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_client.yaml
+$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one-client.yaml
 ```
 
 Next, deploy the all-in-one server by running
 
 ```console
-$ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_server_blue.yaml
+kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one-server-blue.yaml
 ```
 
-Ensure that these pods have started correctly by running
+Ensure that these pods have started correctly by running:
 
 ```console
 $ kubectl get pods
-```
-
-You should see output similar to the following
-
-```
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
@@ -81,7 +76,7 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 ```
 
 Now verify that tbncollect has discovered your new pods and added them to the
-appropriate clusters by running
+appropriate clusters by running:
 
 ```
 $ tbnctl list --format=summary cluster
@@ -89,11 +84,11 @@ $ tbnctl list --format=summary cluster
 
 You should see a `name: all-in-one-client` cluster with a single instance and a
 `name: all-in-one-server` cluster with one instance and a `name:
-all-in-one-client`.
+all-in-one-client`. It may take up to 30 seconds for the new clusters to appear.
 
 {% include guides/adding_a_domain.md %}
 
-Now we're ready to deploy tbnproxy to Kubernetes.
+Now we're ready to deploy tbnproxy to Kubernetes:
 
 ```console
 $ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbnproxy_spec.yaml
@@ -103,7 +98,7 @@ $ kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/tbnpr
 
 This is environment specific. If you're running in GKE you can use the following
 path. First, expose the deployment on a NodePort to make it accessible outside
-the local Kubernetes network
+the local Kubernetes network:
 
 ```console
 $ kubectl expose deployment tbnproxy --target-port=80 --type=LoadBalancer
@@ -113,9 +108,6 @@ Then wait for an external IP address to be created (this may take some time)
 
 ```console
 $ kubectl get services --watch
-```
-
-```shell
 NAME           CLUSTER-IP     EXTERNAL-IP       PORT(S)   AGE
 Kubernetes     10.3.240.1     <none>            443/TCP   24m
 tbnproxy       10.3.241.247   104.198.110.237   80/TCP    5m
@@ -128,8 +120,7 @@ tbnproxy       10.3.241.247   104.198.110.237   80/TCP    5m
 Now visit your load balancer, and you should see the all-in-one client running.
 To get the IP address for your deployment you can run
 
-
-```shell
+```console
 kubectl get service
 ```
 
@@ -150,19 +141,14 @@ address bar of your browser.
 Now we'll deploy a new version of the server that returns green as the color to
 paint blocks.
 
-```shell
-kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one_server_green.yaml
+```console
+kubectl create -f https://docs.turbinelabs.io/guides/examples/kubernetes/all-in-one-server-green.yaml
 ```
 
 if you run
 
-```shell
-kubectl get pods
-```
-
-you should see a new server pod running the green version
-
-```shell
+```console
+$ kubectl get pods
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m

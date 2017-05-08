@@ -13,9 +13,11 @@ $ export TBNCTL_API_KEY=ed6b67e9-31d4-4413-5a8d-23c863405ecf
 
 ### A functional {{ include.platform }} install
 
-If you don't have one, the
+If you don't have one,
 [{{ include.quick_start_name }}]({{ include.quick_start_url }}) is a great
 resource to get one set up quickly.
+
+{{ include.install_extra | liquefy | markdownify }}
 
 ### The tbnctl command line interface (CLI)
 

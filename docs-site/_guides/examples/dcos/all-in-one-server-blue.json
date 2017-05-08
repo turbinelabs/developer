@@ -1,0 +1,30 @@
+{
+  "id": "/tbn/all-in-one/server/blue",
+  "cpus": 0.1,
+  "mem": 64,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "turbinelabs/all-in-one-server:0.7.0",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "protocol": "tcp",
+          "name": "http"
+        }
+      ],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+   "TBN_COLOR": "1B9AE4",
+   "TBN_NAME": "blue"
+  },
+  "labels": {
+    "tbn_cluster": "all-in-one-server",
+    "stage": "prod",
+    "version": "blue"
+  }
+}

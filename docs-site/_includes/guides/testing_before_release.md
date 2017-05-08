@@ -19,7 +19,7 @@ blue` on a request would match blue servers, and `X-TBN-Version: green` would
 match green servers.
 
 The demo app converts a `X-TBN-Version` query parameter into a header in calls
-to the backend; if you navigate to `http://<your-client>?X-TBN-Version=green`
+to the backend; if you navigate to `http://<your external IP>?X-TBN-Version=green`
 you should see all green boxes. Meanwhile going to `http://<your-client>`
 without that parameter still shows blue.
 

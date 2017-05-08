@@ -1,0 +1,36 @@
+{
+  "id": "/tbn/tbnproxy",
+  "cpus": 0.1,
+  "mem": 128,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "turbinelabs/tbnproxy:0.7.0",
+      "forcePullImage": true,
+      "network": "HOST"
+    }
+  },
+  "env": {
+    "TBNPROXY_API_KEY": "<your TBN api key>",
+    "TBNPROXY_API_ZONE_NAME": "<your TBN zone name>",
+    "TBNPROXY_PROXY_NAME": "<your proxy name>"
+  },
+  "healthChecks": [
+    {
+      "portIndex": 0,
+      "protocol": "MESOS_HTTP",
+      "path": "/"
+    }
+  ],
+  "acceptedResourceRoles": [
+    "slave_public"
+  ],
+  "portDefinitions": [
+    {
+      "port": 80,
+      "protocol": "tcp",
+      "name": "http"
+    }
+  ]
+}
