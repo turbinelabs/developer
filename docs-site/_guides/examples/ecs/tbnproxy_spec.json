@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "tbnproxy",
-      "image": "turbinelabs/tbnproxy:0.7.0",
+      "image": "turbinelabs/tbnproxy:0.8.0",
       "cpu": 1,
       "memory": 128,
       "memoryReservation": 128,

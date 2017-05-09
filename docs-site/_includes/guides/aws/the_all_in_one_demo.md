@@ -11,7 +11,7 @@ With your new EC2 instances running Docker, you can now run the
 all-in-one-client after using SSH to connect to your second instance.
 
 ```console
-$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.7.0
+$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.8.0
 ```
 
 ### Running the all-in-one-server
@@ -20,5 +20,5 @@ With your new EC2 instances running Docker, you can now run the
 all-in-one-client after using SSH to connect to your third instance.
 
 ```console
-$ docker run -p 8080:8080  -d turbinelabs/all-in-one-server:0.7.0
+$ docker run -p 8080:8080  -d turbinelabs/all-in-one-server:0.8.0
 ```

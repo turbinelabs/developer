@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "tbncollect",
-      "image": "turbinelabs/tbncollect:0.7.0",
+      "image": "turbinelabs/tbncollect:0.8.0",
       "cpu": 1,
       "memory": 128,
       "memoryReservation": 128,

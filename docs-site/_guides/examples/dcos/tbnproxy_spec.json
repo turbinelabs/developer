@@ -6,7 +6,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "turbinelabs/tbnproxy:0.7.0",
+      "image": "turbinelabs/tbnproxy:0.8.0",
       "forcePullImage": true,
       "network": "HOST"
     }
