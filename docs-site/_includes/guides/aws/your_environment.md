@@ -1,7 +1,7 @@
 Your environment now looks like the following:
 
 <img
-src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-2.png"/>
+src="https://img.turbinelabs.io/2017-05-08a/API-LM-blue-green.png"/>
 
 The new instance has been added to the all-in-one-server cluster, but no traffic
 is routed to it. When returning to your client app, you should still see only

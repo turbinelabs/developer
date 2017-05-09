@@ -12,9 +12,9 @@ information to the routing engine.
 Your environment should look like the following:
 
 {% if include.all_in_one %}
-![Prismatic Setup](https://d16co4vs2i1241.cloudfront.net/uploads/tutorial_image/file/636842997144618507/0d8f89bd404654ad9ce3e35ee9d38960dd34c35661e89fcb561b6ae20e422283/column_sized_prismatic-setup.png)
+<img src="https://img.turbinelabs.io/2017-05-08a/API-LM.png"/>
 {% else %}
-<img src="https://img.turbinelabs.io/2017-03-17/prismatic-setup-kube-1.png"/>
+<img src="https://img.turbinelabs.io/2017-05-08a/API-LM-only-blue.png"/>
 {% endif %}
 
 There is a single domain, `{% if include.all_in_one %}all-in-one-demo:80{% else
