@@ -13,7 +13,7 @@ spec:
         version: blue
     spec:
       containers:
-      - image: turbinelabs/all-in-one-server:0.8.0
+      - image: turbinelabs/all-in-one-server:0.8.1
         imagePullPolicy: IfNotPresent
         name: all-in-one-server
         env:

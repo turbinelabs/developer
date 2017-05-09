@@ -45,7 +45,7 @@ the following list. You'll also need the VPC ID of the VPC these instances are l
 {% include guides/aws/now_install_tbncollect.md %}
 
 ```console
-$ docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" -e "TBNCOLLECT_CMD=aws" turbinelabs/tbncollect:0.8.0
+$ docker run -e "TBNCOLLECT_API_KEY=<your api key>" -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" -e "TBNCOLLECT_CMD=aws" turbinelabs/tbncollect:0.8.1
 ```
 
 {% include guides/aws/the_all_in_one_demo.md %}

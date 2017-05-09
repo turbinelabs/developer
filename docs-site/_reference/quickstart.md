@@ -74,7 +74,7 @@ $ docker run -p 80:80 \
   -e "TBNPROXY_API_KEY=$TBN_API_KEY" \
   -e "TBNPROXY_API_ZONE_NAME=all-in-one-demo" \
   -e "TBNPROXY_PROXY_NAME=all-in-one-demo-proxy" \
-  turbinelabs/all-in-one:0.8.0
+  turbinelabs/all-in-one:0.8.1
 ```
 
 This command will:
