@@ -39,7 +39,7 @@ the ECS control panel, or through the CLI:
 
 ```console
 $ aws ecs \
-create-service \
+  create-service \
   --cluster default \
   --service-name tbncollect \
   --task-definition tbncollect:1 \
@@ -64,17 +64,21 @@ The construction of the tag inside of a task definition looks like this for the
 server:
 
 ```json
-"dockerLabels": {
-  "tbn-cluster": "all-in-one-server:8080"
-},
+{
+  "dockerLabels": {
+    "tbn-cluster": "all-in-one-server:8080"
+  }
+}
 ```
 
 and this for the client:
 
 ```json
-"dockerLabels": {
-  "tbn-cluster": "all-in-one-client:8080"
-},
+{
+  "dockerLabels": {
+    "tbn-cluster": "all-in-one-client:8080"
+  }
+}
 ```
 
 The label key is the "Cluster tag", which will associate the container with a
@@ -93,8 +97,8 @@ all-in-one-server-blue which returns the color blue to the all-in-one-client.
 Create a service with this task definition on an ECS cluster of your choosing.
 
 ```console
-aws ecs \
-create-service \
+$ aws ecs \
+  create-service \
   --cluster default \
   --service-name server-blue \
   --task-definition server-blue:1 \
@@ -115,7 +119,7 @@ Create a service with this task definition on an ECS cluster of your choosing.
 
 ```console
 $ aws ecs \
-create-service \
+  create-service \
   --cluster default \
   --service-name client \
   --task-definition client:1 \
@@ -140,7 +144,19 @@ to your needs or environment:
 
 Create a service with this task definition on an ECS cluster of your choosing.
 
-{% include guides/ecs/elb.md %}
+### Create a service to expose tbnproxy
+
+With your task definition created, we can then expose tbnproxy to the internet using an Elastic Load Balancer. First create your ELB using the management console, with no listeners. Now expose tbnproxy to the ELB by running Create Service from the [ECS control panel](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service.html#service-configure-load-balancing) or through the CLI:
+
+```console
+$ aws ecs \
+  create-service \
+  --cluster default \
+  --service-name tbnproxy \
+  --task-definition tbnproxy:1 \
+  --desired-count 1
+  --load-balancers <the ELB you created above goes here>
+  ```
 
 {% include guides/aws/verifying.md %}
 
@@ -167,7 +183,7 @@ Create a service with this task definition on an ECS cluster of your choosing.
 
 ```console
 $ aws ecs \
-create-service \
+  create-service \
   --cluster default \
   --service-name server-green \
   --task-definition server-green:1 \

@@ -13,7 +13,7 @@ latency and error rate of each of the different server colors.
 The following URL will show an error rate and delayed response for
 green and blue servers.
 
-```
+```console
 http://<your external IP>/?x-blue-delay=25&x-blue-error=.001&x-green-delay=10&x-green-error=.25
 ```
 

@@ -73,7 +73,6 @@ the different sparkline row types available for each top-line view:
 | Route         | Services                            |
 | Service       | Instances / Release Groups / Routes |
 
-
 ## Charts
 
 ### Latency
@@ -100,7 +99,6 @@ past day, the past week, or a custom time period.
 
 All recent changes within the current view appear here. For example, in a Zone
 view, all changes to Routes, Release Groups, and Services would be present.
-
 
 ## Edit Routes
 

@@ -82,6 +82,9 @@ When it is launched, you should see this output:
 
 ```console
 $ dcos marathon app list
+```
+
+```shell
 ID                        MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD
 /tbn/tbncollect           128   1     1/1    ---       ---      False      DOCKER   None
 ```
@@ -106,6 +109,9 @@ Ensure that these apps have started correctly by running:
 
 ```console
 $ dcos marathon app list
+```
+
+```shell
 ID                            MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD
 /tbn/all-in-one/client         64  0.1    1/1    ---       ---      False      DOCKER   None
 /tbn/all-in-one/server/green   64  0.1    1/1    ---       ---      False      DOCKER   None
@@ -148,6 +154,9 @@ When it is launched, you should see this output:
 
 ```console
 $ dcos marathon app list
+```
+
+```shell
 ID                            MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD
 /tbn/all-in-one/client         64  0.1    1/1    ---       ---      False      DOCKER   None
 /tbn/all-in-one/server/blue    64  0.1    1/1    ---       ---      False      DOCKER   None
@@ -185,6 +194,9 @@ When it is launched, you should see this output:
 
 ```console
 $ dcos marathon app list
+```
+
+```shell
 ID                            MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CONTAINER  CMD
 /tbn/all-in-one/client         64  0.1    1/1    ---       ---      False      DOCKER   None
 /tbn/all-in-one/server/blue    64  0.1    1/1    ---       ---      False      DOCKER   None

@@ -4,12 +4,15 @@ function stripPrompts(s) {
   return s.replace(/^\$\s*/gm, '')
 }
 
+const languageSelector = '.language-console, .language-json, .language-yaml'
+
 function handleClick(e) {
   e.preventDefault()
   e.stopPropagation()
   // get the button's parent's child language-console code block
-  var code = $(e.delegateTarget).parent().find('.language-console')
-  // process the text
+  var code = $(e.delegateTarget).parent().find(languageSelector)
+  // process the text. TODO #3140: be more robust about when not to strip
+  // leading $. OK for now, since leading $ are illegal in both yaml and json.
   var copyString = stripPrompts(code.text())
   // get the global copy input field and set its value to the processed string
   var input = $('.tbn-code-copy-input').val(copyString)
@@ -31,7 +34,7 @@ $(function() {
   // get all the 'console' code blocks and add a copy button immediately after them
   // NOTE: Firefox choked on parsing prettier's formatting for the next block, so...
   // prettier-ignore
-  var codes = $('.language-console')
+  $(languageSelector)
     .parent()
     .before('<button class="tbn-btn-code-copy"><img class="tbn-btn-icon-copy" width="16" height="16" alt="Copy" src="/assets/copy_icon.svg" /></button>')
   // add handlers to all the new copy buttons

@@ -69,6 +69,9 @@ Ensure that these pods have started correctly by running:
 
 ```console
 $ kubectl get pods
+```
+
+```shell
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
@@ -78,7 +81,7 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 Now verify that tbncollect has discovered your new pods and added them to the
 appropriate clusters by running:
 
-```
+```console
 $ tbnctl list --format=summary cluster
 ```
 
@@ -108,6 +111,9 @@ Then wait for an external IP address to be created (this may take some time)
 
 ```console
 $ kubectl get services --watch
+```
+
+```shell
 NAME           CLUSTER-IP     EXTERNAL-IP       PORT(S)   AGE
 Kubernetes     10.3.240.1     <none>            443/TCP   24m
 tbnproxy       10.3.241.247   104.198.110.237   80/TCP    5m
@@ -149,6 +155,9 @@ if you run
 
 ```console
 $ kubectl get pods
+```
+
+```shell
 NAME                                       READY     STATUS    RESTARTS   AGE
 all-in-one-client-680519093-jdx7g          1/1       Running   0          2m
 all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
