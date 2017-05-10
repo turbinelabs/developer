@@ -37,3 +37,13 @@ spec:
             secretKeyRef:
               name: docs-google-analytics
               key: trackingID
+        - name: INTERCOM_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: docs-intercom
+              key: app-id
+        - name: FULLSTORY_ORG_ID
+          valueFrom:
+            secretKeyRef:
+              name: docs-fullstory
+              key: org-id

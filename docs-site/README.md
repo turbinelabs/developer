@@ -24,7 +24,23 @@ e.g. "get this working on GKE".
 Open items include
 
 * where/how to host this
-* how to get Google Analytics keys into the site
+
+# How to add third-party snippets like Google analytics
+
+* Add the snippet to `assets/vendor.js`. Note that the snippet should be placed
+in a jQuery [`ready`](http://api.jquery.com/ready/) function call
+`$(function() {<snippet code>})`. Since many third-party snippets are designed
+to run in a `script` element at the bottom of the page, you may have to modify
+the snippet to call directly any functions that are registered via
+`document.addEventListener('load', fn)` or similar.
+* Extract the snippet's identifier (if any), e.g., the Google Analytics tracking
+id, and replace with an env template, e.g., `{{env "GOOGLE_ANALYTICS_KEY"}}`
+* Create a secret for the identifier, e.g.,
+    <secrets>/kubernetes/secrets $ make-secret.sh docs-google-analytics
+     trackingId <tracking id> > docs-google-analytics.yaml
+* Add the secret to Kubernetes, e.g., `kubectl create -f ./docs-google-analytics.yaml`
+* Update `<workspace>/developer/docs-site/docker/k8s-docs-site-yaml.tmpl`,
+creating an `env` entry for the new secret.
 
 # Getting your rubies set up
 
@@ -116,5 +132,3 @@ assets/main.scss, which in turn loads a theme from
 _sass/minima.scss. The minima defaults are very lightly modified,
 adding Turbine Labs fonts (Roboto, Lato), a logo in the sidebar,
 and our logo grey as the sidebar background.
-
-

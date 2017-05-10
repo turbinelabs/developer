@@ -2,4 +2,4 @@
 
 set -e
 
-envtemplate -in /www/assets/google_analytics.js -out /www/assets/google_analytics.js
+envtemplate -in /www/assets/vendor.js -out /www/assets/vendor.js
