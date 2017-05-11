@@ -117,11 +117,13 @@ the zone you’re working with (all-in-one-demo by default). Click "Settings" ->
 "Edit Routes", and select all-in-one-demo:80/api from the top left dropdown. You
 should see the following screen
 
-<img src="https://img.turbinelabs.io/2017-03-17/all-in-one-edit-route.png"/>
+<img src="../assets/all-in-one_edit_route.png"/>
 
-Click “Add Rule” from the top right, and enter the following values.
+Click “Add Rule” from the top right, and enter the following values:
 
-<img src="https://img.turbinelabs.io/2017-03-17/all-in-one-add-rule.png"/>
+IF `Header: X-TBN-Version & version` Send `1 to all-in-one-server`.
+
+<img src="../assets/all-in-one_add_rule.png"/>
 
 This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
 finds that header, it uses the value to find servers in the all-in-one-server
