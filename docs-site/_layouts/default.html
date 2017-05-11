@@ -5,9 +5,10 @@
 
   <body>
     {% include sidebar.html %}
-    
+
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
+        {% include topbar.html %}
         {{ content }}
       </div>
     </main>

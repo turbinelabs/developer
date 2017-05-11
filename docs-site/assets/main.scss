@@ -29,6 +29,14 @@ $content-width:    800px;
 $on-palm:          600px;
 $on-laptop:        800px;
 
+$color-action:     #F52F7A;
+$color-emphasis:   #333333;
+$color-error:      #FF3333;
+$color-muted:      #999;
+$color-success:    #83D061;
+$color-text:       #595959;
+$color-text-success: #329f00;
+
 // Minima also includes a mixin for defining media queries.
 // Use media queries like this:
 // @include media-query($on-palm) {
@@ -88,6 +96,43 @@ button.tbn-btn-code-copy:active {
 
 button.tbn-btn-code-copy:hover {
   border-color: #F52F7A;
+}
+
+.tbn-topbar {
+  margin: -20px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.tbn-button {
+  background-color: $background-color;
+  border: solid 1px $color-emphasis;
+  color: $color-emphasis;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $base-font-family;
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 14px 19px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+.tbn-button:visited {
+  color: $color-emphasis;
+}
+.tbn-button:focus,
+.tbn-button:hover {
+  border: solid 1px $color-action;
+  color: $color-action;
+  outline: none;
+  text-decoration: none;
+}
+.tbn-button:disabled {
+  border: solid 1px $color-muted;
+  color: $color-muted;
+  cursor: default;
 }
 
 @media (min-width: $on-laptop) {
