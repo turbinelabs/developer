@@ -78,16 +78,7 @@ all-in-one-server-1015810482-rgf8f         1/1       Running   0          1m
 tbncollect-3235735371-f594t                1/1       Running   0          3m
 ```
 
-Now verify that tbncollect has discovered your new pods and added them to the
-appropriate clusters by running:
-
-```console
-$ tbnctl list --format=summary cluster
-```
-
-You should see a `name: all-in-one-client` cluster with a single instance and a
-`name: all-in-one-server` cluster with one instance and a `name:
-all-in-one-client`. It may take up to 30 seconds for the new clusters to appear.
+{% include guides/verify_tbncollect.md %}
 
 {% include guides/adding_a_domain.md %}
 
@@ -165,7 +156,7 @@ all-in-one-server-green-3537570873-7npmx   1/1       Running   0          22s
 tbncollect-3235735371-f594t                1/1       Running   0          3m
 ```
 
-{% include guides/aws/your_environment.md %}
+{% include guides/your_environment.md %}
 
 {% include guides/testing_before_release.md %}
 

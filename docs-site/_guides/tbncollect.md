@@ -29,7 +29,7 @@ services and instances, regardless of their provisioner.
 tbncollect is a process that runs in your environment, customized to your
 infrastructure. It collects every running instance of a service that is
 correctly labeled using whatever labeling scheme is appropriate (e.g.
-Kubernetes, Marathon uses app labels, EC2 uses instance tags). It can also read
+Kubernetes and DC/OS use app labels, while EC2 uses instance tags). It can also read
 from a yaml file. By using tbcollect, you ensure that Houston has an accurate
 understanding of your services.
 

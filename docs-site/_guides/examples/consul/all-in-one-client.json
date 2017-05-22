@@ -1,0 +1,11 @@
+{
+  "Datacenter": "dc1",
+  "Node": "all-in-one-client",
+  "Address": "<your ip address>",
+  "Service": {
+    "ID": "all-in-one-client",
+    "Service": "all-in-one-client",
+    "Tags": ["tbn-cluster"],
+    "Port": 8080
+  }
+}

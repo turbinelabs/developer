@@ -156,6 +156,7 @@ Houston in your own environment. After reading the configuration guide below,
 proceed to one of the following cloud integrations:
 
 - [Kubernetes](../guides/kubernetes.html)
-- [Marathon](../guides/dcos.html)
-- [Docker on EC2](../guides/ec2.html)
+- [DC/OS](../guides/dcos.html)
+- [Consul](../guides/consul.html)
+- [EC2](../guides/ec2.html)
 - [ECS](../guides/ecs.html)

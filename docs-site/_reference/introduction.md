@@ -66,7 +66,7 @@ your software releases.
 Houston integrates easily with existing systems. Try it out on a
 container on a laptop, then deploy it in your normal
 process. Houston’s extensible service discovery agent integrates
-easily with AWS, Kubernetes, Mesos/Marathon, and
+easily with AWS, Kubernetes, DC/OS, Consul and
 others. Everything is managed from our hosted application, with a
 robust public API for scripting and integration with your existing
 management tools.

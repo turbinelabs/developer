@@ -1,33 +1,28 @@
 {
-  "containerDefinitions": [
+  "name": "tbnproxy",
+  "image": "turbinelabs/tbnproxy:0.8.1",
+  "cpu": 1,
+  "memory": 128,
+  "memoryReservation": 128,
+  "portMappings": [
     {
-      "name": "tbnproxy",
-      "image": "turbinelabs/tbnproxy:0.8.1",
-      "cpu": 1,
-      "memory": 128,
-      "memoryReservation": 128,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80,
-          "protocol": "tcp"
-        }
-      ],
-      "environment": [
-        {
-          "name": "TBNPROXY_API_KEY",
-          "value": "<your api key>"
-        },
-        {
-          "name": "TBNPROXY_API_ZONE_NAME",
-          "value": "<your zone name>"
-        },
-        {
-          "name": "TBNPROXY_PROXY_NAME",
-          "value": "<your proxy name>"
-        }
-      ]
+      "hostPort": 80,
+      "containerPort": 80,
+      "protocol": "tcp"
     }
   ],
-  "family": "tbnproxy"
+  "environment": [
+    {
+      "name": "TBNPROXY_API_KEY",
+      "value": "<your api key>"
+    },
+    {
+      "name": "TBNPROXY_API_ZONE_NAME",
+      "value": "<your zone name>"
+    },
+    {
+      "name": "TBNPROXY_PROXY_NAME",
+      "value": "<your proxy name>"
+    }
+  ]
 }

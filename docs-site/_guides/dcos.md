@@ -205,7 +205,7 @@ ID                            MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CON
 /tbn/tbnproxy                 128  0.1    1/1    0/1      scale     False      DOCKER   None
 ```
 
-{% include guides/aws/your_environment.md %}
+{% include guides/your_environment.md %}
 
 {% include guides/testing_before_release.md %}
 

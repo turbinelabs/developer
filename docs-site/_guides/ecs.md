@@ -26,12 +26,14 @@ title: ECS Guide
 
 ## Setting up service discovery
 
-Install tbncollect with this task definition and note the variables you'll need
-to modify to match your environment and API key. Please note you can only
-run one collector per Turbine Labs' zone:
+Install tbncollect with the following task definition filling in the bracketed variables:
 
-```json
-{% include_relative examples/ecs/tbncollect_spec.json %}
+```console
+$ aws ecs \
+  register-task-definition \
+  --family tbncollect \
+  --container-definitions '
+{% include_relative examples/ecs/tbncollect_spec.json %}'
 ```
 
 With your task definition created, you can proceed to run Create Service from
@@ -87,11 +89,15 @@ Example task definitions are included later, which include these labels.
 
 ### Install the all-in-one-server
 
-Next, use following task definition is for the
+Next, create the following task definition for the
 all-in-one-server-blue which returns the color blue to the all-in-one-client.
 
-```json
-{% include_relative examples/ecs/all_in_one_server_blue.json %}
+```console
+$ aws ecs \
+  register-task-definition \
+  --family all-in-one-server-blue \
+  --container-definitions '
+{% include_relative examples/ecs/all_in_one_server_blue.json %}'
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
@@ -100,8 +106,8 @@ Create a service with this task definition on an ECS cluster of your choosing.
 $ aws ecs \
   create-service \
   --cluster default \
-  --service-name server-blue \
-  --task-definition server-blue:1 \
+  --service-name all-in-one-server-blue \
+  --task-definition all-in-one-server-blue:1 \
   --desired-count 1
 ```
 
@@ -111,8 +117,12 @@ The following task definition is for the all-in-one-client, which will
 show the results of the color returned by the all-in-one-server visually as a
 blue block.
 
-```json
-{% include_relative examples/ecs/all_in_one_client.json %}
+```console
+$ aws ecs \
+  register-task-definition \
+  --family all-in-one-client \
+  --container-definitions '
+{% include_relative examples/ecs/all_in_one_client.json %}'
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
@@ -121,8 +131,8 @@ Create a service with this task definition on an ECS cluster of your choosing.
 $ aws ecs \
   create-service \
   --cluster default \
-  --service-name client \
-  --task-definition client:1 \
+  --service-name all-in-one-client \
+  --task-definition all-in-one-client:1 \
   --desired-count 1
 ```
 
@@ -158,7 +168,12 @@ $ aws ecs \
   --load-balancers <the ELB you created above goes here>
   ```
 
-{% include guides/aws/verifying.md %}
+## Verifying your deploy
+
+With your ELB running, locate its external IP, and visit it in your browser.
+You should be able to see blue boxes in a grid, blinking in and out, as they
+represent responses from the blue version of the all-in-one-server we launched
+previously.
 
 {%
   include guides/demo_exercises_whats_going_on.md
@@ -175,8 +190,12 @@ Now we'll deploy a new version of the server that returns green as the color to
 paint blocks. Use this task definition to create a service for a new server that
 returns the color green to the all-in-one-client.
 
-```json
-{% include_relative examples/ecs/all_in_one_server_green.json %}
+```console
+$ aws ecs \
+  register-task-definition \
+  --family all-in-one-server-green \
+  --container-definitions '
+{% include_relative examples/ecs/all_in_one_server_green.json %}'
 ```
 
 Create a service with this task definition on an ECS cluster of your choosing.
@@ -185,12 +204,12 @@ Create a service with this task definition on an ECS cluster of your choosing.
 $ aws ecs \
   create-service \
   --cluster default \
-  --service-name server-green \
-  --task-definition server-green:1 \
+  --service-name all-in-one-server-green \
+  --task-definition all-in-one-server-green:1 \
   --desired-count 1
 ```
 
-{% include guides/aws/your_environment.md %}
+{% include guides/your_environment.md %}
 
 {% include guides/testing_before_release.md %}
 

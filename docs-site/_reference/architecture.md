@@ -30,7 +30,7 @@ and manage your application.
 
 tbncollect is an agent that scans your environment for running service
 clusters and instance labels. It has integrations with Kubernetes,
-Marathon/Mesos, ECS, and EC2, with more integrations on their
+DC/OS, Consul, ECS, and EC2, with more integrations on their
 way. It can also poll a YAML or JSON file, for static or custom
 integrations. Changes to your environment are mirrored to the Turbine
 Labs API.
@@ -70,8 +70,9 @@ While the Turbine Labs software will run on a wide variety of
 architectures, we've built specific integrations
 with
 [Kubernetes]({{ "/guides/kubernetes.html" | relative_url }}),
-[Marathon]({{ "/guides/dcos.html" | relative_url }}),
-[Docker on EC2]({{ "/guides/ec2.html" | relative_url }}), and [ECS]({{ "/guides/ecs.html" | relative_url }}). We
+[DC/OS]({{ "/guides/dcos.html" | relative_url }}),
+[Consul]({{ "/guides/consul.html" | relative_url }}),
+[EC2]({{ "/guides/ec2.html" | relative_url }}), and [ECS]({{ "/guides/ecs.html" | relative_url }}). We
 plan to add more integrations in the future, and our YAML/JSON file
 polling mechanism provides extensibility if you wish to create your
 own.

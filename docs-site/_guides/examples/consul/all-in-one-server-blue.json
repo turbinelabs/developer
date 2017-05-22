@@ -1,0 +1,15 @@
+{
+  "Datacenter": "dc1",
+  "Node": "all-in-one-server-blue",
+  "Address": "<your ip address>",
+  "NodeMeta": {
+    "stage": "prod",
+    "version": "blue"
+  },
+  "Service": {
+    "ID": "all-in-one-server-blue",
+    "Service": "all-in-one-server",
+    "Tags": ["tbn-cluster"],
+    "Port": 8081
+  }
+}

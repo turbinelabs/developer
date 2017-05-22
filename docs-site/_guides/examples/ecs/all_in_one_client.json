@@ -1,22 +1,17 @@
 {
-  "containerDefinitions": [
+  "name": "all-in-one-client",
+  "image": "turbinelabs/all-in-one-client:latest",
+  "cpu": 1,
+  "memory": 128,
+  "memoryReservation": 128,
+  "portMappings": [
     {
-      "name": "client",
-      "image": "turbinelabs/all-in-one-client:latest",
-      "cpu": 1,
-      "memory": 128,
-      "memoryReservation": 128,
-      "portMappings": [
-        {
-          "hostPort": 8080,
-          "containerPort": 8080,
-          "protocol": "tcp"
-        }
-      ],
-      "dockerLabels": {
-        "tbn-cluster": "all-in-one-client:8080"
-      }
+      "hostPort": 8080,
+      "containerPort": 8080,
+      "protocol": "tcp"
     }
   ],
-  "family": "client"
+  "dockerLabels": {
+    "tbn-cluster": "all-in-one-client:8080"
+  }
 }
