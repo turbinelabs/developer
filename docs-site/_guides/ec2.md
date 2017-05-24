@@ -57,7 +57,7 @@ $ docker run -d \
   -e "TBNCOLLECT_AWS_AWS_SECRET_ACCESS_KEY=<your secret access key>" \
   -e "TBNCOLLECT_AWS_VPC_ID=<your vpc id>" \
   -e "TBNCOLLECT_CMD=aws" \
-  turbinelabs/tbncollect:0.8.1
+  turbinelabs/tbncollect:0.9.0
 ```
 
 ## The all-in-one demo
@@ -72,7 +72,7 @@ First, run the all-in-one-client on port 8080, in the SSH session to the EC2
 instance:
 
 ```console
-$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.8.1
+$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.9.0
 ```
 
 Once all-in-one-client is running, add the cluster tag using the aws command-
@@ -95,7 +95,7 @@ $ docker run -d \
   -p 8081:8080 \
   -e "TBN_COLOR=1B9AE4" \
   -e "TBN_NAME=blue" \
-  turbinelabs/all-in-one-server:0.8.1
+  turbinelabs/all-in-one-server:0.9.0
 ```
 
 Once the all-in-one-server is running, add the version tag using the aws
@@ -125,7 +125,7 @@ $ docker run -d \
   -e "TBNPROXY_API_KEY=<your api key>" \
   -e "TBNPROXY_API_ZONE_NAME=<your zone name>" \
   -e "TBNPROXY_PROXY_NAME=<your proxy name>" \
-  turbinelabs/tbnproxy:0.8.1
+  turbinelabs/tbnproxy:0.9.0
 ```
 
 ### Mapping an ELB to expose tbnproxy
@@ -165,7 +165,7 @@ $ docker run -d \
   -p 8082:8080 \
   -e "TBN_COLOR=83D061" \
   -e "TBN_NAME=green" \
-  turbinelabs/all-in-one-server:0.8.1
+  turbinelabs/all-in-one-server:0.9.0
 ```
 
 Once the instance is running, add the version tag using the aws
