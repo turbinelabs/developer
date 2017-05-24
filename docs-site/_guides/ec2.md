@@ -1,6 +1,7 @@
 ---
 layout: page
 title: EC2 Guide
+time_to_complete: 10 minutes
 ---
 
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
@@ -22,28 +23,30 @@ title: EC2 Guide
   platform="Docker on EC2"
   quick_start_name="Docker Basics"
   quick_start_url="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html"
+  install_extra="
+### The AWS command line interface (CLI)
+You'll need access to the
+[AWS command-line interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html).
+  "
 %}
 
 ##  Installing on EC2
 
 You will need:
 
-- Three EC2 micro instances running Docker on an OS of your choice. Be sure to
-configure security groups with open ports for these instances according to the
-the following list. You'll also need the VPC ID of the VPC these instances are located on.
-- ELBGroup: a security group for your ELB
-  - TCP 80 inbound from the internet
-- TBNProxyGroup: a security group for your tbnproxy instance
-  - TCP 80 from ELBGroup
-  - SSH 22 inbound from the internet
-- AppGroup: a security group for your application instances
-  - 8080 from TBNProxyGroup
-  - SSH 22 inbound from the internet
+- One EC2 micro instance running Docker on the Linux of your choice.
+- A security group assigned to the instance, with the following inbound ports
+  open:
+  - HTTP/80 from the local VPC network (probably 10.0.0.0/8, 172.16.0.0/12, or
+    192.168.0.0/16)
+  - SSH/22 from the Internet (or from your bastion if you have one)
+- The ID of the instance
+- The ID of the VPC in which the instance is running
 
 ## Setting up service discovery
 
-Install and run tbncollect on your third new micro EC2 instance,
-with your environment variables defined inside of the docker command:
+SSH into your EC2 instance, and run tbncollect, with your environment variables
+defined inside of the docker command:
 
 ```console
 $ docker run -d \
@@ -59,45 +62,52 @@ $ docker run -d \
 
 ## The all-in-one demo
 
-Pick an instance to install the all-in-one client on and another to install the
-server on. You may run multiple different apps on different ports of the same
-instance; the tags are used to let the collector know which app is running on
-which port.
+Now you will install the all-in-one client and server on different ports of the
+same instance; the tags are used to let the collector know which app is running
+on which port, and with what metadata.
 
 ### Running the all-in-one-client
 
-With your new EC2 instances running Docker, you can now run the
-all-in-one-client after using SSH to connect to your second instance.
+First, run the all-in-one-client on port 8080, in the SSH session to the EC2
+instance:
 
 ```console
 $ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.8.1
 ```
 
+Once all-in-one-client is running, add the cluster tag using the aws command-
+line tool or the ECS Console, taking care to replace `<your instance id>` with
+the ID of your EC2 instance:
+
+```console
+$ aws ec2 create-tags \
+  --resources <your instance id> \
+  --tags Key=tbn:cluster:all-in-one-client:8080,Value=
+```
+
 ### Running the all-in-one-server
 
-With your new EC2 instances running Docker, you can now run the
-all-in-one-client after using SSH to connect to your third instance.
+Now run the all-in-one-server on port 8081, in the SSH session to the EC2
+instance:
 
 ```console
 $ docker run -d \
-  -p 8080:8080 \
+  -p 8081:8080 \
   -e "TBN_COLOR=1B9AE4" \
   -e "TBN_NAME=blue" \
   turbinelabs/all-in-one-server:0.8.1
 ```
 
-Once the instance is running, add the following tags in the EC2 Console for the
-server:
+Once the all-in-one-server is running, add the version tag using the aws
+command-line tool or the ECS Console, taking care to replace
+`<your instance id>` with the ID of your EC2 instance (Note that since the
+version tag includes the cluster name and port, you do not need to declare it
+with a separate tag):
 
-```
-"tbn:cluster:all-in-one-server"="8080"
-"tbn:cluster:all-in-one-server:color"="blue"
-```
-
-and this for the client:
-
-```
-"tbn:cluster:all-in-one-client"="8080"
+```console
+$ aws ec2 create-tags \
+  --resources <your instance id> \
+  --tags Key=tbn:cluster:all-in-one-server:8081:version,Value=blue
 ```
 
 {% include guides/adding_a_domain.md %}
@@ -106,7 +116,8 @@ and this for the client:
 
 With tbncollect seeing your instances, move on to launching tbnproxy with the
 following command on the same instance as the collector with ports forwarded
-appropriate to your service or site:
+appropriate to your service or site. In the SSH session to the EC2 instance,
+type:
 
 ```console
 $ docker run -d \
@@ -144,29 +155,30 @@ previously.
 
 ## Deploying a new version
 
-Now we'll deploy a new version of the server that returns green as the
-color to paint blocks. SSH into the instance that is running your current
-all-in-one-client, then run a new Docker container with this command:
+Now we'll deploy a new version of the server that returns green as the color to
+paint blocks. SSH into the instance that is running your current all-in-one-
+client, then run a new Docker container with this command, in the SSH session to
+the EC2 instance:
 
 ```console
 $ docker run -d \
-  -p 8081:8081 \
+  -p 8082:8080 \
   -e "TBN_COLOR=83D061" \
   -e "TBN_NAME=green" \
   turbinelabs/all-in-one-server:0.8.1
 ```
 
-Once the instance is running, add the following tags in the EC2 Console:
+Once the instance is running, add the version tag using the aws
+command-line tool or the ECS Console, taking care to replace
+`<your instance id>` with the ID of your EC2 instance:
 
-```
-"tbn:cluster:all-in-one-server"="8081"
+```console
+$ aws ec2 create-tags \
+  --resources <your instance id> \
+  --tags Key=tbn:cluster:all-in-one-server:8082:version,Value=green
 ```
 
-and
-
-```
-"tbn:cluster:all-in-one-server:color"="green"
-```
+Note that your EC2 instance is now running multiple versions of the same service, on separate ports.
 
 {% include guides/your_environment.md %}
 
