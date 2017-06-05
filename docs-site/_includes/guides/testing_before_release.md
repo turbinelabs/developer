@@ -12,14 +12,14 @@ Click “Add Rule” from the top right, and enter the following values.
 <img
 src="https://img.turbinelabs.io/2017-03-17/all-in-one-server-header-rule.png"/>
 
-This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
+This tells the proxy to look for a header called `X-Tbn-Version`. If the proxy
 finds that header, it uses the value to find servers in the all-in-one-client
-cluster that have a matching version label. For example, setting `X-TBN-Version:
-blue` on a request would match blue servers, and `X-TBN-Version: green` would
+cluster that have a matching version label. For example, setting `X-Tbn-Version:
+blue` on a request would match blue servers, and `X-Tbn-Version: green` would
 match green servers.
 
-The demo app converts a `X-TBN-Version` query parameter into a header in calls
-to the backend; if you navigate to `http://<your external IP>?X-TBN-Version=green`
+The demo app converts a `X-Tbn-Version` query parameter into a header in calls
+to the backend; if you navigate to `http://<your external IP>?X-Tbn-Version=green`
 you should see all green boxes. Meanwhile going to `http://<your-client>`
 without that parameter still shows blue.
 

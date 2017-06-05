@@ -121,19 +121,19 @@ should see the following screen
 
 Click “Add Rule” from the top right, and enter the following values:
 
-IF `Header: X-TBN-Version & version` Send `1 to all-in-one-server`.
+IF `Header: X-Tbn-Version & version` Send `1 to all-in-one-server`.
 
 <img src="../assets/all-in-one_add_rule.png"/>
 
-This tells the proxy to look for a header called `X-TBN-Version`. If the proxy
+This tells the proxy to look for a header called `X-Tbn-Version`. If the proxy
 finds that header, it uses the value to find servers in the all-in-one-server
-cluster that have a matching version tag. For example, setting `X-TBN-Version:
-blue` on a request would match blue production servers, and `X-TBN-Version:
+cluster that have a matching version tag. For example, setting `X-Tbn-Version:
+blue` on a request would match blue production servers, and `X-Tbn-Version:
 yellow` would match yellow dev servers.
 
-The all-in-one client converts a `X-TBN-Version` query parameter into a header
+The all-in-one client converts a `X-Tbn-Version` query parameter into a header
 in calls to the backend; if you navigate to
-[localhost?X-TBN-Version=yellow](http://localhost?X-TBN-Version=yellow) you
+[localhost?X-Tbn-Version=yellow](http://localhost?X-Tbn-Version=yellow) you
 should see all yellow boxes. Meanwhile going to [localhost](http://localhost)
 without that parameter still shows blue or green based on the release state of
 previous steps in this guide.

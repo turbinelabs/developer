@@ -107,7 +107,9 @@ with a separate tag):
 ```console
 $ aws ec2 create-tags \
   --resources <your instance id> \
-  --tags Key=tbn:cluster:all-in-one-server:8081:version,Value=blue
+  --tags \
+    Key=tbn:cluster:all-in-one-server:8081:version,Value=blue \
+    Key=tbn:cluster:all-in-one-server:8081:stage,Value=prod
 ```
 
 {% include guides/adding_a_domain.md %}
@@ -175,7 +177,9 @@ command-line tool or the ECS Console, taking care to replace
 ```console
 $ aws ec2 create-tags \
   --resources <your instance id> \
-  --tags Key=tbn:cluster:all-in-one-server:8082:version,Value=green
+  --tags \
+    Key=tbn:cluster:all-in-one-server:8082:version,Value=green \
+    Key=tbn:cluster:all-in-one-server:8082:stage,Value=prod
 ```
 
 Note that your EC2 instance is now running multiple versions of the same service, on separate ports.
