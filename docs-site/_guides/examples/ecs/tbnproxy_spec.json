@@ -1,6 +1,6 @@
 {
   "name": "tbnproxy",
-  "image": "turbinelabs/tbnproxy:0.9.0",
+  "image": "turbinelabs/tbnproxy:0.10.0",
   "cpu": 1,
   "memory": 128,
   "memoryReservation": 128,
