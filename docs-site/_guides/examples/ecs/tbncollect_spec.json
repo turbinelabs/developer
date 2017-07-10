@@ -1,6 +1,6 @@
 {
   "name": "tbncollect",
-  "image": "turbinelabs/tbncollect:0.10.0",
+  "image": "turbinelabs/tbncollect:0.10.1",
   "cpu": 1,
   "memory": 128,
   "memoryReservation": 128,
