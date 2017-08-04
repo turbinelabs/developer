@@ -82,6 +82,8 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 
 {% include guides/adding_a_domain.md %}
 
+## Deploying tbnproxy
+
 Now we're ready to deploy tbnproxy to Kubernetes:
 
 ```console
@@ -121,7 +123,7 @@ To get the IP address for your deployment you can run
 kubectl get service
 ```
 
-copy the EXTERNAL-IP field for the tbnproxy service, and paste that into the
+copy the `EXTERNAL-IP` field for the tbnproxy service, and paste that into the
 address bar of your browser.
 
 {%
@@ -163,6 +165,25 @@ tbncollect-3235735371-f594t                1/1       Running   0          3m
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+### Driving synthetic traffic
+
+If you'd like to drive steady traffic to your all-in-one server without keeping
+a browser window open, you can run the all-in-one-driver image in your
+kubernetes environment. You can use the template below, filling in the value for
+`ALL_IN_ONE_DRIVER_HOST` with the `EXTERNAL-IP` field from your tbnproxy
+service. You can also add error rates and latencies for various using
+environment variables.
+
+```yaml
+{% include_relative examples/kubernetes/all-in-one-driver.yaml %}
+```
+
+Now start your traffic driver with:
+
+```console
+$ kubectl create -f all-in-one-driver.yaml
+```
 
 {% include guides/conclusion.md
    platform="Kubernetes"

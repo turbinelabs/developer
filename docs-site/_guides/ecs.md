@@ -126,7 +126,7 @@ $ aws ecs \
 {% include_relative examples/ecs/all_in_one_client.json %}'
 ```
 
-Create a service with this task definition on an ECS cluster of your choosing.
+Create a service with this task definition on your ECS cluster.
 
 ```console
 $ aws ecs \
@@ -153,7 +153,7 @@ to your needs or environment:
 {% include_relative examples/ecs/tbnproxy_spec.json %}
 ```
 
-Create a service with this task definition on an ECS cluster of your choosing.
+Create a service with this task definition on your ECS cluster.
 
 ### Create a service to expose tbnproxy
 
@@ -217,6 +217,34 @@ $ aws ecs \
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+### Driving synthetic traffic
+
+If you'd like to drive steady traffic to your all-in-one server without keeping
+a browser window open, you can run the all-in-one-driver image in your
+kubernetes environment. You can use the template below, filling in the value for
+`ALL_IN_ONE_DRIVER_HOST` with the external IP of your ELB. You can also add
+error rates and latencies for various using environment variables.
+
+```console
+$ aws ecs \
+  register-task-definition \
+  --family all-in-one-driver \
+  --container-definitions '
+{% include_relative examples/ecs/all_in_one_driver.json %}'
+```
+
+With your task definition created, you can proceed to run Create Service from
+the ECS control panel, or through the CLI:
+
+```console
+$ aws ecs \
+  create-service \
+  --cluster default \
+  --service-name all-in-one-driver \
+  --task-definition all-in-one-driver:1 \
+  --desired-count 1
+```
 
 {% include guides/conclusion.md
    platform="ECS"

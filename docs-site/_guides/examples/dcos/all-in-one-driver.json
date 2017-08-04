@@ -1,0 +1,18 @@
+{
+  "id": "/tbn/all-in-one-driver",
+  "cpus": 1,
+  "mem": 128,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "turbinelabs/all-in-one-driver:0.10.1",
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "ALL_IN_ONE_DRIVER_HOST": "<YOUR PUBLIC IP OR HOSTNAME>:80",
+    "ALL_IN_ONE_DRIVER_LATENCIES": "blue:50ms,green:20ms",
+    "ALL_IN_ONE_DRIVER_ERROR_RATES": "blue:0.01,green:0.005"
+  },
+  "healthChecks": []
+}

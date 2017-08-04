@@ -7,7 +7,6 @@ spec:
   template:
     metadata:
       labels:
-        run: all-in-one-server
         tbn_cluster: all-in-one-server
         stage: prod
         version: blue

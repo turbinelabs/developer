@@ -65,13 +65,13 @@ the different sparkline row types available for each top-line view:
 
 **The following chart shows the relationship between views, and sparklines**
 
-| Views         | Sparklines                          |
-|---------------|-------------------------------------|
-| Zone          | Domains / Release Groups / Services |
-| Domain        | Routes / Release Groups / Services  |
-| Release Group | Routes / Services                   |
-| Route         | Services                            |
-| Service       | Instances / Release Groups / Routes |
+Views         | Sparklines
+--------------|------------------------------------
+Zone          | Domains / Release Groups / Services
+Domain        | Routes / Release Groups / Services
+Release Group | Routes / Services
+Route         | Services
+Service       | Instances / Release Groups / Routes
 
 ## Charts
 

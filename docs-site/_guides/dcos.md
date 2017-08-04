@@ -131,6 +131,8 @@ all-in-one-client`. It may take up to 30 seconds for the new clusters to appear.
 
 {% include guides/adding_a_domain.md %}
 
+## Deploying tbnproxy
+
 Now we're ready to deploy tbnproxy to DC/OS. To deploy tbncollect to your DC/OS
 cluster, create a file called `tbncollect.json`, using the template below,
 filling in your API key, Zone name, and Proxy name:
@@ -212,6 +214,24 @@ ID                            MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  WAITING  CON
 {% include guides/incremental_release.md %}
 
 {% include guides/testing_latency_and_error_rates.md %}
+
+### Driving synthetic traffic
+
+If you'd like to drive steady traffic to your all-in-one server without keeping
+a browser window open, you can run the all-in-one-driver image in your DC/OS
+environment. You can use the template below, filling in the value for
+`ALL_IN_ONE_DRIVER_HOST` with the DC/OS cluster's public IP. You can also add
+error rates and latencies for various using environment variables.
+
+```json
+{% include_relative examples/dcos/all-in-one-driver.json %}
+```
+
+Now start your traffic driver with:
+
+```console
+$ dcos marathon app add all-in-one-driver.json
+```
 
 {% include guides/conclusion.md
    platform="Kubernetes"

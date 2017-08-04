@@ -1,0 +1,21 @@
+{
+  "name": "all-in-one-driver",
+  "image": "turbinelabs/all-in-one-driver:0.10.1",
+  "cpu": 1,
+  "memory": 128,
+  "memoryReservation": 128,
+  "environment": [
+    {
+      "name": "ALL_IN_ONE_DRIVER_HOST",
+      "value": "<YOUR PUBLIC IP OR HOSTNAME>:80"
+    },
+    {
+      "name": "ALL_IN_ONE_DRIVER_LATENCIES",
+      "value": "blue:50ms,green:20ms"
+    },
+    {
+      "name": "ALL_IN_ONE_DRIVER_ERROR_RATES",
+      "value": "blue:0.01,green:0.005"
+    }
+  ]
+}
