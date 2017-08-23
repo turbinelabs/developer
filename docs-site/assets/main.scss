@@ -46,7 +46,6 @@ $color-text-success: #329f00;
 //     }
 // }
 
-
 // Import partials from the `minima` theme.
 @import "minima";
 
@@ -147,4 +146,16 @@ button.tbn-btn-code-copy:hover {
   button.tbn-btn-code-copy {
     display: none;
   }
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px 0px 20px 0px;
+  width: 80%;
+}
+
+td, th {
+  border: 1px solid grey;
+  padding: 6px;
+  margin: 0px;
 }
