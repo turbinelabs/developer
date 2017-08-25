@@ -23,47 +23,32 @@ With Houston, you can test and release new software incrementally to customers,
 compare the customer experience across software versions, and measure the
 quality and pace of iteration.
 
-## Releases
+## Dashboard
 
-A list of counts of software versions currently being tested, released, or
-which are available for test or release.
+The dashboard show a top-line chart of the currently parented object (initially
+the Zone), a list of changes to that object, and sparkline charts for other
+related objects.
 
-## Settings
+Return to this page at any time by clicking the Turbine Labs logo on the top
+left of the screen. Clicking on the pencil next to a Release Group will take
+you to the Release Group Editor (see [Editing Release Groups](#releasegroups)
+below)
 
-### Edit Routes
+### View Layout
 
-Click to go the Route Editor, which allows you to view and edit current Routes
-for your Services.
-
-### Debug Info
-
-Displays information about your current environment, useful for debugging with
-Turbine Labs developers
-
-## Zones
-
-The Zone showing in the top bar is the currently selected Zone. Clicking on it
-will show any other available Zones.
-
-## User
-
-### Log out
-
-Click to return to the login screen, after logging your user out of the app.
-
-## View Layout
-
-Each view in the app includes a top-line set of charts showing the aggregate
+Each dashboard view includes a top-line set of charts showing the aggregate
 data from the currently selected Zone, Domain, Service, Release Group, or
-Route. Below, "sparklines" rows are displayed for relevant sub-objects. These
-charts all share a common x-axis. Each sparkline can be expanded to a larger
-inline chart view, or can be made the new top-line view.
+Route. Below, charts are displayed for relevant related objects. These charts
+all share a common x-axis. Each sparkline can be expanded to a larger inline
+chart view, or can be made the new top-line view.
 
 The default view is of a Zone, from which you can see sparklines for the
-underlying Domains, Services, and Release Groups. The chart below summarizes
-the different sparkline row types available for each top-line view:
+underlying Domains, Services, and Release Groups. From Zone, you can explore
+the routing and release objects recursively, or choose one from the dropdown to
+the right of your selected Zone. The chart below summarizes the different
+sparkline row types available for each top-line view:
 
-**The following chart shows the relationship between views, and sparklines**
+**The following chart shows the relationship between views, and charts**
 
 Views         | Sparklines
 --------------|------------------------------------
@@ -73,48 +58,41 @@ Release Group | Routes / Services
 Route         | Services
 Service       | Instances / Release Groups / Routes
 
-## Charts
+### Charts
 
-### Latency
+#### Latency
 
 Displays the 50th and 99th percentile latencies, in milliseconds, of the
 currently selected Zone, Domain, Service, Route, or Release Group.
 
-### Requests
+#### Requests
 
 Displays requests, successes, errors, and failures for the currently selected
 Zone, Domain, Service, Route, or Release Group.
 
-### Success Rate
+#### Success Rate
 
 Displays the percentage of requests that were successful for the currently
 selected Zone, Domain, Service, Route, or Release Group.
+
+### Zones
+
+The Zone showing in the top bar is the currently selected Zone. Clicking on it
+will show any other available Zones.
 
 ### Time Filter
 
 This filters the time period for the charts. Choose from the past hour, the
 past day, the past week, or a custom time period.
 
-## Changelog
+### Changelog
 
 All recent changes within the current view appear here. For example, in a Zone
 view, all changes to Routes, Release Groups, and Services would be present.
 
-## Edit Routes
+### More Menu
 
-### Route list
-
-Each item in the dropdown list represents a Route serving live traffic. Select
-a Route to display existing rules for that Route.
-
-### Add rule
-
-This adds a new rule to the selected Route. **This change applies to all Routes
-within the Release Group.** Choose Save Release Group to apply your change.
-
-### More
-
-#### Create Route
+#### Add Route
 
 This option displays a screen allowing you to choose the Domain, path, and
 Release Group for your new Route. Once the new Route is created, you can add
@@ -123,7 +101,7 @@ additional rules to it.
 #### Delete Route
 
 Remove an existing Route and its rules. A dialog will appear, showing which
-services are currently being routed to _Caution, this is irreversible once you
+Services are currently being Routed to _Caution, this is irreversible once you
 confim by clicking Delete_
 
 #### Add Domain
@@ -136,3 +114,47 @@ to one or more Proxies.
 Add a new Proxy, which represents the configuration of one or more tbnproxy
 instances. You can choose which Domains to make the Proxy available to from a
 list of Domains on your Zone.
+
+### User Menu
+
+#### Log out
+
+Click to return to the login screen, after logging your user out of the app.
+
+### Editing Release Groups <a name="releasegroups"></a>
+
+With your Release Group selected, click the pencil to invoke edit mode. You
+will see the following:
+
+  - Related Routes: Routes that are currently part of the selected Release
+  Group.
+  - Default Behavior: Set the destination and the default routing behavior for
+  traffic to any Route within this Release Group. Set the weight, and the
+  Service affected.
+  - Request Specific Overrides: Select methods (GET, POST, etc), the property
+  to match (cookie, header, or query), name, value, weight, and Service, along
+  with constraint keys for this Release Group.
+
+#### Undo
+
+Click to undo any unsaved changes to your Release Group.
+
+#### More
+
+This allows you to do the following:
+
+  - View Charts: This exits the Release Group editor, and returns you to the
+  charts and metrics dashboard.
+  - Clone `<Release Group name>`: This clones the selected Release Group.
+  Group to easily keep complex changes and build off of existing Release Groups.
+  - Delete `<Release Group name>`: This deletes the selected Release Group.
+  **Note** *This is irreversible, so use carefully*
+  - View Debug Info: Displays information about your current environment,
+  useful for debugging with Turbine Labs developers.
+
+#### Save changes to `<Release Group name>`
+
+This button saves your current edits and changes. It will be greyed-out if no
+changes were made since last save.
+
+---
