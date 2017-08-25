@@ -27,7 +27,8 @@ time_to_complete: 10 minutes
 
 ## Setting up service discovery
 
-Install tbncollect with the following task definition filling in the bracketed variables:
+Install tbncollect with the following task definition filling in the bracketed
+variables, including the `signed_token` obtained with `tbnctl`:
 
 ```console
 $ aws ecs \
@@ -147,7 +148,7 @@ the web, and your customer's traffic. tbnproxy will also need network
 connectivity to all ECS tasks.
 
 This [tbnproxy task definition](examples/ecs/tbnproxy_spec.json) can be adapted
-to your needs or environment:
+to your needs or environment, including the `signed_token` obtained with `tbnctl`:
 
 ```json
 {% include_relative examples/ecs/tbnproxy_spec.json %}

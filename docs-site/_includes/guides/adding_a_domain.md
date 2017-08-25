@@ -5,7 +5,7 @@ set of domains, which in turn contain release groups and routes. We'll create
 the domain first.
 
 Go to https://app.turbinelabs.io, and login with your email address
-and API key.
+and password.
 
 Click "Settings" in the top right portion of the screen, then "Edit
 Routes".

@@ -35,11 +35,12 @@ installation. We'll also assume a working docker installation. "
 ## Setting up service discovery
 
 First, install and run tbncollect on an instance of server of your choice,
-with your environment variables defined inside of the Docker command:
+with your environment variables defined inside of the Docker command, using
+the `signed_token` you obtained with `tbnctl`:
 
 ```console
 $ docker run -d \
-  -e "TBNCOLLECT_API_KEY=<your api key>" \
+  -e "TBNCOLLECT_API_KEY=<your signed_token>" \
   -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" \
   -e "TBNCOLLECT_CMD=consul" \
   -e "TBNCOLLECT_CONSUL_DC=dc1" \
@@ -102,12 +103,13 @@ bd949c322beb        turbinelabs/all-in-one-client:0.10.1   "/bin/sh -c 'envte...
 
 ## Deploying tbnproxy
 
-Now we're ready to deploy tbnproxy:
+Now we're ready to deploy tbnproxy, using the `signed_token` you obtained with
+`tbnctl`, along with the Zone and Proxy names:
 
 ```console
 $ docker run -d \
   -p 80:80 \
-  -e "TBNPROXY_API_KEY=<your api key>" \
+  -e "TBNPROXY_API_KEY=<your signed_token>" \
   -e "TBNPROXY_API_ZONE_NAME=<your zone name>" \
   -e "TBNPROXY_PROXY_NAME=<your proxy name>" \
   turbinelabs/tbnproxy:0.10.1

@@ -28,6 +28,9 @@ accomplish.
 To get started with Houston, you'll need a Turbine Labs
 account. [Click here to get started.](https://turbinelabs.io/contact/)
 
+{% include guides/access_token.md %}
+
+
 ## What's in the All-In-One image?
 
 ### tbnproxy and tbncollect
@@ -60,7 +63,7 @@ with this demo.
 
 The three environment variables you'll need to set in order to run the demo are:
 
-- `TBNPROXY_API_KEY` - the Turbine Labs API key to use
+- `TBNPROXY_API_KEY` - the `signed_token` you obtained with `tbnctl`
 - `TBNPROXY_API_ZONE_NAME` - the zone name to use for the trial
 - `TBNPROXY_PROXY_NAME` - the name of the proxy, usually the zone name with a
   "-proxy" suffix
@@ -70,7 +73,7 @@ and client, use the following command:
 
 ```console
 $ docker run -p 80:80 \
-  -e "TBNPROXY_API_KEY=$TBN_API_KEY" \
+  -e "TBNPROXY_API_KEY=<signed_token>" \
   -e "TBNPROXY_API_ZONE_NAME=all-in-one-demo" \
   -e "TBNPROXY_PROXY_NAME=all-in-one-demo-proxy" \
   turbinelabs/all-in-one:0.10.1
@@ -157,7 +160,7 @@ latencies for various using environment variables:
 
 ```console
 $ docker run -p 80:80 \
-  -e "TBNPROXY_API_KEY=$TBN_API_KEY" \
+  -e "TBNPROXY_API_KEY=<signed_token>" \
   -e "TBNPROXY_API_ZONE_NAME=all-in-one-demo" \
   -e "TBNPROXY_PROXY_NAME=all-in-one-demo-proxy" \
   -e "ALL_IN_ONE_DRIVER=1" \

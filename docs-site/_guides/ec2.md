@@ -46,11 +46,12 @@ You will need:
 ## Setting up service discovery
 
 SSH into your EC2 instance, and run tbncollect, with your environment variables
-defined inside of the docker command:
+defined inside of the docker command, including the `signed_token` you obtained
+with `tbnctl` as the API key:
 
 ```console
 $ docker run -d \
-  -e "TBNCOLLECT_API_KEY=<your api key>"
+  -e "TBNCOLLECT_API_KEY=<your signed_token>"
   -e "TBNCOLLECT_API_ZONE_NAME=<your zone name>" \
   -e "TBNCOLLECT_AWS_AWS_ACCESS_KEY_ID=<your aws access key>" \
   -e "TBNCOLLECT_AWS_AWS_REGION=<your aws region>" \
@@ -123,7 +124,7 @@ EC2 instance, type:
 ```console
 $ docker run -d \
   -p 80:80 \
-  -e "TBNPROXY_API_KEY=<your api key>" \
+  -e "TBNPROXY_API_KEY=<your signed_token" \
   -e "TBNPROXY_API_ZONE_NAME=<your zone name>" \
   -e "TBNPROXY_PROXY_NAME=<your proxy name>" \
   turbinelabs/tbnproxy:0.10.1

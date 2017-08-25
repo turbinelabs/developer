@@ -64,8 +64,8 @@ $ dcos config show core.dcos_url
 ### Deploying tbncollect
 
 To deploy tbncollect to your DC/OS cluster, create a file called
-`tbncollect.json`, using the template below, filling in your API key, Zone name,
-and DC/OS access token and URL:
+`tbncollect.json`, using the template below, filling in the `signed_token`
+obtained with `tbnctl`, Zone name, and DC/OS access token and URL:
 
 ```json
 {% include_relative examples/dcos/tbncollect_spec.json %}
@@ -135,7 +135,7 @@ all-in-one-client`. It may take up to 30 seconds for the new clusters to appear.
 
 Now we're ready to deploy tbnproxy to DC/OS. To deploy tbncollect to your DC/OS
 cluster, create a file called `tbncollect.json`, using the template below,
-filling in your API key, Zone name, and Proxy name:
+filling in the `signed_token` obtained with `tbnctl`, Zone name, and Proxy name:
 
 ```json
 {% include_relative examples/dcos/tbnproxy_spec.json %}

@@ -12,7 +12,7 @@
     }
   },
   "env": {
-    "TBNPROXY_API_KEY": "<your TBN api key>",
+    "TBNPROXY_API_KEY": "<your signed_token>",
     "TBNPROXY_API_ZONE_NAME": "<your TBN zone name>",
     "TBNPROXY_PROXY_NAME": "<your proxy name>"
   },

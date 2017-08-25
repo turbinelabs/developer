@@ -11,7 +11,7 @@
     },
     {
       "name": "TBNCOLLECT_API_KEY",
-      "value": "<your TBN api key>"
+      "value": "<your signed_token>"
     },
     {
       "name": "TBNCOLLECT_API_ZONE_NAME",

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Integrating Houston and Your Kubernetes Environment
+title: Integrating Houston with Your Kubernetes Environment
 time_to_complete: 5 minutes
 child: true
 ---
@@ -17,7 +17,7 @@ child: true
 [//]: # ( implied. See the License for the specific language governing        )
 [//]: # ( permissions and limitations under the License.                      )
 
-[//]: # (Best practices for using Kubernetes with Houston)
+[//]: # (Integrating Houston with Your Kubernetes Environment)
 
 ## Intro
 

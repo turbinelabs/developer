@@ -30,11 +30,12 @@ time_to_complete: 10 minutes
 To avoid having your API key visible in environment variables (which can
 inadvertently be exposed in logs and the command line) we recommend you store it
 as a [Kubernetes secret](https://kubernetes.io/docs/user-guide/secrets/).
-Running the following command will create a new secret with your API key that we
-can reference from other deployment specs.
+Running the following command will create a new secret with the `signed_token`
+AccessToken you obtained from `tbnctl`, which can then be referenced by other
+Kubernetes specs.
 
 ```console
-$ kubectl create secret generic tbnsecret --from-literal=apikey=$TBNCTL_API_KEY
+$ kubectl create secret generic tbnsecret --from-literal=apikey=<value of signed_token>
 ```
 
 ## Setting up service discovery

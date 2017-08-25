@@ -10,7 +10,7 @@
     }
   },
   "env": {
-    "TBNCOLLECT_API_KEY": "<your TBN api key>",
+    "TBNCOLLECT_API_KEY": "<your signed_token>",
     "TBNCOLLECT_API_ZONE_NAME": "<your TBN zone name>",
     "TBNCOLLECT_CMD": "marathon",
     "TBNCOLLECT_MARATHON_DCOS_ACS_TOKEN": "<your dc/os access token>",
