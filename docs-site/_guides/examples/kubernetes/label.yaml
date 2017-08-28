@@ -9,7 +9,8 @@ spec:
       labels:
         # This is the cluster label with the default value.
         tbn_cluster: <foo>
-        # This is the stage label, set to prod in order to apple to the release workflow.
+        # This is the stage label, set to prod in order to apply to the release
+        # workflow.
         stage: prod
         # This is the version label set to a relevant item.
         version: <relevant_tag_branch_or_SHA>
@@ -18,6 +19,7 @@ spec:
       - image: <example_image>
         ports:
         - containerPort: 8080
-          # This is the where you name your port, which should match the value of `TBNCOLLECT_KUBERNETES_PORT_NAME`
+          # This is the where you name your port, which should match the value
+          # of `TBNCOLLECT_KUBERNETES_PORT_NAME`
           name: http
           protocol: TCP

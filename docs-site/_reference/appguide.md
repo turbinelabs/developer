@@ -156,5 +156,3 @@ This allows you to do the following:
 
 This button saves your current edits and changes. It will be greyed-out if no
 changes were made since last save.
-
----
