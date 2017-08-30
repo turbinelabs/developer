@@ -182,14 +182,14 @@ $ tbnctl edit domain <domain-key-2>
   "zone_key": "<zonekey-2>",
   "name": "secure.example.com",
   "port": 80,
-    "redirects": [
-      {
-        "name": "force-https",
-        "from": "(.*)",
-        "to": "https://$host$1",
-        "redirect_type": "permanent"
-      }
-    ]
+  "redirects": [
+    {
+      "name": "force-https",
+      "from": "(.*)",
+      "to": "https://$host$1",
+      "redirect_type": "permanent"
+    }
+  ],
   "gzip_enabled": false,
   "cors_config": null,
   "aliases": null,
