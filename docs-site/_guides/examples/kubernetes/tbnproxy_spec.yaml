@@ -10,7 +10,7 @@ spec:
         run: tbnproxy
     spec:
       containers:
-      - image: turbinelabs/tbnproxy:0.11.0
+      - image: turbinelabs/tbnproxy:0.12.0
         imagePullPolicy: Always
         name: tbnproxy
         env:

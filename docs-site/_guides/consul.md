@@ -45,7 +45,7 @@ $ docker run -d \
   -e "TBNCOLLECT_CMD=consul" \
   -e "TBNCOLLECT_CONSUL_DC=dc1" \
   -e "TBNCOLLECT_CONSUL_HOSTPORT=<your ip address>:8500" \
-  turbinelabs/tbncollect:0.11.0
+  turbinelabs/tbncollect:0.12.0
 ```
 
 Use `tbncollect help consul` to determine which environmental variables you
@@ -57,7 +57,7 @@ We'll use the same client application described in our [quickstart]({{
 "/reference/#quick-start" | relative_url }}) for these examples. To start the all-in-one client, on port 8080, first run:
 
 ```console
-$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.11.0
+$ docker run -p 8080:8080 -d turbinelabs/all-in-one-client:0.12.0
 ```
 
 Then expose the container as a Consul service:
@@ -74,7 +74,7 @@ $ docker run -d \
   -p 8081:8080 \
   -e "TBN_COLOR=1B9AE4" \
   -e "TBN_NAME=blue" \
-  turbinelabs/all-in-one-server:0.11.0
+  turbinelabs/all-in-one-server:0.12.0
 ```
 
 Then expose the container as a Consul service:
@@ -92,8 +92,8 @@ $ docker ps
 
 ```shell
 CONTAINER ID        IMAGE                                 COMMAND                  CREATED             STATUS              PORTS                    NAMES
-71988c96464a        turbinelabs/all-in-one-server:0.11.0   "/bin/sh -c 'node ..."   57 seconds ago      Up 55 seconds       0.0.0.0:8081->8080/tcp   eloquent_franklin
-bd949c322beb        turbinelabs/all-in-one-client:0.11.0   "/bin/sh -c 'envte..."   3 minutes ago       Up 3 minutes        0.0.0.0:8080->8080/tcp   upbeat_snyder
+71988c96464a        turbinelabs/all-in-one-server:0.12.0   "/bin/sh -c 'node ..."   57 seconds ago      Up 55 seconds       0.0.0.0:8081->8080/tcp   eloquent_franklin
+bd949c322beb        turbinelabs/all-in-one-client:0.12.0   "/bin/sh -c 'envte..."   3 minutes ago       Up 3 minutes        0.0.0.0:8080->8080/tcp   upbeat_snyder
 8d759aff4c90        turbinelabs/tbncollect:latest         "/sbin/my_init"          3 minutes ago       Up 3 minutes                                 musing_roentgen
 ```
 
@@ -112,7 +112,7 @@ $ docker run -d \
   -e "TBNPROXY_API_KEY=<your signed_token>" \
   -e "TBNPROXY_API_ZONE_NAME=<your zone name>" \
   -e "TBNPROXY_PROXY_NAME=<your proxy name>" \
-  turbinelabs/tbnproxy:0.11.0
+  turbinelabs/tbnproxy:0.12.0
 ```
 
 ## Verifying your deploy
@@ -140,7 +140,7 @@ $ docker run -d \
   -p 8082:8080 \
   -e "TBN_COLOR=83D061" \
   -e "TBN_NAME=green" \
-  turbinelabs/all-in-one-server:0.11.0
+  turbinelabs/all-in-one-server:0.12.0
 ```
 
 Then expose the container as a Consul service:
@@ -158,10 +158,10 @@ $ docker ps
 
 ```shell
 CONTAINER ID        IMAGE                                 COMMAND                  CREATED             STATUS              PORTS                          NAMES
-d544d8bcecdb        turbinelabs/all-in-one-server:0.11.0   "/bin/sh -c 'node ..."   43 seconds ago      Up 41 seconds       0.0.0.0:8082->8080/tcp         fervent_kilby
+d544d8bcecdb        turbinelabs/all-in-one-server:0.12.0   "/bin/sh -c 'node ..."   43 seconds ago      Up 41 seconds       0.0.0.0:8082->8080/tcp         fervent_kilby
 c90dea77b4fb        turbinelabs/tbnproxy:latest           "/sbin/my_init"          6 minutes ago       Up 6 minutes        0.0.0.0:80->80/tcp, 9999/tcp   serene_hodgkin
-71988c96464a        turbinelabs/all-in-one-server:0.11.0   "/bin/sh -c 'node ..."   13 minutes ago      Up 13 minutes       0.0.0.0:8081->8080/tcp         eloquent_franklin
-bd949c322beb        turbinelabs/all-in-one-client:0.11.0   "/bin/sh -c 'envte..."   15 minutes ago      Up 15 minutes       0.0.0.0:8080->8080/tcp         upbeat_snyder
+71988c96464a        turbinelabs/all-in-one-server:0.12.0   "/bin/sh -c 'node ..."   13 minutes ago      Up 13 minutes       0.0.0.0:8081->8080/tcp         eloquent_franklin
+bd949c322beb        turbinelabs/all-in-one-client:0.12.0   "/bin/sh -c 'envte..."   15 minutes ago      Up 15 minutes       0.0.0.0:8080->8080/tcp         upbeat_snyder
 8d759aff4c90        turbinelabs/tbncollect:latest         "/sbin/my_init"          15 minutes ago      Up 15 minutes                                      musing_roentgen
 ```
 
