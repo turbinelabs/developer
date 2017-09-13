@@ -10,7 +10,7 @@ spec:
         run: tbncollect
     spec:
       containers:
-      - image: turbinelabs/tbncollect:0.12.1
+      - image: turbinelabs/tbncollect:0.12.2
         imagePullPolicy: Always
         name: tbncollect
         env:

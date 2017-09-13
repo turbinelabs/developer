@@ -5,7 +5,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "turbinelabs/tbncollect:0.12.1",
+      "image": "turbinelabs/tbncollect:0.12.2",
       "forcePullImage": true
     }
   },
