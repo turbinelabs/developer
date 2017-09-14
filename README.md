@@ -15,13 +15,8 @@
 
 [![Apache 2.0](https://img.shields.io/hexpm/l/plug.svg)](LICENSE)
 
-The developer project is meant to:
-
-1. describe our methodology for open-sourcing software
-
-2. provide a mechanism for the community to submit patches to our
-   [documentation](https://docs.turbinelabs.io/). See
-   [docs-site](docs-site/README.md) for more info.
+The developer project is meant to describe our methodology for open-sourcing
+software.
 
 # Turbine Labs Open Source Projects
 
@@ -75,9 +70,6 @@ as they extend their reach. The downside is that the version increments will
 seem pretty chatty, especially for lower-velocity repositories. We may introduce
 project-specific semantic version numbers in the future, but for now are
 avoiding the operational overhead.
-
-
-
 
 ## <a name="vendoring"/>Dependencies and vendoring
 
@@ -156,6 +148,10 @@ defines the types and interfaces of the Turbine Labs public API<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
+[**`circle-ci-integration`**](http://github.com/turbinelabs/circle-ci-integration):
+demonstrates how to utilize GKE, CircleCI, and Houston to build a developer
+friendly, yet manageable continuous release pipeline.
+
 [**`cli`**](http://github.com/turbinelabs/cli):
 still yet another command line interface library<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
@@ -168,9 +164,21 @@ implementations<br>
 
 [**`developer`**](http://github.com/turbinelabs/developer): this very project!
 
+[**`docs`**](http://github.com/turbinelabs/docs): the source for our
+[documentation site](https://docs.turbinelabs.io)
+
+[**`gcloud-build`**](http://github.com/turbinelabs/houston-crx):
+a build base image for a CI environment, based on the
+[Google CloudSDK image](https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile),
+with docker and kubectl installed.
+
 [**`golang-gotchas`**](http://github.com/turbinelabs/golang-gotchas):
 examples of some things that might feel awkward if you're coming to Go from
 other languages
+
+[**`houston-crx`**](http://github.com/turbinelabs/houston-crx):
+source for the Houston Chrome Extension, which lets you easily set version
+routing cookies for your Houston-fronted application
 
 [**`nonstdlib`**](http://github.com/turbinelabs/nonstdlib):
 extensions to the Go stdlib and other useful utility code<br>
