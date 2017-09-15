@@ -167,7 +167,7 @@ implementations<br>
 [**`docs`**](http://github.com/turbinelabs/docs): the source for our
 [documentation site](https://docs.turbinelabs.io)
 
-[**`gcloud-build`**](http://github.com/turbinelabs/houston-crx):
+[**`gcloud-build`**](http://github.com/turbinelabs/gcloud-build):
 a build base image for a CI environment, based on the
 [Google CloudSDK image](https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile),
 with docker and kubectl installed.
