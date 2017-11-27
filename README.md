@@ -13,7 +13,7 @@
 
 # turbinelabs/developer
 
-[![Apache 2.0](https://img.shields.io/hexpm/l/plug.svg)](LICENSE)
+[![Apache 2.0](https://img.shields.io/badge/license-apache%202.0-blue.svg)](LICENSE)
 
 The developer project is meant to describe our methodology for open-sourcing
 software.
