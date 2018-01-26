@@ -1,4 +1,3 @@
-
 [//]: # ( Copyright 2017 Turbine Labs, Inc.                                   )
 [//]: # ( you may not use this file except in compliance with the License.    )
 [//]: # ( You may obtain a copy of the License at                             )
@@ -137,11 +136,6 @@ projects you agree to abide by its terms, which will be carefully enforced.
 
 Here we describe each of the projects in brief, and show how they depend on
 one another. We will do our best to keep this accurate.
-
-[**`adminserver`**](http://github.com/turbinelabs/adminserver):
-wraps a process in simple HTTP server that manages its lifecycle<br>
-`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
-`└──`[`test`](http://github.com/turbinelabs/test)<br>
 
 [**`api`**](http://github.com/turbinelabs/api):
 defines the types and interfaces of the Turbine Labs public API<br>
