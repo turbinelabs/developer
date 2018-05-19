@@ -208,7 +208,7 @@ a simple interface for generating IDs, including UUID and counter-based implemen
 extensions to the Go stdlib and other useful utility code<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
-[**`rotor`**](http://github.com/turbinelabs/tbnctl):
+[**`rotor`**](http://github.com/turbinelabs/rotor):
 envoy service discovery bridge and xDS implementation<br>
 `├──`[`api`](http://github.com/turbinelabs/api)<br>
 `├──`[`cache`](http://github.com/turbinelabs/codec)<br>
