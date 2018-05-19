@@ -42,17 +42,23 @@ projects, while keeping each project relatively small and purpose-driven.
 - [Contributing](#contributing)
 - [Project layout](#layout)
 
-## <a name="languages"/>Languages
+<a name="languages"/>
+
+## Languages
 
 Our source code is written almost entirely in [Go](https://golang.org/).
 Most of what we talk about below is targeted at Go development.
 
-## <a name="homing"/>Homing
+<a name="homing"/>
+
+## Homing
 
 The source of truth for all projects is our internal monorepo. We will push
 "slices" of it to smaller open-source projects at a roughly weekly cadence.
 
-## <a name="versioning"/>Versioning
+<a name="versioning"/>
+
+## Versioning
 
 We maintain a single, global version string for all Turbine Labs open-source
 projects, maintaining with the following invariant:
@@ -70,7 +76,9 @@ seem pretty chatty, especially for lower-velocity repositories. We may introduce
 project-specific semantic version numbers in the future, but for now are
 avoiding the operational overhead.
 
-## <a name="vendoring"/>Dependencies and vendoring
+<a name="vendoring"/>
+
+## Dependencies and vendoring
 
 Turbine Labs open-source go projects will never publicly depend on anything
 other than other Turbine Labs open-source Go projects, with the exception of
@@ -109,7 +117,9 @@ we've chosen to vendor, and it will work either surprisingly or not at all with
 other code. Similarly, you will find it onerous to pin yourself to whatever
 old package version we're using. Best to pretend our vendored code isn't there.
 
-## <a name="contributing"/>Contributing
+<a name="contributing"/>
+
+## Contributing
 
 We decided to open-source some of our software because we thought it would be
 useful to people outside our company, but we also know the satisfaction gained
@@ -132,7 +142,9 @@ All Turbine Labs open-sourced projects are released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in our
 projects you agree to abide by its terms, which will be carefully enforced.
 
-## <a name="layout"/>Project layout
+<a name="layout"/>
+
+## Project layout
 
 Here we describe each of the projects in brief, and show how they depend on
 one another. We will do our best to keep this accurate.
@@ -142,9 +154,9 @@ defines the types and interfaces of the Turbine Labs public API<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
-[**`circle-ci-integration`**](http://github.com/turbinelabs/circle-ci-integration):
-demonstrates how to utilize GKE, CircleCI, and Houston to build a developer
-friendly, yet manageable continuous release pipeline.
+[**`cache`**](http://github.com/turbinelabs/cache): a simple Cache interface,
+with several concrete implementations<br>
+`└──`[`test`](http://github.com/turbinelabs/test)<br>
 
 [**`cli`**](http://github.com/turbinelabs/cli):
 still yet another command line interface library<br>
@@ -161,9 +173,19 @@ implementations<br>
 [**`docs`**](http://github.com/turbinelabs/docs): the source for our
 [documentation site](https://docs.turbinelabs.io)
 
-[**`idgen`**](http://github.com/turbinelabs/idgen):
-a simple interface for generating IDs, including UUID and counter-based implementations<br>
+[**`envoy-simple`**](http://github.com/turbinelabs/envoy-simple): a Docker
+image of [Envoy proxy](https://envoyproxy.github.io) that makes it easy to
+configure Envoy from a dynamic control plane.
+
+[**`envtemplate`**](http://github.com/turbinelabs/envtemplate): a simple
+mechanism to fill in golang-style templated files with variables from the
+environment<br>
+`├──`[`cli`](http://github.com/turbinelabs/cli)<br>
+`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
+
+[**`examples`**](http://github.com/turbinelabs/examples): examples referenced by
+[Turbine Labs blog posts](https://blog.turbinelabs.io)
 
 [**`gcloud-build`**](http://github.com/turbinelabs/gcloud-build):
 a build base image for a CI environment, based on the
@@ -178,15 +200,37 @@ other languages
 source for the Houston Chrome Extension, which lets you easily set version
 routing cookies for your Houston-fronted application
 
+[**`idgen`**](http://github.com/turbinelabs/idgen):
+a simple interface for generating IDs, including UUID and counter-based implementations<br>
+`└──`[`test`](http://github.com/turbinelabs/test)<br>
+
 [**`nonstdlib`**](http://github.com/turbinelabs/nonstdlib):
 extensions to the Go stdlib and other useful utility code<br>
+`└──`[`test`](http://github.com/turbinelabs/test)<br>
+
+[**`rotor`**](http://github.com/turbinelabs/tbnctl):
+envoy service discovery bridge and xDS implementation<br>
+`├──`[`api`](http://github.com/turbinelabs/api)<br>
+`├──`[`cache`](http://github.com/turbinelabs/codec)<br>
+`├──`[`cli`](http://github.com/turbinelabs/cli)<br>
+`├──`[`codec`](http://github.com/turbinelabs/codec)<br>
+`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
+`├──`[`stats`](http://github.com/turbinelabs/stats)<br>
+`└──`[`test`](http://github.com/turbinelabs/test)<br>
+
+[**`stats`**](http://github.com/turbinelabs/stats): a standard Stats interface
+to a variety of underlying backends, along with a means to configure it from
+command line flags<br>
+`├──`[`api`](http://github.com/turbinelabs/api)<br>
+`├──`[`idgen`](http://github.com/turbinelabs/idgen)<br>
+`├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
 [**`tbnctl`**](http://github.com/turbinelabs/tbnctl):
 command line interface to the Turbine Labs public API<br>
 `├──`[`api`](http://github.com/turbinelabs/api)<br>
-`├──`[`codec`](http://github.com/turbinelabs/codec)<br>
 `├──`[`cli`](http://github.com/turbinelabs/cli)<br>
+`├──`[`codec`](http://github.com/turbinelabs/codec)<br>
 `├──`[`nonstdlib`](http://github.com/turbinelabs/nonstdlib)<br>
 `└──`[`test`](http://github.com/turbinelabs/test)<br>
 
